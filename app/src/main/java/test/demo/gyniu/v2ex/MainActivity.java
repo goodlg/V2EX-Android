@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         mAppBarLayout = (AppBarLayout) findViewById(R.id.appBar);
-        mToolBar = (Toolbar) mAppBarLayout.findViewById(R.id.toolbar);
-        mToolBar.setTitle(R.string.app_name);
-        setSupportActionBar(mToolBar);
-
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolBar != null){
+            mToolBar.setTitle(R.string.app_name);
+            setSupportActionBar(mToolBar);
+        }
         buildTopNavFragment();
     }
 
