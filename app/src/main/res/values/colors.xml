@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--bottom tab backgound color-->
+    <color name="colorBottomTabBar">#FFFFFF</color>
+
+    <!--fragment content backgound color-->
+    <color name="colorFragmentContent">#FF0000</color>
+
+    <!-- appbar backgound color-->
+    <color name="colorAppBar">#00FF00</color>
+
+    <!-- toolbar backgound color-->
+    <color name="colorToolBar">#FF4081</color>
 </resources>
