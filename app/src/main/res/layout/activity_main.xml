@@ -17,17 +17,23 @@
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorFragmentContent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_bottom"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_tab_bar_height"
-        android:layout_gravity="bottom"
-        android:background="@color/colorBottomTabBar"
-        app:layout_behavior="test.demo.gyniu.v2ex.BottomTabBehavior" />
-
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/separ_height"
+            android:background="@color/colorBottomTabBarSepar"
+            />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorBottomTabBar" />
+    </LinearLayout>
 </LinearLayout>

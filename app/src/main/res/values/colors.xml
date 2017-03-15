@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--bottom tab backgound color-->
-    <color name="colorBottomTabBar">#FFFFFF</color>
+    <color name="colorBottomTabBar">#EEEEEE</color>
+    <color name="colorBottomTabBarSepar">#CCCECF</color>
 
     <!--fragment content backgound color-->
     <color name="colorFragmentContent">#FF0000</color>
