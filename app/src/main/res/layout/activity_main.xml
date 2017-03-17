@@ -30,10 +30,18 @@
             android:layout_height="@dimen/separ_height"
             android:background="@color/colorBottomTabBarSepar"
             />
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_bottom"
+        <android.support.v4.app.FragmentTabHost
+            android:id="@android:id/tabhost"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorBottomTabBar" />
+            android:layout_weight="1"
+            style="@style/AppTheme.BottomTabLayout">
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0" />
+        </android.support.v4.app.FragmentTabHost>
     </LinearLayout>
 </LinearLayout>

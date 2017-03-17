@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bootom_tab_title">
+        <item>@string/str_home</item>
+        <item>@string/str_fav</item>
+        <item>@string/str_me</item>
+    </string-array>
+
+    <integer-array name="bootom_tab_normal_icon">
+        <item>@drawable/tab_home_normal</item>
+        <item>@drawable/tab_fav_normal</item>
+        <item>@drawable/tab_me_normal</item>
+    </integer-array>
+
+    <integer-array name="bootom_tab_icon_select">
+        <item>@drawable/tab_home_select</item>
+        <item>@drawable/tab_fav_select</item>
+        <item>@drawable/tab_me_select</item>
+    </integer-array>
+
+</resources>
