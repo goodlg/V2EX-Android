@@ -1,6 +1,7 @@
 package test.demo.gyniu.v2ex;
 
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -61,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         TypedArray ar = getResources().obtainTypedArray(R.array.bootom_tab_normal_icon);
         int len = ar.length();
         mBottomTabIconNormal = new int[len];
-        for (int i = 0; i < len; i++){
+        for (int i=0; i<len; i++){
             mBottomTabIconNormal[i] = ar.getResourceId(i, 0);
         }
         //select icon
         ar = getResources().obtainTypedArray(R.array.bootom_tab_icon_select);
         len = ar.length();
         mBottomTabIconSelect = new int[len];
-        for (int i = 0; i < len; i++){
+        for (int i=0; i<len; i++){
             mBottomTabIconSelect[i] = ar.getResourceId(i, 0);
         }
         ar.recycle();
@@ -83,47 +84,36 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             TabHost.TabSpec tabSpec = mTabHost.newTabSpec(mBottomTabTitle[i])
                     .setIndicator(getTabItemView(i));
             mTabHost.addTab(tabSpec, fragmentArray[i], null);
-            mTabHost.setTag(i);
             mTabHost.getTabWidget().getChildAt(i)
                     .setBackgroundResource(R.drawable.selector_tab_background);
         }
+        //set listener
         mTabHost.setOnTabChangedListener(this);
+        //select first tab
         mTabHost.setCurrentTab(0);
     }
 
     private View getTabItemView(int i) {
         View view = layoutInflater.inflate(R.layout.bottom_tab_item, null);
-        ImageView icon = (ImageView) view
-                .findViewById(R.id.tab_icon);
+        ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
         TextView title = (TextView) view.findViewById(R.id.tab_title);
         icon.setBackgroundResource(mBottomTabIconNormal[i]);
         title.setText(mBottomTabTitle[i]);
         return view;
     }
 
-    private void buildTopNavFragment(){
-        Fragment f = getTopNavFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment, f);
-        ft.commit();
-    }
-
-    private Fragment getTopNavFragment(){
-        return TopNavFragment.newInstance();
-    }
-
     @Override
     public void onTabChanged(String tabId) {
         Log.d(TAG, "@@@@@ onTabChanged, tabId=" + tabId);
         setTitle(tabId);
-        resetOtherTabs();
+        //resetOtherTabs();
         View view = mTabHost.getCurrentTabView();
+        Log.d(TAG, " @@@@@ tag:" + mTabHost.getTag() + ", view=" + view);
         if (view != null){
             ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
             TextView title = (TextView) view.findViewById(R.id.tab_title);
             icon.setBackgroundResource(R.drawable.selector_tab_img_background);
-            title.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            title.setTextColor(Color.parseColor("#f2497c"));
         }
     }
 

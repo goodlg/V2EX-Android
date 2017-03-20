@@ -16,4 +16,6 @@
 
     <!-- toolbar backgound color-->
     <color name="colorToolBar">#FF4081</color>
+
+    <drawable name="colorImgTextSelect">#f2497c</drawable>
 </resources>

@@ -7,15 +7,15 @@
     </string-array>
 
     <integer-array name="bootom_tab_normal_icon">
-        <item>@mipmap/tab_home_normal</item>
-        <item>@mipmap/tab_fav_normal</item>
-        <item>@mipmap/tab_me_normal</item>
+        <item>@mipmap/ic_home</item>
+        <item>@mipmap/ic_fav</item>
+        <item>@mipmap/ic_me</item>
     </integer-array>
 
     <integer-array name="bootom_tab_icon_select">
-        <item>@mipmap/tab_home_select</item>
-        <item>@mipmap/tab_fav_select</item>
-        <item>@mipmap/tab_me_select</item>
+        <item>@mipmap/ic_home_select</item>
+        <item>@mipmap/ic_fav_select</item>
+        <item>@mipmap/ic_me_select</item>
     </integer-array>
 
 </resources>
