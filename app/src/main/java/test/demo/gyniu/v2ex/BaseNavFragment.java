@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
  * Created by uiprj on 17-3-14.
  */
 public abstract class BaseNavFragment extends Fragment {
+    private static final String TAG = "BaseNavFragment";
     protected TabLayout mTabLayout;
 
     public BaseNavFragment() {}
@@ -24,6 +26,8 @@ public abstract class BaseNavFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.nav_layout, container, false);
+
+        Log.d(TAG, " @@@@@ BaseNavFragment onCreate");
 
         ViewPager viewPager = ((ViewPager) view.findViewById(R.id.view_pager));
         FragmentPagerAdapter adapter = getAdapter(getChildFragmentManager());

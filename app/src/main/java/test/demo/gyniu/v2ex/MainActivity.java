@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     private int[] mBottomTabIconNormal;
     private int[] mBottomTabIconSelect;
 
-    private Class fragmentArray[] = { TopicListFragment.class, FavFragment.class, MeFragment.class };
+    private Class fragmentArray[] = { TopNavFragment.class, FavFragment.class, MeFragment.class };
 
     private static final int MAX_BOTTOM_TAB_COUNT = 3;
 
@@ -43,28 +43,20 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         layoutInflater = LayoutInflater.from(this);
-
-        //getRes();
-        mBottomTabTitle = getResources().getStringArray(R.array.bootom_tab_title);
-        mBottomTabIconNormal = getResources().getIntArray(R.array.bootom_tab_normal_icon);
-        mBottomTabIconSelect = getResources().getIntArray(R.array.bootom_tab_icon_select);
-
+        getRes();
         mAppBarLayout = (AppBarLayout) findViewById(R.id.appBar);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolBar != null){
             mToolBar.setTitle(R.string.app_name);
             setSupportActionBar(mToolBar);
         }
-
         initBottomTabHost();
     }
 
     private void getRes(){
         //string
         mBottomTabTitle = getResources().getStringArray(R.array.bootom_tab_title);
-
         //normal icon
         TypedArray ar = getResources().obtainTypedArray(R.array.bootom_tab_normal_icon);
         int len = ar.length();
@@ -72,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         for (int i = 0; i < len; i++){
             mBottomTabIconNormal[i] = ar.getResourceId(i, 0);
         }
-
         //select icon
         ar = getResources().obtainTypedArray(R.array.bootom_tab_icon_select);
         len = ar.length();
@@ -87,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.fragment);
         mTabHost.getTabWidget().setDividerDrawable(null);
-        mTabHost.setOnTabChangedListener(this);
-
         //build each tab
         for(int i=0; i<MAX_BOTTOM_TAB_COUNT; i++){
             TabHost.TabSpec tabSpec = mTabHost.newTabSpec(mBottomTabTitle[i])
@@ -98,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             mTabHost.getTabWidget().getChildAt(i)
                     .setBackgroundResource(R.drawable.selector_tab_background);
         }
+        mTabHost.setOnTabChangedListener(this);
+        mTabHost.setCurrentTab(0);
     }
 
     private View getTabItemView(int i) {
@@ -126,14 +117,20 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public void onTabChanged(String tabId) {
         Log.d(TAG, "@@@@@ onTabChanged, tabId=" + tabId);
         setTitle(tabId);
+        resetOtherTabs();
         View view = mTabHost.getCurrentTabView();
         if (view != null){
-            ImageView icon = (ImageView) view
-                    .findViewById(R.id.tab_icon);
+            ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
             TextView title = (TextView) view.findViewById(R.id.tab_title);
-            //icon.setBackgroundResource(mBottomTabIconSelect[i]);
-            //title.setText(mBottomTabIconSelect[i]);
+            icon.setBackgroundResource(R.drawable.selector_tab_img_background);
+            title.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         }
+    }
 
+    private void resetOtherTabs() {
+        for (int i=0; i<MAX_BOTTOM_TAB_COUNT; i++){
+            mTabHost.getTabWidget().getChildAt(i)
+                    .setBackgroundResource(R.drawable.selector_tab_background);
+        }
     }
 }

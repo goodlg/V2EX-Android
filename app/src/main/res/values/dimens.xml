@@ -2,10 +2,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="bottom_tab_bar_height">45dp</dimen>
+    <dimen name="bottom_tab_bar_height">70dp</dimen>
 
     <dimen name="separ_height">1dp</dimen>
 
-    <dimen name="tab_max_width">200dp</dimen>
+    <dimen name="tab_max_width">50dp</dimen>
 
 </resources>

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,22 @@ import java.util.List;
  * Created by uiprj on 17-3-14.
  */
 public class TopNavFragment extends BaseNavFragment {
+    private static final String TAG = "TopNavFragment";
 
     public static TopNavFragment newInstance() {
         return new TopNavFragment();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, " @@@@@ TopNavFragment onCreate");
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, " @@@@@ TopNavFragment onCreateView");
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.nav_layout);
@@ -66,6 +75,7 @@ public class TopNavFragment extends BaseNavFragment {
         }
 
         public Fragment getItem(int position) {
+            Log.d(TAG, " @@@@@ TopNavFragmentAdapter getItem");
             return TopicListFragment.newInstance(mNavs.get(position));
         }
 
