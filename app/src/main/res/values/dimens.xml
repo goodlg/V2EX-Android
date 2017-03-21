@@ -8,4 +8,6 @@
 
     <dimen name="tab_max_width">50dp</dimen>
 
+    <dimen name="appbar_elevation">4dp</dimen>
+
 </resources>
