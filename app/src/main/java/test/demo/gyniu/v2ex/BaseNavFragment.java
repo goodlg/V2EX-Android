@@ -1,5 +1,6 @@
 package test.demo.gyniu.v2ex;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -21,6 +22,8 @@ public abstract class BaseNavFragment extends Fragment {
 
     protected TabLayout mTabLayout;
 
+    private Context mContxt;
+
     public BaseNavFragment() {}
 
     @Nullable
@@ -39,6 +42,19 @@ public abstract class BaseNavFragment extends Fragment {
         mTabLayout.setupWithViewPager(viewPager);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContxt = getActivity();
+    }
+
+    public Context getContext(){
+        if(mContxt == null){
+            return AppCtx.getInstance();
+        }
+        return mContxt;
     }
 
     protected abstract FragmentPagerAdapter getAdapter(FragmentManager manager);

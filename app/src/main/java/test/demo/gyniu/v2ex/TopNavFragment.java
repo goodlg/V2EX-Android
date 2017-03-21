@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.common.base.Preconditions;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,23 +53,10 @@ public class TopNavFragment extends BaseNavFragment {
     }
 
     private class TopNavFragmentAdapter extends FragmentPagerAdapter {
-        private final List<String> mNavs = new ArrayList<>();
-        private final String[] datas = {
-                "new",
-                "tech",
-                "topic",
-                "game",
-                "fav",
-                "deals",
-                "members",
-                "play"
-        };
-
+        private final List<Tab> mNavs;
         public TopNavFragmentAdapter(FragmentManager manager) {
             super(manager);
-            for(String str: datas){
-                mNavs.add(str);
-            }
+            mNavs = PrefStore.getInstance(getContext()).getTabsToShow();
         }
 
         public Fragment getItem(int position) {
@@ -86,7 +71,8 @@ public class TopNavFragment extends BaseNavFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mNavs.get(position);
+            return getContext().getResources().
+                    getString(mNavs.get(position).getTitleResId());
         }
     }
 

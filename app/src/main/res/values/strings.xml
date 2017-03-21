@@ -5,4 +5,17 @@
     <string name="str_fav">Favorite</string>
     <string name="str_me">Me</string>
 
+    <!-- category -->
+    <string name="str_tech">tech</string>
+    <string name="str_creative">creative</string>
+    <string name="str_play">play</string>
+    <string name="str_apple">apple</string>
+    <string name="str_jobs">jobs</string>
+    <string name="str_deals">deals</string>
+    <string name="str_city">city</string>
+    <string name="str_qna">qna</string>
+    <string name="str_hot">hot</string>
+    <string name="str_all">all</string>
+    <string name="str_r2">r2</string>
+
 </resources>

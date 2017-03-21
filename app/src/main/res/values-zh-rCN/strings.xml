@@ -5,4 +5,17 @@
     <string name="str_fav">关注</string>
     <string name="str_me">我</string>
 
+    <!-- category -->
+    <string name="str_tech">技术</string>
+    <string name="str_creative">创意</string>
+    <string name="str_play">好玩</string>
+    <string name="str_apple">Apple</string>
+    <string name="str_jobs">酷工作</string>
+    <string name="str_deals">交易</string>
+    <string name="str_city">城市</string>
+    <string name="str_qna">问与答</string>
+    <string name="str_hot">最热</string>
+    <string name="str_all">全部</string>
+    <string name="str_r2">R2</string>
+
 </resources>

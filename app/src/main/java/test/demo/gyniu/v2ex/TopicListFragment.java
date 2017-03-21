@@ -28,10 +28,10 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
     public TopicListFragment(){}
 
-    public static Fragment newInstance(String str){
+    public static Fragment newInstance(Tab tab){
         Fragment fragment = new TopicListFragment();
         Bundle args = new Bundle();
-        args.putString(PAGE,str);
+        args.putParcelable(PAGE,tab);
         fragment.setArguments(args);
         return fragment;
     }
