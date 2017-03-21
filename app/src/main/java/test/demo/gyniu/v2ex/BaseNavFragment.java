@@ -6,9 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,8 @@ import android.view.ViewGroup;
  */
 public abstract class BaseNavFragment extends Fragment {
     private static final String TAG = "BaseNavFragment";
+    private static final boolean DEBUG = LogUtil.LOGD;
+
     protected TabLayout mTabLayout;
 
     public BaseNavFragment() {}
@@ -26,8 +26,7 @@ public abstract class BaseNavFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.nav_layout, container, false);
-
-        Log.d(TAG, " @@@@@ BaseNavFragment onCreate");
+        if (DEBUG) LogUtil.d(TAG, " create base nav fragment");
 
         ViewPager viewPager = ((ViewPager) view.findViewById(R.id.view_pager));
         FragmentPagerAdapter adapter = getAdapter(getChildFragmentManager());

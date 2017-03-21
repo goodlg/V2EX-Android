@@ -1,13 +1,11 @@
 package test.demo.gyniu.v2ex;
 
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +17,8 @@ import android.widget.TextView;
  */
 public class MainActivity extends AppCompatActivity implements TabHost.OnTabChangeListener{
     private static final String TAG = "MainActivity";
+
+    private static final boolean DEBUG = LogUtil.LOGD;
 
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolBar;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
 
     @Override
     public void onTabChanged(String tabId) {
-        Log.d(TAG, "@@@@@ onTabChanged, tabId=" + tabId);
+        if (DEBUG) LogUtil.d(TAG, "tabId=" + tabId);
         setTitle(tabId);
         resetOtherTabs();
         View view = mTabHost.getCurrentTabView();

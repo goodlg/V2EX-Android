@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import java.util.List;
  */
 public class TopNavFragment extends BaseNavFragment {
     private static final String TAG = "TopNavFragment";
+    private static final boolean DEBUG = LogUtil.LOGD;
 
     public static TopNavFragment newInstance() {
         return new TopNavFragment();
@@ -29,14 +29,14 @@ public class TopNavFragment extends BaseNavFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, " @@@@@ TopNavFragment onCreate");
+        if (DEBUG) LogUtil.d(TAG, "create top nav fragment");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, " @@@@@ TopNavFragment onCreateView");
+        if (DEBUG) LogUtil.d(TAG, "create top nav view");
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.nav_layout);
@@ -75,7 +75,7 @@ public class TopNavFragment extends BaseNavFragment {
         }
 
         public Fragment getItem(int position) {
-            Log.d(TAG, " @@@@@ TopNavFragmentAdapter getItem");
+            if (DEBUG) LogUtil.d(TAG, "TopNavFragmentAdapter getItem");
             return TopicListFragment.newInstance(mNavs.get(position));
         }
 
