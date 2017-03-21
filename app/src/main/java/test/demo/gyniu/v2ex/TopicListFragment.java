@@ -17,8 +17,11 @@ import java.util.List;
  * Created by uiprj on 17-3-14.
  */
 public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
-    private static final String PAGE = "page";
+    private static final String TAG = "TopicListFragment";
+    private static final boolean DEBUG = LogUtil.LOGD;
+    private static final String TAB = "tab";
     private String mTitle;
+    private Entity mEntry;
 
     private List<String> list = new ArrayList<>();
 
@@ -31,7 +34,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     public static Fragment newInstance(Tab tab){
         Fragment fragment = new TopicListFragment();
         Bundle args = new Bundle();
-        args.putParcelable(PAGE,tab);
+        args.putParcelable(TAB, tab);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,9 +43,15 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
-        if (b != null){
-            mTitle = b.getString(PAGE);
+        Bundle args = getArguments();
+
+        if (args != null){
+            Entity entry = args.getParcelable(TAB);
+            if (entry == null){
+                throw new RuntimeException("tab can't be null");
+            }
+            mEntry = entry;
+            if (DEBUG) LogUtil.d(TAG, "mEntry=" + mEntry);
         }
     }
 
