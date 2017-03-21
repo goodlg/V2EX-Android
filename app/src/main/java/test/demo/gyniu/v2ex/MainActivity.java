@@ -2,13 +2,8 @@ package test.demo.gyniu.v2ex;
 
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -91,13 +86,14 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         mTabHost.setOnTabChangedListener(this);
         //select first tab
         mTabHost.setCurrentTab(0);
+        onTabChanged(mTabHost.getCurrentTabTag());
     }
 
     private View getTabItemView(int i) {
         View view = layoutInflater.inflate(R.layout.bottom_tab_item, null);
         ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
         TextView title = (TextView) view.findViewById(R.id.tab_title);
-        icon.setBackgroundResource(mBottomTabIconNormal[i]);
+        icon.setImageResource(mBottomTabIconNormal[i]);
         title.setText(mBottomTabTitle[i]);
         return view;
     }
@@ -106,21 +102,38 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public void onTabChanged(String tabId) {
         Log.d(TAG, "@@@@@ onTabChanged, tabId=" + tabId);
         setTitle(tabId);
-        //resetOtherTabs();
+        resetOtherTabs();
         View view = mTabHost.getCurrentTabView();
-        Log.d(TAG, " @@@@@ tag:" + mTabHost.getTag() + ", view=" + view);
         if (view != null){
+            int index = getIndexByTabId(tabId);
             ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
             TextView title = (TextView) view.findViewById(R.id.tab_title);
-            icon.setBackgroundResource(R.drawable.selector_tab_img_background);
-            title.setTextColor(Color.parseColor("#f2497c"));
+            icon.setImageResource(mBottomTabIconSelect[index]);
+            title.setTextColor(getResources().getColor(R.color.colorBottomTabTextSelect));
         }
+    }
+
+    private int getIndexByTabId(String tabId){
+        int index = 0;
+        for (int i=0; i<MAX_BOTTOM_TAB_COUNT; i++){
+            if (mBottomTabTitle[i].equals(tabId)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     private void resetOtherTabs() {
         for (int i=0; i<MAX_BOTTOM_TAB_COUNT; i++){
-            mTabHost.getTabWidget().getChildAt(i)
-                    .setBackgroundResource(R.drawable.selector_tab_background);
+            View view = mTabHost.getTabWidget().getChildAt(i);
+            if (view != null){
+                ImageView icon = (ImageView) view.findViewById(R.id.tab_icon);
+                TextView title = (TextView) view.findViewById(R.id.tab_title);
+                icon.setImageResource(mBottomTabIconNormal[i]);
+                title.setTextColor(getResources().getColor(R.color.colorBottomTabText));
+                view.setBackgroundResource(R.drawable.selector_tab_background);
+            }
         }
     }
 }

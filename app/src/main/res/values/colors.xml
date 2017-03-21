@@ -6,7 +6,7 @@
 
     <!--bottom tab backgound color-->
     <color name="colorBottomTabBar">#EEEEEE</color>
-    <color name="colorBottomTabBarSepar">#CCCECF</color>
+    <color name="colorBottomTabBarSepar">#CFCFCF</color>
 
     <!--fragment content backgound color-->
     <color name="colorFragmentContent">#FF0000</color>
@@ -17,5 +17,7 @@
     <!-- toolbar backgound color-->
     <color name="colorToolBar">#FF4081</color>
 
-    <drawable name="colorImgTextSelect">#f2497c</drawable>
+    <color name="colorBottomTabTextSelect">#f2497c</color>
+    <color name="colorBottomTabText">#FF404040</color>
+
 </resources>
