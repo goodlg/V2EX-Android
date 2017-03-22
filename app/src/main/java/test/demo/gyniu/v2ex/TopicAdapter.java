@@ -12,29 +12,41 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> {
-    private List<String> mData;
+import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.utils.LogUtil;
 
-    public TopicAdapter(List<String> data) {
-        this.mData = data;
+public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> {
+    private static final String TAG = "TopicAdapter";
+    private static final boolean DEBUG = LogUtil.LOGD;
+
+    private List<Topic> mData;
+
+    public TopicAdapter() {
         setHasStableIds(true);
     }
 
-    public void setDataSource(List<String> data) {
+    public void setDataSource(List<Topic> data) {
         mData = data;
+        for(Topic t : mData){
+            if (DEBUG) LogUtil.d(TAG, "topic: " + t);
+        }
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row, null);
-        return new ViewHolder(view);
+        return new ViewHolder(new TopicItemView(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final String str = mData.get(position);
-        holder.fillData(str);
+        final Topic topic = mData.get(position);
+        holder.fillData(topic);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return mData == null ? RecyclerView.NO_ID : mData.get(position).getmId();
     }
 
     @Override
@@ -43,15 +55,15 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView mView;
+        private final TopicItemView mView;
 
-        public ViewHolder(View view) {
+        public ViewHolder(TopicItemView view) {
             super(view);
-            mView = (TextView) view.findViewById(R.id.tv_title);
+            mView = view;
         }
 
-        public void fillData(String str) {
-            mView.setText(str);
+        public void fillData(Topic topic) {
+            mView.buildItem(topic);
         }
     }
 }

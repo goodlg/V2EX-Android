@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.demo.gyniu.v2ex.model.Entity;
+import test.demo.gyniu.v2ex.model.Member;
 import test.demo.gyniu.v2ex.model.Tab;
+import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -27,7 +29,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     private String mTitle;
     private Entity mEntry;
 
-    private List<String> list = new ArrayList<>();
+    private List<Topic> list = new ArrayList<>();
 
     private  SwipeRefreshLayout mLayout;
     private RecyclerView mRecyclerView;
@@ -68,34 +70,32 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         mLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mLayout.getContext()));
 
-        initData();
-
-        mAdapter = new TopicAdapter(list);
+        mAdapter = new TopicAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mLayout.setRefreshing(true);
+        mLayout.setRefreshing(false);
 
         return mLayout;
     }
 
     private void initData() {
-        if (list.size() != 0){
-            list.clear();
+        list.clear();
+        for(int i=0;i<10;i++){
+            Member m = new Member("sakula" + i);
+            Topic t = new Topic(i,
+                    "hello " + i,
+                    "teach " + i,
+                    i+20,
+                    m,
+                    "2017-03-22: " + i);
+            list.add(t);
         }
-        for (int i = 0; i < 20; i++) {
-            list.add("hello " + i);
-        }
+        mAdapter.setDataSource(list);
     }
 
     @Override
     public void onRefresh() {
-        if (list.size() != 0){
-            list.clear();
-        }
-        for (int i = 0; i < 30; i++) {
-            list.add("world " + i);
-        }
+        initData();
         mAdapter.setDataSource(list);
-
         mRecyclerView.smoothScrollToPosition(0);
     }
 }

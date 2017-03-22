@@ -10,4 +10,7 @@
 
     <dimen name="appbar_elevation">4dp</dimen>
 
+    <dimen name="user_avatar_size">48dp</dimen>
+
+    <dimen name="reply_counter_size">32dp</dimen>
 </resources>
