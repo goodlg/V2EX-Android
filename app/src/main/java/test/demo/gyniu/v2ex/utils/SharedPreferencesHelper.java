@@ -1,4 +1,4 @@
-package test.demo.gyniu.v2ex;
+package test.demo.gyniu.v2ex.utils;
 
 import android.app.backup.BackupManager;
 import android.content.Context;
@@ -7,25 +7,27 @@ import android.preference.PreferenceManager;
 
 import java.util.List;
 
+import test.demo.gyniu.v2ex.Tab;
+
 /**
  * Created by uiprj on 17-3-21.
  */
-public class PrefStore implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class SharedPreferencesHelper implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-    private static PrefStore instance;
+    private static SharedPreferencesHelper instance;
     private static Context mContext;
     private final SharedPreferences mPreferences;
 
     public static final String PREF_TABS_TO_SHOW = "tabs_to_show";
 
-    public static PrefStore getInstance(Context context) {
+    public static SharedPreferencesHelper getInstance(Context context) {
         if (instance == null){
-            instance = new PrefStore(context);
+            instance = new SharedPreferencesHelper(context);
         }
         return instance;
     }
 
-    PrefStore(Context context) {
+    SharedPreferencesHelper(Context context) {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mPreferences.registerOnSharedPreferenceChangeListener(this);
     }

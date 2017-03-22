@@ -1,4 +1,4 @@
-package test.demo.gyniu.v2ex;
+package test.demo.gyniu.v2ex.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

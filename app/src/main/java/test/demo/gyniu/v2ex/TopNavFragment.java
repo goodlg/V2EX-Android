@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import com.google.common.base.Preconditions;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.utils.LogUtil;
+import test.demo.gyniu.v2ex.utils.SharedPreferencesHelper;
+
 /**
  * Created by uiprj on 17-3-14.
  */
@@ -56,7 +59,7 @@ public class TopNavFragment extends BaseNavFragment {
         private final List<Tab> mNavs;
         public TopNavFragmentAdapter(FragmentManager manager) {
             super(manager);
-            mNavs = PrefStore.getInstance(getContext()).getTabsToShow();
+            mNavs = SharedPreferencesHelper.getInstance(getContext()).getTabsToShow();
         }
 
         public Fragment getItem(int position) {

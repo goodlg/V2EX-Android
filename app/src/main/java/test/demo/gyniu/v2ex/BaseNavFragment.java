@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import test.demo.gyniu.v2ex.utils.LogUtil;
+
 /**
  * Created by uiprj on 17-3-14.
  */

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import test.demo.gyniu.v2ex.utils.LogUtil;
+
 /**
  * Created by uiprj on 17-3-13.
  */

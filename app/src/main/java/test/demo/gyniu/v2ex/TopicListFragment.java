@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.utils.LogUtil;
+
 /**
  * Created by uiprj on 17-3-14.
  */
