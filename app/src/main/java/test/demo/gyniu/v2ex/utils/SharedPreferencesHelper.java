@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import java.util.List;
 
-import test.demo.gyniu.v2ex.Tab;
+import test.demo.gyniu.v2ex.model.Tab;
 
 /**
  * Created by uiprj on 17-3-21.

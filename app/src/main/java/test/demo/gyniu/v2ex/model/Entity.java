@@ -1,4 +1,4 @@
-package test.demo.gyniu.v2ex;
+package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

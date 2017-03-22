@@ -1,4 +1,4 @@
-package test.demo.gyniu.v2ex;
+package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
 
@@ -9,10 +9,12 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.R;
+
 /**
  * Created by uiprj on 17-3-21.
  */
-public class Tab extends Entity{
+public class Tab extends Entity {
     private final int mTitleResId;
     private final int mKey;
     public static final ImmutableMap<Integer, Tab> ALL_TABS;

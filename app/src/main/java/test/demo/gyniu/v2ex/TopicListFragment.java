@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.model.Entity;
+import test.demo.gyniu.v2ex.model.Tab;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**

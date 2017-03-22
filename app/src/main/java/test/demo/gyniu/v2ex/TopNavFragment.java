@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.google.common.base.Preconditions;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.model.Tab;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.SharedPreferencesHelper;
 
