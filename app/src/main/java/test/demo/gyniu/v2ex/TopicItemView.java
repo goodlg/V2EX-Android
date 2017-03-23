@@ -44,7 +44,7 @@ public class TopicItemView extends FrameLayout {
     }
 
     private void init(Context context){
-        mRootView = View.inflate(context, R.layout.topic_item, null);
+        mRootView = View.inflate(context, R.layout.topic_item, this);
         mUserAvatar = (ImageView) mRootView.findViewById(R.id.user_avatar);
         mTopicTitle = (TextView) mRootView.findViewById(R.id.topic_title);
         mTopicNode = (TextView) mRootView.findViewById(R.id.topic_node);
