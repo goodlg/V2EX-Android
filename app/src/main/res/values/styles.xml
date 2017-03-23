@@ -25,6 +25,7 @@
         <item name="android:background">?colorPrimary</item>
         <item name="tabMinWidth">0dp</item>
         <item name="tabIndicatorColor">@android:color/white</item>
+        <!--<item name="tabTextColor">@android:color/darker_gray</item>-->
         <item name="tabSelectedTextColor">@android:color/white</item>
         <item name="tabTextAppearance">@style/AppTheme.TabLayout.TextAppearance</item>
     </style>
@@ -41,6 +42,15 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">@color/colorBottomTabBar</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="AppTheme.Topic.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ff434549</item>
+    </style>
+
+    <style name="AppTheme.Topic.ItemDivider" parent="AppTheme">
+        <item name="android:listDivider">@drawable/divider</item>
     </style>
 
 </resources>

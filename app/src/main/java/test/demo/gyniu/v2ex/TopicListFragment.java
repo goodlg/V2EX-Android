@@ -69,6 +69,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
         mLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mLayout.getContext()));
+        mRecyclerView.addItemDecoration(new CustomDecoration(getContext(), CustomDecoration.VERTICAL_LIST));
 
         mAdapter = new TopicAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -77,12 +78,23 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         return mLayout;
     }
 
+    /**
+     * for test
+     */
     private void initData() {
         list.clear();
+        String str1 = "招聘 Linux 运维大神帖";
+        String str2 = "Python Flask 的 session 是全局的话，怎么避免变量传值重复（被覆盖）呢？ ";
+        String str;
         for(int i=0;i<10;i++){
+            if(i%2 == 0){
+                str = str2;
+            } else {
+                str = str1;
+            }
             Member m = new Member("sakula" + i);
             Topic t = new Topic(i,
-                    "hello " + i,
+                    str,
                     "teach " + i,
                     i+20,
                     m,
