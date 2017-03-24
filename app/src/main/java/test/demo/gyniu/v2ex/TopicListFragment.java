@@ -69,7 +69,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
         mLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mLayout.getContext()));
-        mRecyclerView.addItemDecoration(new CustomDecoration(getContext(), CustomDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new CustomDecoration(getContext(), CustomDecoration.VERTICAL_LIST, R.drawable.divider));
 
         mAdapter = new TopicAdapter();
         mRecyclerView.setAdapter(mAdapter);
