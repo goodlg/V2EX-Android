@@ -3,6 +3,7 @@ package test.demo.gyniu.v2ex;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,6 +60,17 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
             mEntry = entry;
             if (DEBUG) LogUtil.d(TAG, "mEntry=" + mEntry);
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Nullable
