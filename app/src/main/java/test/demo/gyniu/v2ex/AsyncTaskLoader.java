@@ -18,6 +18,7 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
 
     public AsyncTaskLoader(Context context) {
         super(context);
+        setUpdateThrottle(DEFAULT_UPDATE_THROTTLE);
     }
 
     @Override
@@ -52,6 +53,7 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
     public LoaderResult<T> loadInBackground() {
         LoaderResult<T> loaderResult;
         try {
+            if (DEBUG) LogUtil.d(TAG, "Load in background...");
             T result = loadInBackgroundWithException();
             loaderResult = new LoaderResult<>(result);
         } catch (Exception e) {
@@ -59,6 +61,7 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
             loaderResult = new LoaderResult<>(e);
         }
 
+        if (DEBUG) LogUtil.d(TAG, "Load done.");
         mResult = loaderResult;
         return mResult;
     }

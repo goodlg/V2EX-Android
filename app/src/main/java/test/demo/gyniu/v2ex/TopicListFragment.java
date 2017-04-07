@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,8 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 /**
  * Created by uiprj on 17-3-14.
  */
-public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
+        LoaderManager.LoaderCallbacks<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> {
     private static final String TAG = "TopicListFragment";
     private static final boolean DEBUG = LogUtil.LOGD;
     private static final String TAB = "tab";
@@ -35,6 +37,8 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     private  SwipeRefreshLayout mLayout;
     private RecyclerView mRecyclerView;
     private TopicAdapter mAdapter;
+
+    private final int LOADER_ID = 0;
 
     public TopicListFragment(){}
 
@@ -71,6 +75,13 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     public void onStart() {
         super.onStart();
 
+        LoaderManager lm = getLoaderManager();
+        if (lm.getLoader(LOADER_ID) != null){
+            if (DEBUG) LogUtil.d(TAG, "already loaded");
+        }
+
+        //init loader
+        lm.initLoader(LOADER_ID, null, this);
     }
 
     @Nullable
@@ -85,41 +96,45 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
         mAdapter = new TopicAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mLayout.setRefreshing(false);
+        mLayout.setRefreshing(true);
 
         return mLayout;
     }
 
-    /**
-     * for test
-     */
-    private void initData() {
-        list.clear();
-        String str1 = "招聘 Linux 运维大神帖";
-        String str2 = "Python Flask 的 session 是全局的话，怎么避免变量传值重复（被覆盖）呢？ ";
-        String str;
-        for(int i=0;i<10;i++){
-            if(i%2 == 0){
-                str = str2;
-            } else {
-                str = str1;
-            }
-            Member m = new Member("sakula" + i);
-            Topic t = new Topic(i,
-                    str,
-                    "teach " + i,
-                    i+20,
-                    m,
-                    "2017-03-22: " + i);
-            list.add(t);
+    @Override
+    public void onRefresh() {
+        if (DEBUG) LogUtil.d(TAG, "Refresh!!!");
+        Loader loader = getLoaderManager().getLoader(LOADER_ID);
+        if (loader == null){
+            return ;
         }
-        mAdapter.setDataSource(list);
+
+        if (DEBUG) LogUtil.d(TAG, "force Load!!!");
+        loader.forceLoad();
+        mRecyclerView.smoothScrollToPosition(0);
     }
 
     @Override
-    public void onRefresh() {
-        initData();
-        mAdapter.setDataSource(list);
-        mRecyclerView.smoothScrollToPosition(0);
+    public Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> onCreateLoader(int id, Bundle args) {
+        return new TopicListLoader(getActivity(), mEntry);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> loader, AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList> data) {
+        mLayout.setRefreshing(false);
+        if (data.hasException()) {
+            if (DEBUG) LogUtil.e(TAG, "load Exception: " + data.mException);
+            return;
+        }
+        if (data != null){
+
+        }
+        mAdapter.setDataSource(data.mResult);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> loader) {
+        if (DEBUG) LogUtil.d(TAG, "load reset");
+        mAdapter.setDataSource(null);
     }
 }
