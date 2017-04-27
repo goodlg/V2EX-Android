@@ -127,9 +127,8 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
             return;
         }
         if (data != null){
-
+            mAdapter.setDataSource(data.mResult);
         }
-        mAdapter.setDataSource(data.mResult);
     }
 
     @Override

@@ -27,6 +27,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
 
     public void setDataSource(List<Topic> data) {
         mData = data;
+        if (mData == null) return;
         for(Topic t : mData){
             if (DEBUG) LogUtil.d(TAG, "topic: " + t);
         }

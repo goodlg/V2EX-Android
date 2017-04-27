@@ -1,3 +1,9 @@
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -31,4 +37,6 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.google.guava:guava:16.0.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 }
