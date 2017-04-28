@@ -10,8 +10,8 @@ import okhttp3.OkHttpClient;
 /**
  * Created by uiprj on 17-4-27.
  */
-public class NetworkRequestHelper {
-    private static final String TAB = "NetworkRequestHelper";
+public class HttpRequestHelper {
+    private static final String TAB = "HttpRequestHelper";
 
     private OkHttpClient mClient;
     private PersistentCookieJar mCookieJar;
