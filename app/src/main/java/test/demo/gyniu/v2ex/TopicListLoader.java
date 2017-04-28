@@ -34,6 +34,7 @@ public class TopicListLoader extends AsyncTaskLoader<TopicListLoader.TopicList>
     @Override
     public TopicList loadInBackgroundWithException() throws Exception {
         if (DEBUG) LogUtil.d(TAG, "load...");
+
         return null;
     }
 
