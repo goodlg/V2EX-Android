@@ -8,6 +8,12 @@ import android.app.Application;
 public class AppCtx extends Application {
     private static AppCtx mInstance;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+    }
+
     public static Application getInstance(){
         if(mInstance == null){
             mInstance = new AppCtx();

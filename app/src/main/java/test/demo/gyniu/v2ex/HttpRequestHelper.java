@@ -35,27 +35,33 @@ public class HttpRequestHelper {
     }
 
     private void initOkhttp(){
+        if (DEBUG) LogUtil.e(TAG, "init okhttp3");
         //config cache size
-        File cacheDirectory = AppCtx.getInstance().getExternalCacheDir();
-        int cacheSize = 16 * 1024 * 1024;
-        Cache cache = new Cache(cacheDirectory,cacheSize);
+        try {
+            File cacheDirectory = AppCtx.getInstance().getExternalCacheDir();
+            int cacheSize = 16 * 1024 * 1024;
+            Cache cache = new Cache(cacheDirectory, cacheSize);
 
-        //config Cookie
-        mCookieJar = new PersistentCookieJar(new SetCookieCache(),
-                new SharedPrefsCookiePersistor(AppCtx.getInstance()));
+            //config Cookie
+            mCookieJar = new PersistentCookieJar(new SetCookieCache(),
+                    new SharedPrefsCookiePersistor(AppCtx.getInstance()));
 
-        mClient = new OkHttpClient().newBuilder()
-                .connectTimeout(Constant.HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(Constant.HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(Constant.HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
-                .cache(cache)
-                .followRedirects(false)
-                .cookieJar(mCookieJar)
-                .build();
+            mClient = new OkHttpClient().newBuilder()
+                    .connectTimeout(Constant.HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .writeTimeout(Constant.HTTP_WRITE_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(Constant.HTTP_READ_TIMEOUT, TimeUnit.SECONDS)
+                    .cache(cache)
+                    .followRedirects(false)
+                    .cookieJar(mCookieJar)
+                    .build();
+        } catch (Exception e){
+            LogUtil.e(TAG, "init Okhttp Excepion:" + e);
+        }
     }
 
     public TopicListLoader.TopicList getTopicsByTab(Entity e){
-        if (DEBUG) LogUtil.d(TAG, "want to get top list");
+        if (DEBUG) LogUtil.e(TAG, "want to get top list");
+        return null;
     }
 
 }
