@@ -8,4 +8,6 @@ public class Constant {
     public static long HTTP_CONNECT_TIMEOUT = 10;
     public static long HTTP_WRITE_TIMEOUT = 10;
     public static long HTTP_READ_TIMEOUT = 30;
+
+    public static String USER_AGENT = "V2EX+/" + BuildConfig.VERSION_NAME;
 }

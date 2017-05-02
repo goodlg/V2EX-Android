@@ -59,6 +59,11 @@ public class Topic extends Entity{
         dest.writeString(this.mReplyTime);
     }
 
+    @Override
+    public String getUrl() {
+        return null;
+    }
+
     public Topic(Parcel in) {
         this.mId = in.readInt();
         this.mTitle = in.readString();

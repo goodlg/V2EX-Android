@@ -26,6 +26,11 @@ public class Member extends Entity{
         dest.writeString(this.mUserName);
     }
 
+    @Override
+    public String getUrl() {
+        return null;
+    }
+
     private Member(Parcel in) {
         this.mUserName = in.readString();
     }

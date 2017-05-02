@@ -3,12 +3,14 @@ package test.demo.gyniu.v2ex;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.common.net.HttpHeaders;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -22,19 +24,19 @@ public class HttpRequestHelper {
     private OkHttpClient mClient;
     private PersistentCookieJar mCookieJar;
 
-    private HttpRequestHelper(){
+    private HttpRequestHelper() {
         initOkhttp();
     }
 
-    public static HttpRequestHelper getInstance(){
+    public static HttpRequestHelper getInstance() {
         return OkHttpSingle.sHttpHelper;
     }
 
-    private static class OkHttpSingle{
+    private static class OkHttpSingle {
         private static HttpRequestHelper sHttpHelper = new HttpRequestHelper();
     }
 
-    private void initOkhttp(){
+    private void initOkhttp() {
         if (DEBUG) LogUtil.e(TAG, "init okhttp3");
         //config cache size
         try {
@@ -54,14 +56,19 @@ public class HttpRequestHelper {
                     .followRedirects(false)
                     .cookieJar(mCookieJar)
                     .build();
-        } catch (Exception e){
+        } catch (Exception e) {
             LogUtil.e(TAG, "init Okhttp Excepion:" + e);
         }
     }
 
-    public TopicListLoader.TopicList getTopicsByTab(Entity e){
-        if (DEBUG) LogUtil.e(TAG, "want to get top list");
+    public TopicListLoader.TopicList getTopicsByTab(Entity e) {
+        if (DEBUG) LogUtil.e(TAG, "get topics use url: " + e.getUrl());
+        Request request = newRequest().url(e.getUrl()).build();
         return null;
+    }
+
+    private Request.Builder newRequest() {
+        return new Request.Builder().header(HttpHeaders.USER_AGENT, Constant.USER_AGENT);
     }
 
 }

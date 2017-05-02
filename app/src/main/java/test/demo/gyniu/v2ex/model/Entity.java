@@ -16,4 +16,6 @@ public abstract class Entity implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
     }
+
+    public abstract String getUrl();
 }

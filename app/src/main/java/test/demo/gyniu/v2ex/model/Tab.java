@@ -9,6 +9,8 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.AppCtx;
+import test.demo.gyniu.v2ex.Constant;
 import test.demo.gyniu.v2ex.R;
 
 /**
@@ -81,6 +83,16 @@ public class Tab extends Entity {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mKey);
         dest.writeInt(mTitleResId);
+    }
+
+    @Override
+    public String getUrl() {
+        String tabName = AppCtx.getInstance().getResources().getString(mTitleResId);
+        return Constant.BASE_URL + "/?tab=" + tabName;
+    }
+
+    public String getTabResId(){
+        return AppCtx.getInstance().getResources().getString(mTitleResId);
     }
 
     public static final Creator<Tab> CREATOR = new Creator<Tab>() {
