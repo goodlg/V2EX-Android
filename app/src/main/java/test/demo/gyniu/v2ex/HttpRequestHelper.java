@@ -6,11 +6,19 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.google.common.net.HttpHeaders;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -64,11 +72,67 @@ public class HttpRequestHelper {
     public TopicListLoader.TopicList getTopicsByTab(Entity e) {
         if (DEBUG) LogUtil.e(TAG, "get topics use url: " + e.getUrl());
         Request request = newRequest().url(e.getUrl()).build();
+        sendRequest(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>(){
+
+                    @Override
+                    public void onCompleted() {
+                        if (DEBUG) LogUtil.e(TAG, "subscribe Completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (DEBUG) LogUtil.e(TAG, "subscribe Exception:" + e);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if (DEBUG) LogUtil.e(TAG, "content: " + s);
+                    }
+                });
+
         return null;
     }
 
     private Request.Builder newRequest() {
         return new Request.Builder().header(HttpHeaders.USER_AGENT, Constant.USER_AGENT);
+    }
+
+
+    public Observable<String> sendRequest(Request request){
+        return sendRequest(request, true);
+    }
+
+    public Observable<String> sendRequest(final Request request, final boolean checkResponse){
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(final Subscriber<? super String> subscriber) {
+                if (!subscriber.isUnsubscribed()) {
+                    mClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            if (DEBUG) LogUtil.e(TAG, "send request Exception:" + e);
+                            subscriber.onError(e);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                if (checkResponse) {
+
+                                }
+                                String str = response.body().string();
+                                subscriber.onNext(str);
+                            }
+                            subscriber.onCompleted();
+                        }
+
+                    });
+                }
+            }
+        });
     }
 
 }
