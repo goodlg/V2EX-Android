@@ -120,9 +120,6 @@ public class HttpRequestHelper {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             if (response.isSuccessful()) {
-                                if (checkResponse) {
-
-                                }
                                 String str = response.body().string();
                                 subscriber.onNext(str);
                             }

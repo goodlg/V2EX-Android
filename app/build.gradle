@@ -40,4 +40,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'org.jsoup:jsoup:1.10.2'
 }
