@@ -9,7 +9,10 @@ import test.demo.gyniu.v2ex.model.Entity;
  * Created by uiprj on 17-5-4.
  */
 public class TopicListParser extends ParserHelper{
-    public TopicListLoader.TopicList parseDoc(Document doc, Entity e){
-        return null;
+    public static TopicListLoader.TopicList parseDoc(Document doc, Entity entity){
+        final Element contentBox = new JsoupObjects(doc).bfs("body").child("#Wrapper")
+                .child(".content").child("#Main").child(".box").getOne();
+
+        return parseDocForTab(contentBox);
     }
 }

@@ -5,6 +5,8 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.google.common.net.HttpHeaders;
 
+import org.jsoup.nodes.Document;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -69,67 +71,43 @@ public class HttpRequestHelper {
         }
     }
 
-    public TopicListLoader.TopicList getTopicsByTab(Entity e) {
-        if (DEBUG) LogUtil.e(TAG, "get topics use url: " + e.getUrl());
-        Request request = newRequest().url(e.getUrl()).build();
-        sendRequest(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>(){
+    public TopicListLoader.TopicList getTopicsByTab(Entity entity) throws Exception {
+        if (DEBUG) LogUtil.e(TAG, "get topics use url: " + entity.getUrl());
+        Request request = newRequest().url(entity.getUrl()).build();
 
-                    @Override
-                    public void onCompleted() {
-                        if (DEBUG) LogUtil.e(TAG, "subscribe Completed");
-                    }
+        final Response response = sendRequest(request);
+        if (response.isRedirect()) {
+            if (DEBUG) LogUtil.e(TAG, "Has Exception: topics should be not redirect");
+            throw new IllegalStateException("topics should be not redirect");
+        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        if (DEBUG) LogUtil.e(TAG, "subscribe Exception:" + e);
-                    }
+        final Document doc;
+        TopicListLoader.TopicList topics;
 
-                    @Override
-                    public void onNext(String s) {
-                        if (DEBUG) LogUtil.e(TAG, "content: " + s);
-                    }
-                });
+        try {
+            doc = ParserHelper.toDoc(response.body().string());
+            topics = TopicListParser.parseDoc(doc, entity);
+        } catch (IOException e) {
+            throw new Exception(e);
+        }
 
-        return null;
+        if (DEBUG) LogUtil.e(TAG, "size topics : " + topics.size());
+
+        return topics;
     }
 
     private Request.Builder newRequest() {
         return new Request.Builder().header(HttpHeaders.USER_AGENT, Constant.USER_AGENT);
     }
 
-
-    public Observable<String> sendRequest(Request request){
-        return sendRequest(request, true);
-    }
-
-    public Observable<String> sendRequest(final Request request, final boolean checkResponse){
-        return Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                if (!subscriber.isUnsubscribed()) {
-                    mClient.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            if (DEBUG) LogUtil.e(TAG, "send request Exception:" + e);
-                            subscriber.onError(e);
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            if (response.isSuccessful()) {
-                                String str = response.body().string();
-                                subscriber.onNext(str);
-                            }
-                            subscriber.onCompleted();
-                        }
-
-                    });
-                }
-            }
-        });
+    private Response sendRequest(Request request) throws Exception{
+        final Response response;
+        try {
+            response = mClient.newCall(request).execute();
+        } catch (IOException e) {
+            throw new Exception(e);
+        }
+        return response;
     }
 
 }
