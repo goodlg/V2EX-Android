@@ -4,10 +4,15 @@ import android.os.Parcel;
 
 import com.google.common.base.Objects;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by uiprj on 17-3-22.
  */
 public class Topic extends Entity{
+    private static final Pattern PATTERN = Pattern.compile("/t/(\\d+?)(?:\\W|$)");
+
     private final int mId;
     private final String mTitle;
     private final String mContent;
@@ -24,28 +29,37 @@ public class Topic extends Entity{
         this.mReplyTime = mReplyTime;
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public String getmContent() {
+    public String getContent() {
         return mContent;
     }
 
-    public int getmReplies() {
+    public int getReplies() {
         return mReplies;
     }
 
-    public Member getmMember() {
+    public Member getMember() {
         return mMember;
     }
 
-    public String getmReplyTime() {
+    public String getReplyTime() {
         return mReplyTime;
+    }
+
+    public static int getIdFromUrl(String url) {
+        final Matcher matcher = PATTERN.matcher(url);
+        if (!matcher.find()) {
+            throw new RuntimeException("match id for topic failed: " + url);
+        }
+        final String idStr = matcher.group(1);
+        return Integer.parseInt(idStr);
     }
 
     @Override
@@ -96,8 +110,48 @@ public class Topic extends Entity{
 
     @Override
     public String toString() {
-        return "id:" + mId + ", title:" + mTitle
-                + ", content:" + mContent + ", reply:" + mReplies
+        return "id:" + mId
+                + ", title:" + mTitle
+                + ", content:" + mContent
+                + ", reply:" + mReplies
+                + ", member:" + mMember.getUserName()
                 + ", rtime:" + mReplyTime;
+    }
+
+    public static class Builder{
+        private int mId;
+        private String mTitle;
+        private String mContent;
+        private int mReplies;
+        private Member mMember;
+        private String mReplyTime;
+
+        public void setId(int mId) {
+            this.mId = mId;
+        }
+
+        public void setTitle(String mTitle) {
+            this.mTitle = mTitle;
+        }
+
+        public void setContent(String mContent) {
+            this.mContent = mContent;
+        }
+
+        public void setReplies(int mReplies) {
+            this.mReplies = mReplies;
+        }
+
+        public void setMember(Member mMember) {
+            this.mMember = mMember;
+        }
+
+        public void setReplyTime(String mReplyTime) {
+            this.mReplyTime = mReplyTime;
+        }
+
+        public Topic createTopic() {
+            return new Topic(mId, mTitle, mContent, mReplies, mMember, mReplyTime);
+        }
     }
 }

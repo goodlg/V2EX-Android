@@ -88,10 +88,9 @@ public class HttpRequestHelper {
             doc = ParserHelper.toDoc(response.body().string());
             topics = TopicListParser.parseDoc(doc, entity);
         } catch (IOException e) {
+            LogUtil.e(TAG, "Exception: parse doc failed!");
             throw new Exception(e);
         }
-
-        if (DEBUG) LogUtil.e(TAG, "size topics : " + topics.size());
 
         return topics;
     }

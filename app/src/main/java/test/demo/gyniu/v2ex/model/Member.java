@@ -2,22 +2,31 @@ package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by uiprj on 17-3-22.
  */
 public class Member extends Entity{
-    private String mUserName;
+    private static final Pattern PATTERN = Pattern.compile("/member/(.+?)(?:\\W|$)");
+
+    private final String mUserName;
 
     public Member(String mUserName) {
         this.mUserName = mUserName;
     }
 
-    public String getmUserName() {
+    public String getUserName() {
         return mUserName;
     }
 
-    public void setmUserName(String mUserName) {
-        this.mUserName = mUserName;
+    public static String getNameFromUrl(String url) {
+        final Matcher matcher = PATTERN.matcher(url);
+        if (!matcher.find()) {
+            throw new RuntimeException("match name for member failed: " + url);
+        }
+        return matcher.group(1);
     }
 
     @Override
@@ -44,4 +53,16 @@ public class Member extends Entity{
             return new Member[size];
         }
     };
+
+    public static class Builder {
+        private String mUserName;
+
+        public void setUserName(String mUserName) {
+            this.mUserName = mUserName;
+        }
+
+        public Member createMember(){
+            return new Member(mUserName);
+        }
+    }
 }

@@ -28,9 +28,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     public void setDataSource(List<Topic> data) {
         mData = data;
         if (mData == null) return;
-        for(Topic t : mData){
-            if (DEBUG) LogUtil.d(TAG, "topic: " + t);
-        }
+        if (DEBUG) LogUtil.e(TAG, "set new DataSource, so notify DataSet Changed");
         notifyDataSetChanged();
     }
 
@@ -47,7 +45,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
 
     @Override
     public long getItemId(int position) {
-        return mData == null ? RecyclerView.NO_ID : mData.get(position).getmId();
+        return mData == null ? RecyclerView.NO_ID : mData.get(position).getId();
     }
 
     @Override

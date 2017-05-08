@@ -65,6 +65,23 @@ public class Tab extends Entity {
         return mKey;
     }
 
+    public String getRealKey(int resId){
+        switch(resId){
+            case R.string.str_tech: return "tech";
+            case R.string.str_creative: return "creative";
+            case R.string.str_play: return "play";
+            case R.string.str_apple: return "apple";
+            case R.string.str_jobs: return "jobs";
+            case R.string.str_deals: return "deals";
+            case R.string.str_city: return "city";
+            case R.string.str_qna: return "qna";
+            case R.string.str_hot: return "hot";
+            case R.string.str_all: return "all";
+            case R.string.str_r2: return "r2";
+            default:return null;
+        }
+    }
+
     public static List<Tab> getTabsToShow(String prefStr) {
         if (Strings.isNullOrEmpty(prefStr)) {
             return Lists.newArrayList(ALL_TABS.values());
@@ -87,12 +104,7 @@ public class Tab extends Entity {
 
     @Override
     public String getUrl() {
-        String tabName = AppCtx.getInstance().getResources().getString(mTitleResId);
-        return Constant.BASE_URL + "/?tab=" + tabName;
-    }
-
-    public String getTabResId(){
-        return AppCtx.getInstance().getResources().getString(mTitleResId);
+        return Constant.BASE_URL + "/?tab=" + getRealKey(mTitleResId);
     }
 
     public static final Creator<Tab> CREATOR = new Creator<Tab>() {

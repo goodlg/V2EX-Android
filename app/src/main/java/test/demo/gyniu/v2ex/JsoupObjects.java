@@ -5,7 +5,6 @@ import android.util.LruCache;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -19,18 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import test.demo.gyniu.v2ex.utils.LogUtil;
-
 /**
- * Created by uiprj on 17-5-5.
+ * Jsoup use bottom-up parsing to find element, it's slow when we only used a few elements.
+ * This class provided a more direct way to find elements.
  */
 public class JsoupObjects implements Iterable<Element> {
-    private static final String TAG = "JsoupObjects";
-    private static final boolean DEBUG = LogUtil.LOGD;
     private static final Method PARSE_METHOD;
     private static final LruCache<String, Evaluator> EVALUATOR_LRU_CACHE;
-
-    private FluentIterable<Element> mResult;
 
     static {
         try {
@@ -40,11 +34,12 @@ public class JsoupObjects implements Iterable<Element> {
             parseMethod.setAccessible(true);
             PARSE_METHOD = parseMethod;
         } catch (Exception e) {
-            LogUtil.e(TAG, "Exception: load QueryParser falied");
             throw new RuntimeException("get QueryParser#parse failed", e);
         }
         EVALUATOR_LRU_CACHE = new LruCache<>(64);
     }
+
+    private FluentIterable<Element> mResult;
 
     public JsoupObjects(Element... elements) {
         mResult = FluentIterable.of(elements);
@@ -54,6 +49,11 @@ public class JsoupObjects implements Iterable<Element> {
         mResult = FluentIterable.from(elements);
     }
 
+    /**
+     * get one element and remove it.
+     * @throws NoSuchElementException result is empty
+     * @see #getOptional()
+     */
     public Element getOne() {
         final Optional<Element> first = mResult.first();
         if (!first.isPresent()) {
@@ -63,26 +63,28 @@ public class JsoupObjects implements Iterable<Element> {
         return first.get();
     }
 
+    /**
+     * get one element and remove it
+     * @see #getOne()
+     */
     public Optional<Element> getOptional() {
         return mResult.first();
     }
 
+    /**
+     * get all result as {@link List<Element>}
+     */
     public List<Element> getList() {
         return mResult.toList();
     }
 
-    private Iterable<Element> filterByEvaluator(Iterable<Element> iterator, final Evaluator evaluator) {
-        return Iterables.filter(iterator, new Predicate<Element>() {
-            @Override
-            public boolean apply(Element input) {
-                return evaluator.matches(input, input);
-            }
-        });
+    private Iterable<Element> filterByEvaluator(Iterable<Element> iterator, Evaluator evaluator) {
+        return Iterables.filter(iterator, e -> evaluator.matches(e, e));
     }
 
     private void addQuery(Function<Element, Iterable<Element>> getElements, Evaluator evaluator) {
         //noinspection ConstantConditions
-        mResult = mResult.transformAndConcat(filterByEvaluator(getElements.));
+        mResult = mResult.transformAndConcat(ele -> filterByEvaluator(getElements.apply(ele), evaluator));
     }
 
     public static Element child(Element ele, String query) {
@@ -91,30 +93,64 @@ public class JsoupObjects implements Iterable<Element> {
 
     public JsoupObjects child(String query) {
         final Evaluator evaluator = parseQuery(query);
-        Function<Element, Iterable<Element>> getElements = new Function<Element, Iterable<Element>>() {
-            @Override
-            public Iterable<Element> apply(Element input) {
-                return null;
-            }
-
-            @Override
-            public boolean equals(Object object) {
-                return false;
-            }
-        };
-        addQuery(getElements, evaluator);
+        addQuery(Element::children, evaluator);
         return this;
     }
 
+    /**
+     * find elements by pre-order depth-first-search
+     * @see #bfs(String)
+     */
     public JsoupObjects dfs(String query) {
         final Evaluator evaluator = parseQuery(query);
         addQuery(TREE_TRAVERSER::preOrderTraversal, evaluator);
-        addQuery(TREE_TRAVERSER.)
         return this;
     }
 
     public JsoupObjects body() {
         return bfs("body");
+    }
+
+    /**
+     * find elements by breadth-first-search
+     * @see #dfs(String)
+     */
+    public JsoupObjects bfs(String query) {
+        final Evaluator evaluator = parseQuery(query);
+        addQuery(TREE_TRAVERSER::breadthFirstTraversal, evaluator);
+        return this;
+    }
+
+    public static Element parents(Element ele, String query) {
+        return new JsoupObjects(ele).parents(query).getOne();
+    }
+
+    public JsoupObjects parents(String query) {
+        final Evaluator evaluator = parseQuery(query);
+        addQuery(PARENT_TRAVERSER::breadthFirstTraversal, evaluator);
+        return this;
+    }
+
+    public JsoupObjects adjacent(String query) {
+        final Evaluator evaluator = parseQuery(query);
+        addQuery(ele -> Lists.newArrayList(ele.nextElementSibling()), evaluator);
+        return this;
+    }
+
+    @NonNull
+    private static Evaluator parseQuery(String query) {
+        Evaluator evaluator = EVALUATOR_LRU_CACHE.get(query);
+        if (evaluator == null) {
+            try {
+                evaluator = (Evaluator) PARSE_METHOD.invoke(null, query);
+                EVALUATOR_LRU_CACHE.put(query, evaluator);
+                return evaluator;
+            } catch (Exception e) {
+                throw new RuntimeException("invoke QueryParser#parse failed", e);
+            }
+        }
+
+        return evaluator;
     }
 
     @Override
@@ -136,4 +172,3 @@ public class JsoupObjects implements Iterable<Element> {
         }
     };
 }
-

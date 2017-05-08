@@ -54,12 +54,12 @@ public class TopicItemView extends FrameLayout {
     }
 
     public void buildItem(Topic topic){
-        if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
+        if (DEBUG) LogUtil.e(TAG, "topic:" + topic);
         mTopic = topic;
-        mTopicTitle.setText(topic.getmTitle());
+        mTopicTitle.setText(topic.getTitle());
         mTopicNode.setText("teach");
-        mUserName.setText(topic.getmMember().getmUserName());
-        mReplyTime.setText(topic.getmReplyTime());
-        mReplyCount.setText(topic.getmReplies() + "");
+        mUserName.setText(topic.getMember().getUserName());
+        mReplyTime.setText(topic.getReplyTime());
+        mReplyCount.setText(topic.getReplies() + "");
     }
 }
