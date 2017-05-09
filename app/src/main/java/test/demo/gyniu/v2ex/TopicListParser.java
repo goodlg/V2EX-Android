@@ -42,13 +42,11 @@ public class TopicListParser extends ParserHelper{
         if (DEBUG) {
             for(int i=0; lists!=null && i<lists.size(); i++){
                 Topic topic = (Topic)lists.get(i);
-                LogUtil.d(TAG, "Topic member name: " + topic.getMember().getUserName());
+                LogUtil.e(TAG, "Topic : " + topic);
             }
         }
 
-        TopicListLoader.TopicList topics = new TopicListLoader.TopicList<>(lists, false, null);
-
-        return topics;
+        return new TopicListLoader.TopicList(lists, false, null);
     }
 
     private static Topic parseItemForTab(Element item) {

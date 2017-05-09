@@ -52,5 +52,9 @@ public class TopicListLoader extends AsyncTaskLoader<TopicListLoader.TopicList>
         public Topic get(int location) {
             return list.get(location);
         }
+
+        public List<Topic> getList() {
+            return this.list;
+        }
     }
 }

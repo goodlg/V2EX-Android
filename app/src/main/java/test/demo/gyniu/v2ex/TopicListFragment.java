@@ -125,8 +125,15 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
             if (DEBUG) LogUtil.e(TAG, "load Exception: " + data.mException);
             return;
         }
-        if (data != null){
-            mAdapter.setDataSource(data.mResult);
+
+        if (data != null && data.mResult != null){
+            if (DEBUG)
+            if (data.mResult != null && data.mResult.size() == 0) {
+                LogUtil.w(TAG, "Warning: load data size 0 !!!");
+            } else {
+                LogUtil.d(TAG, "OK, load done");
+            }
+            mAdapter.setDataSource(data.mResult.getList());
         }
     }
 
