@@ -60,6 +60,12 @@ public class TopicItemView extends FrameLayout {
         mTopicNode.setText("teach");
         mUserName.setText(topic.getMember().getUserName());
         mReplyTime.setText(topic.getReplyTime());
-        mReplyCount.setText(topic.getReplies() + "");
+        final int replyCount = topic.getReplies();
+        if (replyCount > 0) {
+            mReplyCount.setVisibility(View.VISIBLE);
+            mReplyCount.setText(String.format("%d", replyCount));
+        } else {
+            mReplyCount.setVisibility(View.INVISIBLE);
+        }
     }
 }
