@@ -46,11 +46,17 @@
 
     <style name="AppTheme.Topic.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#ff434549</item>
+        <item name="android:textColor">#ff333539</item>
     </style>
 
     <style name="AppTheme.Topic.ItemDivider" parent="AppTheme">
         <item name="android:listDivider">@drawable/divider</item>
+    </style>
+
+    <style name="AppTheme.Topic.ReplyCount" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/reply_count_background</item>
+        <item name="android:textColor">@color/reply_count_color</item>
     </style>
 
 </resources>
