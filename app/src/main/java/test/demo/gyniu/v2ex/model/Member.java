@@ -12,13 +12,19 @@ public class Member extends Entity{
     private static final Pattern PATTERN = Pattern.compile("/member/(.+?)(?:\\W|$)");
 
     private final String mUserName;
+    private Avatar mAvatar;
 
-    public Member(String mUserName) {
+    public Member(String mUserName, Avatar avatar) {
         this.mUserName = mUserName;
+        this.mAvatar = avatar;
     }
 
     public String getUserName() {
         return mUserName;
+    }
+
+    public Avatar getAvatar() {
+        return mAvatar;
     }
 
     public static String getNameFromUrl(String url) {
@@ -33,6 +39,7 @@ public class Member extends Entity{
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(this.mUserName);
+        dest.writeParcelable(this.mAvatar, 0);
     }
 
     @Override
@@ -42,6 +49,7 @@ public class Member extends Entity{
 
     private Member(Parcel in) {
         this.mUserName = in.readString();
+        this.mAvatar = in.readParcelable(Avatar.class.getClassLoader());
     }
 
     public static final Creator<Member> CREATOR = new Creator<Member>() {
@@ -56,13 +64,18 @@ public class Member extends Entity{
 
     public static class Builder {
         private String mUserName;
+        private Avatar mAvatar;
 
         public void setUserName(String mUserName) {
             this.mUserName = mUserName;
         }
 
+        public void setAvatar(Avatar avatar) {
+            this.mAvatar = avatar;
+        }
+
         public Member createMember(){
-            return new Member(mUserName);
+            return new Member(mUserName, mAvatar);
         }
     }
 }

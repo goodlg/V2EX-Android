@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import test.demo.gyniu.v2ex.model.Avatar;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.model.Member;
 import test.demo.gyniu.v2ex.model.Topic;
@@ -72,6 +73,13 @@ public class TopicListParser extends ParserHelper{
         Preconditions.checkState(ele.tagName().equals("a"));
         final String url = ele.attr("href");
         memberBuilder.setUserName(Member.getNameFromUrl(url));
+
+        // get member avatar
+        final Avatar.Builder avatarBuilder = new Avatar.Builder();
+        ele = ele.child(0);
+        Preconditions.checkState(ele.tagName().equals("img"));
+        avatarBuilder.setUrl(ele.attr("src"));
+        memberBuilder.setAvatar(avatarBuilder.createAvatar());
 
         builder.setMember(memberBuilder.createMember());
     }

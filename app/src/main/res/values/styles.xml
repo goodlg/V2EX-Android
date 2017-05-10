@@ -46,7 +46,7 @@
 
     <style name="AppTheme.Topic.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#ff333539</item>
+        <item name="android:textColor">#ff434549</item>
     </style>
 
     <style name="AppTheme.Topic.ItemDivider" parent="AppTheme">

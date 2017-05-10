@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
+import test.demo.gyniu.v2ex.widget.AvatarView;
 
 /**
  * Created by uiprj on 17-3-22.
@@ -18,7 +19,7 @@ public class TopicItemView extends FrameLayout {
     private static final boolean DEBUG = LogUtil.LOGD;
 
     private View mRootView;
-    private ImageView mUserAvatar;
+    private AvatarView mUserAvatar;
     private TextView mTopicTitle;
     private TextView mTopicNode;
     private TextView mUserName;
@@ -30,22 +31,16 @@ public class TopicItemView extends FrameLayout {
 
     public TopicItemView(Context context) {
         this(context, null);
-        init(context);
     }
 
     public TopicItemView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(context);
     }
 
     public TopicItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    private void init(Context context){
         mRootView = View.inflate(context, R.layout.topic_item, this);
-        mUserAvatar = (ImageView) mRootView.findViewById(R.id.user_avatar);
+        mUserAvatar = (AvatarView) mRootView.findViewById(R.id.user_avatar);
         mTopicTitle = (TextView) mRootView.findViewById(R.id.topic_title);
         mTopicNode = (TextView) mRootView.findViewById(R.id.topic_node);
         mUserName = (TextView) mRootView.findViewById(R.id.username);
@@ -67,5 +62,7 @@ public class TopicItemView extends FrameLayout {
         } else {
             mReplyCount.setVisibility(View.INVISIBLE);
         }
+
+        mUserAvatar.setAvatar(topic.getMember().getAvatar());
     }
 }
