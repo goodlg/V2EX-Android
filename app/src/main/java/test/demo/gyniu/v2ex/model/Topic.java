@@ -126,28 +126,34 @@ public class Topic extends Entity{
         private Member mMember;
         private String mReplyTime;
 
-        public void setId(int mId) {
+        public Builder setId(int mId) {
             this.mId = mId;
+            return this;
         }
 
-        public void setTitle(String mTitle) {
+        public Builder setTitle(String mTitle) {
             this.mTitle = mTitle;
+            return this;
         }
 
-        public void setContent(String mContent) {
+        public Builder setContent(String mContent) {
             this.mContent = mContent;
+            return this;
         }
 
-        public void setReplies(int mReplies) {
+        public Builder setReplies(int mReplies) {
             this.mReplies = mReplies;
+            return this;
         }
 
-        public void setMember(Member mMember) {
+        public Builder setMember(Member mMember) {
             this.mMember = mMember;
+            return this;
         }
 
-        public void setReplyTime(String mReplyTime) {
+        public Builder setReplyTime(String mReplyTime) {
             this.mReplyTime = mReplyTime;
+            return this;
         }
 
         public Topic createTopic() {

@@ -1,5 +1,6 @@
 package test.demo.gyniu.v2ex;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,8 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
  * Created by uiprj on 17-3-14.
  */
 public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
-        LoaderManager.LoaderCallbacks<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> {
+        LoaderManager.LoaderCallbacks<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>>,
+        TopicItemView.OnTopicActionListener {
     private static final String TAG = "TopicListFragment";
     private static final boolean DEBUG = LogUtil.LOGD;
     private static final String TAB = "tab";
@@ -35,7 +37,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
     private  SwipeRefreshLayout mLayout;
     private RecyclerView mRecyclerView;
-    private TopicAdapter mAdapter;
+    private TopicListAdapter mAdapter;
 
     private final int LOADER_ID = 0;
 
@@ -93,7 +95,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mLayout.getContext()));
         mRecyclerView.addItemDecoration(new CustomDecoration(getContext(), CustomDecoration.VERTICAL_LIST, R.drawable.divider));
 
-        mAdapter = new TopicAdapter();
+        mAdapter = new TopicListAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mLayout.setRefreshing(true);
 
@@ -141,5 +143,24 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     public void onLoaderReset(Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> loader) {
         if (DEBUG) LogUtil.d(TAG, "load reset");
         mAdapter.setDataSource(null);
+    }
+
+    @Override
+    public void onTopicOpen(View view, Topic topic) {
+        if (DEBUG) LogUtil.e(TAG, "view topic");
+        final Intent intent = new Intent(getContext(), TopicActivity.class);
+        intent.putExtra(TopicActivity.KEY_TOPIC, topic);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTopicStartPreview(View view, Topic topic) {
+
+    }
+
+    @Override
+    public void onTopicStopPreview(View view, Topic topic) {
+
     }
 }

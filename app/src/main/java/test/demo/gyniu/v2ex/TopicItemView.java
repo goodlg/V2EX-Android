@@ -65,4 +65,10 @@ public class TopicItemView extends FrameLayout {
 
         mUserAvatar.setAvatar(topic.getMember().getAvatar());
     }
+
+    public interface OnTopicActionListener {
+        void onTopicOpen(View view, Topic topic);
+        void onTopicStartPreview(View view, Topic topic);
+        void onTopicStopPreview(View view, Topic topic);
+    }
 }

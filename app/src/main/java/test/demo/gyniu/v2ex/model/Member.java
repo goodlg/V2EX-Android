@@ -66,12 +66,14 @@ public class Member extends Entity{
         private String mUserName;
         private Avatar mAvatar;
 
-        public void setUserName(String mUserName) {
+        public Builder setUserName(String mUserName) {
             this.mUserName = mUserName;
+            return this;
         }
 
-        public void setAvatar(Avatar avatar) {
+        public Builder setAvatar(Avatar avatar) {
             this.mAvatar = avatar;
+            return this;
         }
 
         public Member createMember(){

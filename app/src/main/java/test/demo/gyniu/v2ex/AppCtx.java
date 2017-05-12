@@ -7,14 +7,24 @@ import android.app.Application;
  */
 public class AppCtx extends Application {
     private static AppCtx mInstance;
+    private volatile boolean mIsInited;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        init();
     }
 
-    public static Application getInstance(){
+    private void init(){
+        mIsInited = true;
+    }
+
+    public boolean isInited() {
+        return mIsInited;
+    }
+
+    public static AppCtx getInstance(){
         if(mInstance == null){
             mInstance = new AppCtx();
         }
