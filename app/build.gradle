@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "test.demo.gyniu.v2ex"
