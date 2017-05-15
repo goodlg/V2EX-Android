@@ -94,10 +94,8 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         activity.setTitle(null);
 
         final ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            Preconditions.checkNotNull(actionBar);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        Preconditions.checkNotNull(actionBar);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         mAppBarLayout = activity.getAppBarLayout();
 

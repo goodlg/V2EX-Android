@@ -1,6 +1,7 @@
 package test.demo.gyniu.v2ex;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,7 +14,7 @@ import test.demo.gyniu.v2ex.widget.AvatarView;
 /**
  * Created by uiprj on 17-3-22.
  */
-public class TopicListView extends FrameLayout {
+public class TopicListView extends FrameLayout implements View.OnClickListener{
     private static final String TAG = "TopicItemView";
     private static final boolean DEBUG = LogUtil.LOGD;
 
@@ -26,6 +27,8 @@ public class TopicListView extends FrameLayout {
     private final TextView mReplyCount;
 
     private Topic mTopic;
+
+    private OnTopicActionListener mListener;
 
     public TopicListView(Context context) {
         this(context, null);
@@ -46,6 +49,11 @@ public class TopicListView extends FrameLayout {
         mReplyCount = (TextView) mRootView.findViewById(R.id.reply_count);
     }
 
+    public void setListener(@NonNull OnTopicActionListener listener) {
+        mListener = listener;
+        setOnClickListener(this);
+    }
+
     public void buildItem(Topic topic) {
         if (DEBUG) LogUtil.e(TAG, "topic:" + topic);
         mTopic = topic;
@@ -62,6 +70,11 @@ public class TopicListView extends FrameLayout {
         }
 
         mUserAvatar.setAvatar(topic.getMember().getAvatar());
+    }
+
+    @Override
+    public void onClick(View v) {
+        mListener.onTopicOpen(v, mTopic);
     }
 
     public interface OnTopicActionListener {

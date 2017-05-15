@@ -4,6 +4,7 @@ package test.demo.gyniu.v2ex;
  * Created by gyniu on 17-3-14.
  */
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -16,9 +17,12 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
     private static final String TAG = "TopicListAdapter";
     private static final boolean DEBUG = LogUtil.LOGD;
 
+    private final TopicListView.OnTopicActionListener mListener;
+
     private List<Topic> mData;
 
-    public TopicListAdapter() {
+    public TopicListAdapter(@NonNull TopicListView.OnTopicActionListener listener) {
+        mListener = listener;
         setHasStableIds(true);
     }
 
@@ -31,7 +35,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(new TopicListView(parent.getContext()));
+        return new ViewHolder(new TopicListView(parent.getContext()), mListener);
     }
 
     @Override
@@ -53,9 +57,10 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TopicListView mView;
 
-        public ViewHolder(TopicListView view) {
+        public ViewHolder(TopicListView view, TopicListView.OnTopicActionListener listener) {
             super(view);
             mView = view;
+            mView.setListener(listener);
         }
 
         public void fillData(Topic topic) {
