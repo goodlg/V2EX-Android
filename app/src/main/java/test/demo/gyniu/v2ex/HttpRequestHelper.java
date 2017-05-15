@@ -71,7 +71,7 @@ public class HttpRequestHelper {
         }
     }
 
-    public TopicListLoader.TopicList getTopicsByTab(Entity entity) throws Exception {
+    public TopicListLoader.TopicList getTopicListByTab(Entity entity) throws Exception {
         if (DEBUG) LogUtil.e(TAG, "get topics use url: " + entity.getUrl());
         Request request = newRequest().url(entity.getUrl()).build();
 
