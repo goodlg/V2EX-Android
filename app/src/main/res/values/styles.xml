@@ -59,4 +59,18 @@
         <item name="android:textColor">@color/reply_count_color</item>
     </style>
 
+    <style name="AppTheme.Topic.Content" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:lineSpacingMultiplier">1.2</item>
+    </style>
+
+    <style name="AppTheme.Topic.Secondary" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="AppTheme.Topic.Username" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

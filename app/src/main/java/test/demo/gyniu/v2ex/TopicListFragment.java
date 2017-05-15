@@ -26,7 +26,7 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
  */
 public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
         LoaderManager.LoaderCallbacks<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>>,
-        TopicItemView.OnTopicActionListener {
+        TopicListView.OnTopicActionListener {
     private static final String TAG = "TopicListFragment";
     private static final boolean DEBUG = LogUtil.LOGD;
     private static final String TAB = "tab";

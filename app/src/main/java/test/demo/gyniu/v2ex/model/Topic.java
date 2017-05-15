@@ -1,9 +1,11 @@
 package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
+import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,17 +18,24 @@ public class Topic extends Entity{
     private final int mId;
     private final String mTitle;
     private final String mContent;
-    private final int mReplies;
+    private final int mCount;
     private final Member mMember;
-    private final String mReplyTime;
+    private final String mTime;
+    private final boolean mHasInfo;
+    @Nullable
+    private final List<Postscript> mPostscripts;
 
-    public Topic(int mId, String mTitle, String mContent, int mReplies, Member mMember, String mReplyTime) {
+    public Topic(int mId, String mTitle, String mContent, int mCount, Member mMember,
+                 String mTime,@Nullable List<Postscript> postscripts) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mContent = mContent;
-        this.mReplies = mReplies;
+        this.mCount = mCount;
         this.mMember = mMember;
-        this.mReplyTime = mReplyTime;
+        this.mTime = mTime;
+        this.mPostscripts = postscripts;
+
+        mHasInfo = mMember != null;
     }
 
     public int getId() {
@@ -41,16 +50,20 @@ public class Topic extends Entity{
         return mContent;
     }
 
-    public int getReplies() {
-        return mReplies;
+    public int getCount() {
+        return mCount;
     }
 
     public Member getMember() {
         return mMember;
     }
 
-    public String getReplyTime() {
-        return mReplyTime;
+    public String getTime() {
+        return mTime;
+    }
+
+    public boolean hasInfo() {
+        return mHasInfo;
     }
 
     public static int getIdFromUrl(String url) {
@@ -62,15 +75,21 @@ public class Topic extends Entity{
         return Integer.parseInt(idStr);
     }
 
+    @Nullable
+    public List<Postscript> getPostscripts() {
+        return mPostscripts;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(this.mId);
+        dest.writeByte(mHasInfo ? (byte) 1 : (byte) 0);
         dest.writeString(this.mTitle);
         dest.writeString(this.mContent);
-        dest.writeInt(this.mReplies);
+        dest.writeInt(this.mCount);
         dest.writeParcelable(this.mMember, 0);
-        dest.writeString(this.mReplyTime);
+        dest.writeString(this.mTime);
     }
 
     @Override
@@ -80,11 +99,13 @@ public class Topic extends Entity{
 
     public Topic(Parcel in) {
         this.mId = in.readInt();
+        this.mHasInfo = in.readByte() != 0;
         this.mTitle = in.readString();
         this.mContent = in.readString();
-        this.mReplies = in.readInt();
+        this.mCount = in.readInt();
         this.mMember = in.readParcelable(Member.class.getClassLoader());
-        this.mReplyTime = in.readString();
+        this.mTime = in.readString();
+        this.mPostscripts = null;
     }
 
     public static final Creator<Topic> CREATOR = new Creator<Topic>() {
@@ -100,12 +121,19 @@ public class Topic extends Entity{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Topic)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Topic topic = (Topic) o;
-        return Objects.equal(mId, topic.mId) &&
-                Objects.equal(mReplies, topic.mReplies) &&
+        return mId == topic.mId &&
+                mCount == topic.mCount &&
+                Objects.equal(mTitle, topic.mTitle) &&
                 Objects.equal(mContent, topic.mContent) &&
-                Objects.equal(mReplyTime, topic.mReplyTime);
+                Objects.equal(mMember, topic.mMember) &&
+                Objects.equal(mTime, topic.mTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(mId, mTitle, mContent, mCount, mMember, mTime);
     }
 
     @Override
@@ -113,18 +141,19 @@ public class Topic extends Entity{
         return "id:" + mId
                 + ", title:" + mTitle
                 + ", content:" + mContent
-                + ", reply:" + mReplies
+                + ", count:" + mCount
                 + ", member:" + mMember.getUserName()
-                + ", rtime:" + mReplyTime;
+                + ", time:" + mTime;
     }
 
     public static class Builder{
         private int mId;
         private String mTitle;
         private String mContent;
-        private int mReplies;
+        private int mCount;
         private Member mMember;
-        private String mReplyTime;
+        private String mTime;
+        private List<Postscript> mPostscripts;
 
         public Builder setId(int mId) {
             this.mId = mId;
@@ -141,8 +170,8 @@ public class Topic extends Entity{
             return this;
         }
 
-        public Builder setReplies(int mReplies) {
-            this.mReplies = mReplies;
+        public Builder setCount(int mCount) {
+            this.mCount = mCount;
             return this;
         }
 
@@ -151,13 +180,18 @@ public class Topic extends Entity{
             return this;
         }
 
-        public Builder setReplyTime(String mReplyTime) {
-            this.mReplyTime = mReplyTime;
+        public Builder setTime(String mTime) {
+            this.mTime = mTime;
+            return this;
+        }
+
+        public Builder setPostscripts(List<Postscript> postscripts) {
+            mPostscripts = postscripts;
             return this;
         }
 
         public Topic createTopic() {
-            return new Topic(mId, mTitle, mContent, mReplies, mMember, mReplyTime);
+            return new Topic(mId, mTitle, mContent, mCount, mMember, mTime, mPostscripts);
         }
     }
 }

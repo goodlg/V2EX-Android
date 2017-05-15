@@ -2,6 +2,8 @@ package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
 
+import com.google.common.base.Objects;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +47,20 @@ public class Member extends Entity{
     @Override
     public String getUrl() {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equal(mUserName, member.mUserName) &&
+                Objects.equal(mAvatar, member.mAvatar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(mUserName, mAvatar);
     }
 
     private Member(Parcel in) {

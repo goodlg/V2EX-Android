@@ -31,7 +31,7 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(new TopicItemView(parent.getContext()));
+        return new ViewHolder(new TopicListView(parent.getContext()));
     }
 
     @Override
@@ -51,9 +51,9 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TopicItemView mView;
+        private final TopicListView mView;
 
-        public ViewHolder(TopicItemView view) {
+        public ViewHolder(TopicListView view) {
             super(view);
             mView = view;
         }

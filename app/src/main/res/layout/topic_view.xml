@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="3dp">
+
+    <TextView
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_right_arrow"
+        android:padding="4dp"
+        android:layout_toEndOf="@id/home"
+        android:layout_toRightOf="@id/home"
+        android:layout_toLeftOf="@+id/topic_node"
+        android:layout_toStartOf="@+id/topic_node" />
+
+    <TextView
+        android:id="@+id/topic_node"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@id/right_arrow"
+        android:layout_toRightOf="@id/right_arrow"
+        android:layout_toStartOf="@+id/user_avatar"
+        android:layout_toLeftOf="@+id/user_avatar" />
+
+    <TextView
+        android:id="@+id/topic_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:paddingBottom="5dp"
+        android:maxLines="6"
+        style="@style/AppTheme.Topic.Title"
+        android:layout_below="@id/home"
+        android:layout_alignStart="@+id/home"
+        android:layout_alignLeft="@+id/home"
+        android:layout_toLeftOf="@+id/user_avatar"
+        android:layout_toStartOf="@+id/user_avatar"
+        />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textSize="12sp"
+        android:layout_below="@id/topic_title"
+        android:layout_alignStart="@+id/topic_title"
+        android:layout_alignLeft="@+id/topic_title" />
+
+    <TextView
+        android:id="@+id/dot1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_dot"
+        android:padding="4dp"
+        android:layout_below="@id/topic_title"
+        android:layout_toEndOf="@id/username"
+        android:layout_toRightOf="@id/username" />
+
+    <TextView
+        android:id="@+id/post_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textSize="12sp"
+        android:layout_below="@id/topic_title"
+        android:layout_toEndOf="@id/dot1"
+        android:layout_toRightOf="@id/dot1"  />
+
+    <TextView
+        android:id="@+id/dot2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_dot"
+        android:padding="4dp"
+        android:layout_below="@id/topic_title"
+        android:layout_toEndOf="@id/post_time"
+        android:layout_toRightOf="@id/post_time" />
+
+    <TextView
+        android:id="@+id/click_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textSize="12sp"
+        android:layout_below="@id/topic_title"
+        android:layout_toEndOf="@id/dot2"
+        android:layout_toRightOf="@id/dot2" />
+
+    <test.demo.gyniu.v2ex.widget.AvatarView
+        android:id="@+id/user_avatar"
+        android:layout_width="@dimen/user_avatar_size"
+        android:layout_height="@dimen/user_avatar_size"
+        android:src="@mipmap/ic_default_avatar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/separ_height"
+        android:background="@color/colorTopicViewLine"
+        android:layout_below="@id/username"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        />
+
+    <TextView
+        android:id="@+id/content"
+        android:visibility="gone"
+        style="@style/AppTheme.Topic.Content"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

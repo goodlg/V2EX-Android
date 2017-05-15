@@ -101,7 +101,7 @@ public class TopicListParser extends ParserHelper{
             parseReplyTime(topicBuilder, ele.textNodes().get(index));
         } else {
             // reply time may not exists
-            topicBuilder.setReplyTime("");
+            topicBuilder.setTime("");
         }
     }
 
@@ -115,7 +115,7 @@ public class TopicListParser extends ParserHelper{
             // do not have reply yet
             count = 0;
         }
-        topicBuilder.setReplies(count);
+        topicBuilder.setCount(count);
     }
 
     private static void parseReplyTime(Topic.Builder topicBuilder, TextNode textNode) {
@@ -125,6 +125,6 @@ public class TopicListParser extends ParserHelper{
             throw new RuntimeException("match reply time for topic failed: " + text);
         }
         final String time = matcher.group(1);
-        topicBuilder.setReplyTime(time);
+        topicBuilder.setTime(time);
     }
 }

@@ -25,4 +25,6 @@
 
     <color name="reply_count_color">#FF505050</color>
     <color name="reply_count_background">#FFB0C0D0</color>
+
+    <color name="colorTopicViewLine">#CFCFCF</color>
 </resources>

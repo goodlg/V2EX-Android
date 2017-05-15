@@ -2,6 +2,7 @@ package test.demo.gyniu.v2ex.model;
 
 import android.os.Parcel;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -120,9 +121,14 @@ public class Tab extends Entity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Tab)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Tab tab = (Tab) o;
-        return (mTitleResId == tab.mTitleResId) && (mKey == tab.mKey);
+        return mTitleResId == tab.mTitleResId &&
+                mKey == tab.mKey;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(mTitleResId, mKey);
+    }
 }

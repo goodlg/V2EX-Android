@@ -63,7 +63,7 @@ public class TopicActivity extends BaseActivity {
 
     private void addFragmentToView(Topic topic) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment, TopicContentFragment.newInstance(topic))
+                .replace(R.id.fragment, TopicViewFragment.newInstance(topic))
                 .commit();
     }
 
