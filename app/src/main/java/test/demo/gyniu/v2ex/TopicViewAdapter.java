@@ -13,6 +13,7 @@ import java.util.List;
 import test.demo.gyniu.v2ex.model.Comment;
 import test.demo.gyniu.v2ex.model.Postscript;
 import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
 
 import static android.support.v7.widget.RecyclerView.ViewHolder;
@@ -21,6 +22,8 @@ import static android.support.v7.widget.RecyclerView.ViewHolder;
  * Created by uiprj on 17-5-15.
  */
 public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
+    private static final String TAG = "TopicViewAdapter";
+    private static final boolean DEBUG = LogUtil.LOGD;
     private static final int TYPE_TOPIC = 0;
     private static final int TYPE_COMMENT = 1;
 
@@ -42,6 +45,8 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
 
     public void setDataSource(List<Comment> comments) {
         mCommentList = comments;
+        if (mCommentList == null) return;
+        if(DEBUG) LogUtil.w(TAG, "data has changed need notify adapter");
         notifyDataSetChanged();
     }
 
@@ -51,9 +56,11 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         Context context = parent.getContext();
         switch (viewType) {
             case TYPE_TOPIC:
+                if(DEBUG) LogUtil.w(TAG, "make TopicViewHolder");
                 viewHolder = TopicViewHolder.makeHolder(parent);
                 break;
             case TYPE_COMMENT:
+                if(DEBUG) LogUtil.w(TAG, "make CommentViewHolder");
                 viewHolder = new CommentViewHolder(new CommentView(context));
         }
         return viewHolder;
@@ -62,15 +69,18 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (position == 0) {
+            if(DEBUG) LogUtil.w(TAG, "TopicViewHolder fill Data");
             ((TopicViewHolder) holder).fillData(mTopic);
         } else {
             Comment comment = mCommentList.get(position);
+            if(DEBUG) LogUtil.w(TAG, "CommentViewHolder fill Data");
             ((CommentViewHolder) holder).fillData(comment);
         }
     }
 
     @Override
     public long getItemId(int position) {
+        if(DEBUG) LogUtil.w(TAG, "get item id by position : " + position);
         if (position == 0) {
             return mTopic.getId();
         }
@@ -81,6 +91,8 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
     public int getItemCount() {
         int commentNum = mCommentList == null ? 0 : mCommentList.size();
         int topicNum = mTopic.hasInfo() ? 1 : 0;
+
+        if(DEBUG) LogUtil.w(TAG, "item count : " + (topicNum + commentNum));
         return topicNum + commentNum;
     }
 

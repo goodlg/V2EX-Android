@@ -53,15 +53,15 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
     public LoaderResult<T> loadInBackground() {
         LoaderResult<T> loaderResult;
         try {
-            if (DEBUG) LogUtil.d(TAG, "Load in background...");
+            if (DEBUG) LogUtil.w(TAG, "Load in background...");
             T result = loadInBackgroundWithException();
             loaderResult = new LoaderResult<>(result);
         } catch (Exception e) {
-            if (DEBUG) LogUtil.e(TAG, "Load exception:" + e);
+            LogUtil.e(TAG, "HAS Exception: " + e);
             loaderResult = new LoaderResult<>(e);
         }
 
-        if (DEBUG) LogUtil.d(TAG, "Load done.");
+        if (DEBUG) LogUtil.w(TAG, "Load done.");
         mResult = loaderResult;
         return mResult;
     }
@@ -84,6 +84,10 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
 
         public boolean hasException() {
             return mException != null;
+        }
+
+        public Exception getException(){
+            return mException;
         }
     }
 }

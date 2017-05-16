@@ -49,11 +49,11 @@ public class HttpRequestHelper {
     }
 
     private void initOkhttp() {
-        if (DEBUG) LogUtil.e(TAG, "init okhttp3");
+        if (DEBUG) LogUtil.w(TAG, "init okhttp3");
         //config cache size
         try {
             File cacheDirectory = AppCtx.getInstance().getExternalCacheDir();
-            int cacheSize = 16 * 1024 * 1024;
+            int cacheSize = 64 * 1024 * 1024;
             Cache cache = new Cache(cacheDirectory, cacheSize);
 
             //config Cookie
@@ -74,12 +74,12 @@ public class HttpRequestHelper {
     }
 
     public TopicListLoader.TopicList getTopicListByTab(Entity entity) throws Exception {
-        if (DEBUG) LogUtil.e(TAG, "get topics use url: " + entity.getUrl());
+        if (DEBUG) LogUtil.w(TAG, "get topics use url: " + entity.getUrl());
         final Request request = newRequest().url(entity.getUrl()).build();
 
         final Response response = sendRequest(request);
         if (response.isRedirect()) {
-            if (DEBUG) LogUtil.e(TAG, "Has Exception: topics should be not redirect");
+            LogUtil.e(TAG, "Has Exception: topics should be not redirect");
             throw new IllegalStateException("topics should be not redirect");
         }
 
@@ -90,7 +90,7 @@ public class HttpRequestHelper {
             doc = ParserHelper.toDoc(response.body().string());
             topics = TopicListParser.parseDoc(doc, entity);
         } catch (IOException e) {
-            LogUtil.e(TAG, "Exception: parse doc failed!");
+            LogUtil.e(TAG, "HAS Exception: \n parse doc failed!");
             throw new Exception(e);
         }
 
@@ -100,28 +100,27 @@ public class HttpRequestHelper {
     public TopicWithComments getTopicWithComments(Topic topic, int page) throws Exception {
         Preconditions.checkArgument(page > 0, "page must greater than zero");
         if (DEBUG)
-            LogUtil.e(TAG, "request topic with comments, id: " + topic.getId()
+            LogUtil.w(TAG, "request topic with comments, id: " + topic.getId()
                 + ", title : " + topic.getTitle() + ", url : " + topic.getUrl());
+
+        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 1");
+
         final Request request = newRequest().url(topic.getUrl() + "?p=" + page).build();
+        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 2");
         final Response response = sendRequest(request);
-        if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 1");
+        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 3");
         if (response.isRedirect()) {
-            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 1-1");
             throw new IllegalStateException("topic page shouldn't redirect");
         }
         final Document doc;
         final TopicWithComments result;
         try {
-            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2");
             doc = ParserHelper.toDoc(response.body().string());
-            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2-1");
             result = TopicParser.parseDoc(doc, topic);
-            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2-2");
         } catch (IOException e) {
-            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 3");
+            LogUtil.e(TAG, "HAS Exception: \n" + e);
             throw new Exception(e);
         }
-        if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 4");
 
         if (DEBUG) LogUtil.e(TAG, "result : " + result);
 
@@ -135,10 +134,13 @@ public class HttpRequestHelper {
     private Response sendRequest(Request request) throws Exception{
         final Response response;
         try {
+            if (DEBUG) LogUtil.w(TAG, "send a request to remote");
             response = mClient.newCall(request).execute();
         } catch (IOException e) {
+            LogUtil.e(TAG, "HAS Exception: " + e);
             throw new Exception(e);
         }
+        if (DEBUG) LogUtil.w(TAG, "response: " + response);
         return response;
     }
 

@@ -49,6 +49,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
     public TopicViewFragment(){}
 
     public static TopicViewFragment newInstance(Topic topic) {
+        if (DEBUG) LogUtil.w(TAG, "new a instance , topic: " + topic);
         TopicViewFragment fragment = new TopicViewFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_TOPIC, topic);
@@ -83,6 +84,8 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
             mTopicAndCommentsView.setVisibility(View.INVISIBLE);
         }
 
+        if (DEBUG) LogUtil.w(TAG, "create view fragment");
+
         return rootView;
     }
 
@@ -101,10 +104,14 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
 
         initLayoutView(activity);
         setIsLoading(true);
+
+        if (DEBUG) LogUtil.w(TAG, "attached activity !!!");
+
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     private void initLayoutView(TopicActivity activity){
+        if (DEBUG) LogUtil.w(TAG, "init layout view start");
         mLayoutManager = new LinearLayoutManager(activity);
         mTopicAndCommentsView.setLayoutManager(mLayoutManager);
         mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST));
@@ -121,6 +128,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onChildViewDetachedFromWindow(View view) {}
         });
+        if (DEBUG) LogUtil.w(TAG, "init layout view done.");
     }
 
     private void loadNextPageIfNeed(int totalItemCount, int lastVisibleItem) {
@@ -135,6 +143,8 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
 
         setIsLoading(true);
         loader.setPage(mCurPage + 1);
+
+        if (DEBUG) LogUtil.w(TAG, "start loading if need.");
         loader.startLoading();
     }
 
@@ -158,12 +168,15 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public Loader<AsyncTaskLoader.LoaderResult<TopicWithComments>> onCreateLoader(int id, Bundle args) {
+        if (DEBUG) LogUtil.w(TAG, "create topic loader");
         return new TopicLoader(getActivity(), mTopic);
     }
 
     @Override
     public void onLoadFinished(Loader<AsyncTaskLoader.LoaderResult<TopicWithComments>> loader, AsyncTaskLoader.LoaderResult<TopicWithComments> result) {
+        if (DEBUG) LogUtil.w(TAG, "load topic done");
         if (result.hasException()) {
+            LogUtil.e(TAG, "HAS Exception: " + result.getException());
             return;
         }
 
@@ -195,6 +208,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onLoaderReset(Loader<AsyncTaskLoader.LoaderResult<TopicWithComments>> loader) {
+        if (DEBUG) LogUtil.w(TAG, "reset topic loader");
         mTopicViewAdapter.setDataSource(null);
         mComments.clear();
     }

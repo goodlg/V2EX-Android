@@ -55,7 +55,7 @@ public class TopicView extends FrameLayout {
     }
 
     public void buildItem(Topic topic) {
-        if (DEBUG) LogUtil.e(TAG, "topic:" + topic);
+        if (DEBUG) LogUtil.w(TAG, "topic:" + topic);
         mTopic = topic;
         mTopicTitle.setText(topic.getTitle());
         mTopicNode.setText("teach");
