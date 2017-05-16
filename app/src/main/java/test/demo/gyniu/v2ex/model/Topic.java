@@ -146,6 +146,16 @@ public class Topic extends Entity{
                 + ", time:" + mTime;
     }
 
+    public Builder toBuilder() {
+        return new Builder()
+                .setId(mId)
+                .setTitle(mTitle)
+                .setContent(mContent)
+                .setMember(mMember)
+                .setCount(mCount)
+                .setTime(mTime);
+    }
+
     public static class Builder{
         private int mId;
         private String mTitle;
@@ -188,6 +198,10 @@ public class Topic extends Entity{
         public Builder setPostscripts(List<Postscript> postscripts) {
             mPostscripts = postscripts;
             return this;
+        }
+
+        public boolean hasInfo() {
+            return mMember != null;
         }
 
         public Topic createTopic() {

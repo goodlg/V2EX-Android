@@ -28,6 +28,7 @@ public class TopicLoader extends AsyncTaskLoader<TopicWithComments> {
 
     @Override
     public TopicWithComments loadInBackgroundWithException() throws Exception {
-        return null;
+        final TopicWithComments topicWithComments = HttpRequestHelper.getInstance().getTopicWithComments(mTopic, mPage);
+        return topicWithComments;
     }
 }

@@ -82,12 +82,12 @@ public class Comment implements Parcelable {
             return this;
         }
 
-        public Builder setmReplyTime(String mReplyTime) {
+        public Builder setReplyTime(String mReplyTime) {
             this.mReplyTime = mReplyTime;
             return this;
         }
 
-        public Builder setmFloor(int mFloor) {
+        public Builder setFloor(int mFloor) {
             this.mFloor = mFloor;
             return this;
         }

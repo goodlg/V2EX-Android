@@ -3,6 +3,7 @@ package test.demo.gyniu.v2ex;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.common.base.Preconditions;
 import com.google.common.net.HttpHeaders;
 
 import org.jsoup.nodes.Document;
@@ -22,6 +23,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import test.demo.gyniu.v2ex.model.Entity;
+import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -73,7 +75,7 @@ public class HttpRequestHelper {
 
     public TopicListLoader.TopicList getTopicListByTab(Entity entity) throws Exception {
         if (DEBUG) LogUtil.e(TAG, "get topics use url: " + entity.getUrl());
-        Request request = newRequest().url(entity.getUrl()).build();
+        final Request request = newRequest().url(entity.getUrl()).build();
 
         final Response response = sendRequest(request);
         if (response.isRedirect()) {
@@ -93,6 +95,30 @@ public class HttpRequestHelper {
         }
 
         return topics;
+    }
+
+    public TopicWithComments getTopicWithComments(Topic topic, int page) throws Exception {
+        Preconditions.checkArgument(page > 0, "page must greater than zero");
+        if (DEBUG)
+            LogUtil.e(TAG, "request topic with comments, id: " + topic.getId()
+                + ", title : " + topic.getTitle());
+        final Request request = new Request.Builder()
+                .url(topic.getUrl() + "?p=" + page)
+                .build();
+        final Response response = sendRequest(request);
+        if (response.isRedirect()) {
+            throw new IllegalStateException("topic page shouldn't redirect");
+        }
+        final Document doc;
+        final TopicWithComments result;
+        try {
+            doc = ParserHelper.toDoc(response.body().string());
+            result = TopicParser.parseDoc(doc, topic);
+        } catch (IOException e) {
+            throw new Exception(e);
+        }
+
+        return result;
     }
 
     private Request.Builder newRequest() {
