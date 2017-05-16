@@ -8,11 +8,15 @@ import android.support.v7.widget.Toolbar;
 import com.google.common.base.Strings;
 
 import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
  * Created by uiprj on 17-5-10.
  */
 public class TopicActivity extends BaseActivity {
+    private static final String TAG = "TopicActivity";
+    private static final boolean DEBUG = LogUtil.LOGD;
+
     public static final String KEY_TOPIC = "topic";
     public static final String KEY_TOPIC_ID = "topic_id";
     private AppBarLayout mAppBarLayout;
@@ -33,7 +37,6 @@ public class TopicActivity extends BaseActivity {
                 finish();
                 return;
             }
-
             addFragmentToView(topic);
         }
     }

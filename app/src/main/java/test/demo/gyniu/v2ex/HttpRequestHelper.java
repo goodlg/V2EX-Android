@@ -101,22 +101,29 @@ public class HttpRequestHelper {
         Preconditions.checkArgument(page > 0, "page must greater than zero");
         if (DEBUG)
             LogUtil.e(TAG, "request topic with comments, id: " + topic.getId()
-                + ", title : " + topic.getTitle());
-        final Request request = new Request.Builder()
-                .url(topic.getUrl() + "?p=" + page)
-                .build();
+                + ", title : " + topic.getTitle() + ", url : " + topic.getUrl());
+        final Request request = newRequest().url(topic.getUrl() + "?p=" + page).build();
         final Response response = sendRequest(request);
+        if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 1");
         if (response.isRedirect()) {
+            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 1-1");
             throw new IllegalStateException("topic page shouldn't redirect");
         }
         final Document doc;
         final TopicWithComments result;
         try {
+            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2");
             doc = ParserHelper.toDoc(response.body().string());
+            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2-1");
             result = TopicParser.parseDoc(doc, topic);
+            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 2-2");
         } catch (IOException e) {
+            if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 3");
             throw new Exception(e);
         }
+        if (DEBUG) LogUtil.e(TAG, "getTopicWithComments 4");
+
+        if (DEBUG) LogUtil.e(TAG, "result : " + result);
 
         return result;
     }

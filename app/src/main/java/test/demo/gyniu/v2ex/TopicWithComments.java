@@ -29,4 +29,17 @@ public class TopicWithComments {
         mCsrfToken = csrfToken;
         mOnceToken = onceToken;
     }
+
+    @Override
+    public String toString() {
+        return "TopicWithComments{" +
+                "mTopic=" + mTopic +
+                ", mComments=" + mComments +
+                ", mCurPage=" + mCurPage +
+                ", mMaxPage=" + mMaxPage +
+                ", mCsrfToken='" + mCsrfToken + '\'' +
+                ", mOnceToken='" + mOnceToken + '\'' +
+                ", mLastReadPos=" + mLastReadPos +
+                '}';
+    }
 }

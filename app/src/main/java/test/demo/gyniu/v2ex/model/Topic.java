@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import test.demo.gyniu.v2ex.Constant;
+import test.demo.gyniu.v2ex.HttpRequestHelper;
+
 /**
  * Created by uiprj on 17-3-22.
  */
@@ -94,7 +97,11 @@ public class Topic extends Entity{
 
     @Override
     public String getUrl() {
-        return null;
+        return buildUrlFromId(mId);
+    }
+
+    private String buildUrlFromId(int id) {
+        return Constant.BASE_URL + "/t/" + Integer.toString(id);
     }
 
     public Topic(Parcel in) {

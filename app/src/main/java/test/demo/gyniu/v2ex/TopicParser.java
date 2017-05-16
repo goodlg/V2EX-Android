@@ -18,11 +18,14 @@ import test.demo.gyniu.v2ex.model.Comment;
 import test.demo.gyniu.v2ex.model.Member;
 import test.demo.gyniu.v2ex.model.Postscript;
 import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
  * Created by uiprj on 17-5-16.
  */
 public class TopicParser extends ParserHelper {
+    private static final String TAG = "TopicParser";
+    private static final boolean DEBUG = LogUtil.LOGD;
     private static final Pattern PATTERN_TOPIC_POST_TIME = Pattern.compile("·\\s*(.+?)(?:\\s+·|$)");
     private static final Pattern PATTERN_POSTSCRIPT = Pattern.compile("·\\s+(.+)");
     private static final Pattern PATTERN_NUMBERS = Pattern.compile("\\d+");
@@ -35,6 +38,7 @@ public class TopicParser extends ParserHelper {
         parseTopicInfo(topicBuilder, mainElement);
 
         List<Comment> comments = parseComments(mainElement);
+        if (DEBUG) LogUtil.e(TAG, "comments: " + comments);
         int[] pageNum = getMaxPage(mainElement);
 
         return new TopicWithComments(topicBuilder.createTopic(), comments, pageNum[0],
@@ -59,6 +63,8 @@ public class TopicParser extends ParserHelper {
     private static void parseTopicInfo(Topic.Builder builder, Element main) {
         final Element topicBox = JsoupObjects.child(main, ".box");
         final Element header = JsoupObjects.child(topicBox, ".header");
+
+        if (DEBUG) LogUtil.e(TAG, "builder: " + builder);
 
         parseTopicPostTime(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
         parseTopicClickRate(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
