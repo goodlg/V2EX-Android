@@ -33,12 +33,14 @@ public class TopicActivity extends BaseActivity {
         mAppBarLayout = ((AppBarLayout) findViewById(R.id.appBar));
         if (savedInstanceState == null) {
             Topic topic = getTopicFromIntent();
+            if (DEBUG) LogUtil.w(TAG, "topic is :" + topic);
             if (topic == null) {
                 finish();
                 return;
             }
             addFragmentToView(topic);
         }
+        if (DEBUG) LogUtil.w(TAG, "create TopicActivity end");
     }
 
     private Topic getTopicFromIntent() {

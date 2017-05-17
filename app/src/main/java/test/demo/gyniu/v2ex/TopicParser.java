@@ -31,6 +31,7 @@ public class TopicParser extends ParserHelper {
     private static final Pattern PATTERN_NUMBERS = Pattern.compile("\\d+");
 
     public static TopicWithComments parseDoc(Document doc, Topic topic) {
+        if (DEBUG) LogUtil.w(TAG, "TopicParser parseDoc");
         final Topic.Builder topicBuilder = topic.toBuilder();
         final Element mainElement = new JsoupObjects(doc).bfs("body").child("#Wrapper")
                 .child(".content").child("#Main").getOne();

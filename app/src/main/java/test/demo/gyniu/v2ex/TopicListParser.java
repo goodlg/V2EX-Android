@@ -43,7 +43,7 @@ public class TopicListParser extends ParserHelper{
         if (DEBUG) {
             for(int i=0; lists!=null && i<lists.size(); i++){
                 Topic topic = (Topic)lists.get(i);
-                LogUtil.e(TAG, "Topic : " + topic);
+                LogUtil.d(TAG, "Topic : " + topic);
             }
         }
 

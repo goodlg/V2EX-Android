@@ -18,6 +18,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -102,19 +103,16 @@ public class HttpRequestHelper {
         if (DEBUG)
             LogUtil.w(TAG, "request topic with comments, id: " + topic.getId()
                 + ", title : " + topic.getTitle() + ", url : " + topic.getUrl());
-
-        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 1");
-
         final Request request = newRequest().url(topic.getUrl() + "?p=" + page).build();
-        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 2");
         final Response response = sendRequest(request);
-        if (DEBUG) LogUtil.w(TAG, "getTopicWithComments 3");
         if (response.isRedirect()) {
+            LogUtil.e(TAG, "HAS Exception: topic page shouldn't redirect");
             throw new IllegalStateException("topic page shouldn't redirect");
         }
         final Document doc;
         final TopicWithComments result;
         try {
+            LogUtil.w(TAG, "get topic with comments!");
             doc = ParserHelper.toDoc(response.body().string());
             result = TopicParser.parseDoc(doc, topic);
         } catch (IOException e) {
@@ -140,6 +138,7 @@ public class HttpRequestHelper {
             LogUtil.e(TAG, "HAS Exception: " + e);
             throw new Exception(e);
         }
+
         if (DEBUG) LogUtil.w(TAG, "response: " + response);
         return response;
     }

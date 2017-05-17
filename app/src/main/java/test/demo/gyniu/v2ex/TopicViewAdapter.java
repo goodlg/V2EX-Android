@@ -92,7 +92,8 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         int commentNum = mCommentList == null ? 0 : mCommentList.size();
         int topicNum = mTopic.hasInfo() ? 1 : 0;
 
-        if(DEBUG) LogUtil.w(TAG, "item count : " + (topicNum + commentNum));
+        if(DEBUG) LogUtil.w(TAG, "topicNum : " + topicNum + ", commentNum: " + commentNum
+            + ", mCommentList=" + mCommentList);
         return topicNum + commentNum;
     }
 

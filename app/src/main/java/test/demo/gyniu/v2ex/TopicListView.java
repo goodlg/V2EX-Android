@@ -55,7 +55,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
     }
 
     public void buildItem(Topic topic) {
-        if (DEBUG) LogUtil.e(TAG, "topic:" + topic);
+        if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
         mTopic = topic;
         mTopicTitle.setText(topic.getTitle());
         mTopicNode.setText("teach");

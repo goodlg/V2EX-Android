@@ -137,7 +137,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
         if (data != null && data.mResult != null){
             if (DEBUG)
-            if (data.mResult != null && data.mResult.size() == 0) {
+            if (data.mResult != null && data.mResult.getList().size() == 0) {
                 LogUtil.w(TAG, "Warning: load data size 0 !!!");
             } else {
                 LogUtil.w(TAG, "OK, load done");

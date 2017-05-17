@@ -115,13 +115,19 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         mLayoutManager = new LinearLayoutManager(activity);
         mTopicAndCommentsView.setLayoutManager(mLayoutManager);
         mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST));
+        if (DEBUG) LogUtil.w(TAG, "init layout view 1");
         mTopicViewAdapter = new TopicViewAdapter();
+        if (DEBUG) LogUtil.w(TAG, "init layout view 2");
         mTopicViewAdapter.setTopic(mTopic);
+        if (DEBUG) LogUtil.w(TAG, "init layout view 3");
         mTopicViewAdapter.setDataSource(mComments);
+        if (DEBUG) LogUtil.w(TAG, "init layout view 4");
         mTopicAndCommentsView.setAdapter(mTopicViewAdapter);
+        if (DEBUG) LogUtil.w(TAG, "init layout view 5");
         mTopicAndCommentsView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
+                if (DEBUG) LogUtil.w(TAG, "init layout view 6");
                 loadNextPageIfNeed(mTopicViewAdapter.getItemCount(), mTopicAndCommentsView.getChildAdapterPosition(view));
             }
 
@@ -132,6 +138,9 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void loadNextPageIfNeed(int totalItemCount, int lastVisibleItem) {
+        if (DEBUG) LogUtil.w(TAG, "totalItemCount:" + totalItemCount
+            + ", lastVisibleItem=" + lastVisibleItem);
+
         if (mIsLoading || mLastIsFailed || (mCurPage >= mMaxPage)) {
             return;
         }
