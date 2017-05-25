@@ -39,7 +39,7 @@ public class TopicParser extends ParserHelper {
         parseTopicInfo(topicBuilder, mainElement);
 
         List<Comment> comments = parseComments(mainElement);
-        if (DEBUG) LogUtil.w(TAG, "comments: " + comments);
+        if (DEBUG) LogUtil.e(TAG, "comments: " + comments);
         int[] pageNum = getMaxPage(mainElement);
 
         return new TopicWithComments(topicBuilder.createTopic(), comments, pageNum[0],
@@ -47,7 +47,6 @@ public class TopicParser extends ParserHelper {
     }
 
     private static int[] getMaxPage(Element main) {
-        if (DEBUG) LogUtil.w(TAG, "getMaxPage ...");
         final Optional<Element> optional = new JsoupObjects(main)
                 .child(".box:nth-child(4):not(.transparent)")
                 .child(".cell:last-child:not([id])").dfs(".page_input").getOptional();
@@ -86,15 +85,11 @@ public class TopicParser extends ParserHelper {
             throw new RuntimeException("match post time for topic failed: " + text);
         }
         final String time = matcher.group(1);
-
-        if (DEBUG) LogUtil.w(TAG, "parseTopicPostTime time: " + time);
         builder.setTime(time);
     }
 
     private static void parseTopicTitle(Topic.Builder builder, Element header) {
         final String title = JsoupObjects.child(header, "h1").html();
-
-        if (DEBUG) LogUtil.w(TAG, "parseTopicTitle title: " + title);
         builder.setTitle(title);
     }
 
@@ -107,8 +102,6 @@ public class TopicParser extends ParserHelper {
             final Element element = optional.get();
             builder.setContent(element.html());
         }
-
-        if (DEBUG) LogUtil.w(TAG, "parseTopicContent done" );
     }
 
     private static void parsePostscript(Topic.Builder builder, Element topicBox) {
@@ -125,8 +118,6 @@ public class TopicParser extends ParserHelper {
         });
 
         builder.setPostscripts(Lists.newArrayList(subtles));
-
-        if (DEBUG) LogUtil.w(TAG, "parsePostscript done" );
     }
 
     private static void parseTopicClickRate(Topic.Builder builder, TextNode textNode) {
@@ -136,8 +127,6 @@ public class TopicParser extends ParserHelper {
             throw new RuntimeException("match click rate for topic failed: " + text);
         }
         final int clickRate = Integer.parseInt(matcher.group(2));
-
-        if (DEBUG) LogUtil.w(TAG, "parseTopicClickRate clickRate=" +clickRate);
         builder.setCount(clickRate);
     }
 
@@ -159,19 +148,16 @@ public class TopicParser extends ParserHelper {
             parseCommentInfo(commentBuilder, td);
             parseCommentContent(commentBuilder, td);
 
-            if (DEBUG) LogUtil.w(TAG, "parseComments done");
             return commentBuilder.createComment();
         }));
     }
 
     private static void parseAvatar(Avatar.Builder builder, Element ele) {
         builder.setUrl(new JsoupObjects(ele).dfs(".avatar").getOne().attr("src"));
-        if (DEBUG) LogUtil.w(TAG, "parseAvatar done");
     }
 
     private static void parseMember(Member.Builder builder, Element ele) {
         builder.setUserName(new JsoupObjects(ele).bfs(".dark").getOne().text());
-        if (DEBUG) LogUtil.w(TAG, "parseMember done");
     }
 
     private static void parseCommentInfo(Comment.Builder builder, Element ele) {
@@ -187,13 +173,9 @@ public class TopicParser extends ParserHelper {
 
         final Element timeEle = elements.get(0);
         builder.setReplyTime(timeEle.text());
-
-        if (DEBUG) LogUtil.w(TAG, "parseCommentInfo done");
     }
 
     private static void parseCommentContent(Comment.Builder builder, Element ele) {
         builder.setContent(JsoupObjects.child(ele, ".reply_content").html());
-
-        if (DEBUG) LogUtil.w(TAG, "parseCommentContent done");
     }
 }

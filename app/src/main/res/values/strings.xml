@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">V2EX-Android</string>
 
-    <string name="app_name_sm">V2EX</string>
-
     <string name="str_home">Home</string>
     <string name="str_fav">Favorite</string>
     <string name="str_me">Me</string>

@@ -77,8 +77,6 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     public void onStart() {
         super.onStart();
 
-        if (DEBUG) LogUtil.d(TAG, "TopicListFragment start");
-
         LoaderManager lm = getLoaderManager();
         if (lm.getLoader(LOADER_ID) != null){
             if (DEBUG) LogUtil.d(TAG, "already loaded");
@@ -114,7 +112,7 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         if (DEBUG) LogUtil.d(TAG, "Refresh!!!");
-        final Loader<?> loader = getLoader();
+        final Loader<?> loader = getLoaderManager().getLoader(LOADER_ID);
         if (loader == null){
             return ;
         }
@@ -124,10 +122,6 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         mRecyclerView.smoothScrollToPosition(0);
     }
 
-    private TopicListLoader getLoader() {
-        return (TopicListLoader) getLoaderManager().<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>>getLoader(LOADER_ID);
-    }
-
     @Override
     public Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> onCreateLoader(int id, Bundle args) {
         return new TopicListLoader(getActivity(), mEntry);
@@ -135,15 +129,13 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onLoadFinished(Loader<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>> loader, AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList> data) {
-        LogUtil.w(TAG, "TopicList load finished");
         mLayout.setRefreshing(false);
-
         if (data.hasException()) {
             LogUtil.e(TAG, "HAS Exception: " + data.mException);
             return;
         }
 
-        if (data != null && data.mResult != null) {
+        if (data != null && data.mResult != null){
             if (DEBUG)
             if (data.mResult != null && data.mResult.getList().size() == 0) {
                 LogUtil.w(TAG, "Warning: load data size 0 !!!");

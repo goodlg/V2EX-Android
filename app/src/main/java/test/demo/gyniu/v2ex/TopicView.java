@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.common.base.Strings;
-
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
@@ -57,8 +55,8 @@ public class TopicView extends FrameLayout {
     }
 
     public void buildItem(Topic topic) {
-        mTopic = topic;
         if (DEBUG) LogUtil.w(TAG, "topic:" + topic);
+        mTopic = topic;
         mTopicTitle.setText(topic.getTitle());
         mTopicNode.setText("teach");
         mUserName.setText(topic.getMember().getUserName());
@@ -71,15 +69,7 @@ public class TopicView extends FrameLayout {
     }
 
     private void setContent(Topic topic) {
-        if (DEBUG) LogUtil.w(TAG, "setContent is empty 1");
         final String content = topic.getContent();
-        if (Strings.isNullOrEmpty(content)) {
-            if (DEBUG) LogUtil.w(TAG, "setContent is empty 2");
-            mContent.setVisibility(GONE);
-            return;
-        }
-
-        if (DEBUG) LogUtil.w(TAG, "setContent is empty 3");
         ViewUtils.setHtmlIntoTextView(mContent, content, ViewUtils.getWidthPixels() -
                 TOPIC_PICTURE_OTHER_WIDTH, true);
     }

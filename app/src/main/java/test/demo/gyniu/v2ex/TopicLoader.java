@@ -21,15 +21,12 @@ public class TopicLoader extends AsyncTaskLoader<TopicWithComments> {
     }
 
     public void setPage(int page) {
-        if (DEBUG) LogUtil.w(TAG, "setPage page=" + page);
         if (page == mPage) {
             return;
         }
         mPage = page;
         mResult = null;
         onContentChanged();
-
-        if (DEBUG) LogUtil.w(TAG, "setPage page=" + "done");
     }
 
     @Override
