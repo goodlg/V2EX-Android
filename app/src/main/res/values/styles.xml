@@ -49,6 +49,10 @@
         <item name="android:textColor">#ff434549</item>
     </style>
 
+    <style name="AppTheme.Topic.View.Title" parent="AppTheme.Topic.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="AppTheme.Topic.ItemDivider" parent="AppTheme">
         <item name="android:listDivider">@drawable/divider</item>
     </style>

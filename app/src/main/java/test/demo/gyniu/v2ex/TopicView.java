@@ -31,6 +31,7 @@ public class TopicView extends FrameLayout {
     private final TextView mPostTime;
     private final TextView mClickRate;
     private final TextView mContent;
+    private final View mLine;
 
     private Topic mTopic;
     private Context mContext;
@@ -54,6 +55,7 @@ public class TopicView extends FrameLayout {
         mPostTime = (TextView) mRootView.findViewById(R.id.post_time);
         mClickRate = (TextView) mRootView.findViewById(R.id.click_rate);
         mContent = (TextView) mRootView.findViewById(R.id.content);
+        mLine = mRootView.findViewById(R.id.line);
     }
 
     public void buildItem(Topic topic) {
@@ -74,8 +76,11 @@ public class TopicView extends FrameLayout {
         final String content = topic.getContent();
         if (Strings.isNullOrEmpty(content)) {
             mContent.setVisibility(GONE);
+            mLine.setVisibility(GONE);
             return;
         }
+        mContent.setVisibility(VISIBLE);
+        mLine.setVisibility(VISIBLE);
         ViewUtils.setHtmlIntoTextView(mContent, content, ViewUtils.getWidthPixels() -
                 TOPIC_PICTURE_OTHER_WIDTH, true);
     }

@@ -114,7 +114,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         if (DEBUG) LogUtil.w(TAG, "init layout view start");
         mLayoutManager = new LinearLayoutManager(activity);
         mTopicAndCommentsView.setLayoutManager(mLayoutManager);
-        mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST));
+        mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST, R.drawable.divider));
         mTopicViewAdapter = new TopicViewAdapter();
         mTopicViewAdapter.setTopic(mTopic);
         mTopicViewAdapter.setDataSource(mComments);

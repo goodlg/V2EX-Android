@@ -27,4 +27,5 @@
     <color name="reply_count_background">#FFB0C0D0</color>
 
     <color name="colorTopicViewLine">#CFCFCF</color>
+    <color name="color_home_str">#FF465665</color>
 </resources>
