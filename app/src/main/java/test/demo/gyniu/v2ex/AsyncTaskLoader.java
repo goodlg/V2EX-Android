@@ -57,7 +57,7 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
             T result = loadInBackgroundWithException();
             loaderResult = new LoaderResult<>(result);
         } catch (Exception e) {
-            LogUtil.e(TAG, "HAS Exception: " + e);
+            LogUtil.e(TAG, "HAS Exception: " +e);
             loaderResult = new LoaderResult<>(e);
         }
 

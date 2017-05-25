@@ -145,12 +145,16 @@ public class Topic extends Entity{
 
     @Override
     public String toString() {
-        return "id:" + mId
-                + ", title:" + mTitle
-                + ", content:" + mContent
-                + ", count:" + mCount
-                + ", member:" + mMember.getUserName()
-                + ", time:" + mTime;
+        return "Topic{" +
+                "mId=" + mId +
+                ", mTitle='" + mTitle + '\'' +
+                ", mContent='" + mContent + '\'' +
+                ", mCount=" + mCount +
+                ", mMember=" + mMember.getUserName() +
+                ", mTime='" + mTime + '\'' +
+                ", mHasInfo=" + mHasInfo +
+                ", mPostscripts=" + mPostscripts +
+                '}';
     }
 
     public Builder toBuilder() {

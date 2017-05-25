@@ -39,14 +39,6 @@ public class TopicListParser extends ParserHelper{
                 .child("table").child("tbody").child("tr");
         List lists = Lists.newArrayList(Iterables.transform(elements,
                 TopicListParser::parseItemForTab));
-
-        if (DEBUG) {
-            for(int i=0; lists!=null && i<lists.size(); i++){
-                Topic topic = (Topic)lists.get(i);
-                LogUtil.d(TAG, "Topic : " + topic);
-            }
-        }
-
         return new TopicListLoader.TopicList(lists, false, null);
     }
 
