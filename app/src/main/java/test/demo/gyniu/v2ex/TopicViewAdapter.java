@@ -99,6 +99,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
 
     @Override
     public int getItemViewType(int position) {
+        if(DEBUG) LogUtil.w(TAG, "getItemViewType position : " + position);
         return position == 0 ? TYPE_TOPIC : TYPE_COMMENT;
     }
 
@@ -109,6 +110,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         }
 
         public void fillData(Comment comment) {
+            if(DEBUG) LogUtil.w(TAG, "CommentViewHolder fillData");
             ((CommentView) itemView).fillData(comment, getAdapterPosition());
         }
     }
@@ -123,6 +125,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             super(layout);
             mTopicLayout = layout;
             mTopicView = view;
+            if(DEBUG) LogUtil.w(TAG, "construct TopicViewHolder");
         }
 
         public static TopicViewHolder makeHolder(ViewGroup parent) {
@@ -130,15 +133,20 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
 
             LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.header_topic, parent, false);
             TopicView view = (TopicView) layout.findViewById(R.id.topic);
+
+            if(DEBUG) LogUtil.w(TAG, "TopicViewHolder makeHolder");
             return new TopicViewHolder(layout, view);
         }
 
         public void fillData(Topic data) {
+            if(DEBUG) LogUtil.w(TAG, "TopicViewHolder fillData");
             mTopicView.buildItem(data);
             fillPostscript(data.getPostscripts());
         }
 
         private void fillPostscript(List<Postscript> postscripts) {
+            if(DEBUG) LogUtil.w(TAG, "TopicViewHolder fillPostscript");
+
             if (postscripts == null) {
                 return;
             }
@@ -161,6 +169,8 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
                         ViewUtils.getWidthPixels() - TOPIC_PICTURE_OTHER_WIDTH, true);
                 mTopicLayout.addView(view);
             }
+
+            if(DEBUG) LogUtil.w(TAG, "TopicViewHolder fillPostscript done");
         }
     }
 }
