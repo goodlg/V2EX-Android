@@ -68,7 +68,7 @@ public class TopicParser extends ParserHelper {
         if (DEBUG) LogUtil.w(TAG, "builder: " + builder);
 
         parseTopicPostTime(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
-        parseTopicClickRate(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
+        //parseTopicClickRate(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
         parseTopicTitle(builder, header);
         parseTopicContent(builder, topicBox);
         parsePostscript(builder, topicBox);

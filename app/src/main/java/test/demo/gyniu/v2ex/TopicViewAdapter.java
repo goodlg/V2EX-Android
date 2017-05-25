@@ -72,7 +72,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             if(DEBUG) LogUtil.w(TAG, "TopicViewHolder fill Data");
             ((TopicViewHolder) holder).fillData(mTopic);
         } else {
-            Comment comment = mCommentList.get(position);
+            Comment comment = mCommentList.get(position - 1);
             if(DEBUG) LogUtil.w(TAG, "CommentViewHolder fill Data");
             ((CommentViewHolder) holder).fillData(comment);
         }
@@ -84,7 +84,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         if (position == 0) {
             return mTopic.getId();
         }
-        return mCommentList.get(position).getId();
+        return mCommentList.get(position - 1).getId();
     }
 
     @Override
