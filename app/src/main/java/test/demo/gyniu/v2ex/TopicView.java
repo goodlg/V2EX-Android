@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.common.base.Strings;
+
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
@@ -70,6 +72,10 @@ public class TopicView extends FrameLayout {
 
     private void setContent(Topic topic) {
         final String content = topic.getContent();
+        if (Strings.isNullOrEmpty(content)) {
+            mContent.setVisibility(GONE);
+            return;
+        }
         ViewUtils.setHtmlIntoTextView(mContent, content, ViewUtils.getWidthPixels() -
                 TOPIC_PICTURE_OTHER_WIDTH, true);
     }
