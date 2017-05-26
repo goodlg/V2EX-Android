@@ -29,6 +29,7 @@ public class TopicParser extends ParserHelper {
     private static final Pattern PATTERN_TOPIC_POST_TIME = Pattern.compile("·\\s*(.+?)(?:\\s+·|$)");
     private static final Pattern PATTERN_POSTSCRIPT = Pattern.compile("·\\s+(.+)");
     private static final Pattern PATTERN_NUMBERS = Pattern.compile("\\d+");
+    private static final Pattern PATTERN_CLICKRATE = Pattern.compile("·\\s\\d+\\s\\S{3}");
 
     public static TopicWithComments parseDoc(Document doc, Topic topic) {
         if (DEBUG) LogUtil.w(TAG, "TopicParser parseDoc");
@@ -68,7 +69,7 @@ public class TopicParser extends ParserHelper {
         if (DEBUG) LogUtil.w(TAG, "builder: " + builder);
 
         parseTopicPostTime(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
-        //parseTopicClickRate(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
+        parseTopicClickRate(builder, JsoupObjects.child(header, ".gray").textNodes().get(0));
         parseTopicTitle(builder, header);
         parseTopicContent(builder, topicBox);
         parsePostscript(builder, topicBox);
@@ -84,6 +85,7 @@ public class TopicParser extends ParserHelper {
         if (!matcher.find()) {
             throw new RuntimeException("match post time for topic failed: " + text);
         }
+
         final String time = matcher.group(1);
         builder.setTime(time);
     }
@@ -122,11 +124,19 @@ public class TopicParser extends ParserHelper {
 
     private static void parseTopicClickRate(Topic.Builder builder, TextNode textNode) {
         final String text = textNode.text();
-        final Matcher matcher = PATTERN_NUMBERS.matcher(text);
+        final Matcher matcher = PATTERN_CLICKRATE.matcher(text);
         if (!matcher.find()) {
             throw new RuntimeException("match click rate for topic failed: " + text);
         }
-        final int clickRate = Integer.parseInt(matcher.group(2));
+
+        final String str1 = matcher.group(0);
+
+        final Matcher matcher1 = PATTERN_NUMBERS.matcher(str1);
+        if (!matcher1.find()) {
+            throw new RuntimeException("match click rate for topic failed: " + str1);
+        }
+
+        final int clickRate = Integer.parseInt(matcher1.group(0));
         builder.setCount(clickRate);
     }
 
