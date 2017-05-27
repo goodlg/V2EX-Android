@@ -28,4 +28,6 @@
 
     <color name="colorTopicViewLine">#CFCFCF</color>
     <color name="color_home_str">#FF465665</color>
+    <color name="colorLineBg_separator">#FFEFEFEF</color>
+    <color name="btn_background">#EEEFEFEF</color>
 </resources>

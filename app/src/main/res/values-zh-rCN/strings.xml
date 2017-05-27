@@ -20,4 +20,7 @@
 
     <string name="str_click_rate">次点击</string>
     <string name="title_postscript">附言 %d</string>
+    <string name="str_al_reply">全部回复 %d</string>
+    <string name="str_option_ignore">忽略主题</string>
+    <string name="str_option_thank">感谢</string>
 </resources>

@@ -19,4 +19,5 @@
     <dimen name="content_spacing">8dp</dimen>
     <dimen name="comment_avatar_size">48dp</dimen>
 
+    <dimen name="separator2_height">5dp</dimen>
 </resources>

@@ -34,21 +34,33 @@
         android:id="@+id/topic_node"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:textSize="12sp"
         android:layout_below="@id/topic_title"
         android:layout_alignStart="@+id/topic_title"
         android:layout_alignLeft="@+id/topic_title" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/str_dot"
         android:padding="4dp"
-        android:textSize="12sp"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/topic_node"
         android:layout_toRightOf="@id/topic_node" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="12sp"
+        android:layout_below="@id/topic_title"
+        android:layout_toEndOf="@id/dot"
+        android:layout_toRightOf="@id/dot" />
 
     <TextView
         android:id="@+id/reply_time"

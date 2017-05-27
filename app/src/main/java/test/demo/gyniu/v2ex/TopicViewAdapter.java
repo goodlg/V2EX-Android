@@ -137,6 +137,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         public void fillData(Topic data) {
             mTopicView.buildItem(data);
             fillPostscript(data.getPostscripts());
+            installOptionButton(data);
         }
 
         private void fillPostscript(List<Postscript> postscripts) {
@@ -162,6 +163,14 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
                         ViewUtils.getWidthPixels() - TOPIC_PICTURE_OTHER_WIDTH, true);
                 mTopicLayout.addView(view);
             }
+        }
+
+        private void installOptionButton(Topic data) {
+            Context context = mTopicLayout.getContext();
+            final LayoutInflater inflater = LayoutInflater.from(context);
+            final View layout = inflater.inflate(R.layout.topic_option_button, mTopicLayout, false);
+            ((TextView) layout.findViewById(R.id.all_reply)).setText(context.getString(R.string.str_al_reply, data.getCount()));
+            mTopicLayout.addView(layout);
         }
     }
 }
