@@ -169,7 +169,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             Context context = mTopicLayout.getContext();
             final LayoutInflater inflater = LayoutInflater.from(context);
             final View layout = inflater.inflate(R.layout.topic_option_button, mTopicLayout, false);
-            ((TextView) layout.findViewById(R.id.all_reply)).setText(context.getString(R.string.str_al_reply, data.getClickRate()));
+            ((TextView) layout.findViewById(R.id.all_reply)).setText(context.getString(R.string.str_al_reply, data.getReplyCount()));
             mTopicLayout.addView(layout);
         }
     }
