@@ -21,19 +21,21 @@ public class Topic extends Entity{
     private final int mId;
     private final String mTitle;
     private final String mContent;
-    private final int mCount;
+    private final int mReplyCount;
+    private final int mClickRate;
     private final Member mMember;
     private final String mTime;
     private final boolean mHasInfo;
     @Nullable
     private final List<Postscript> mPostscripts;
 
-    public Topic(int mId, String mTitle, String mContent, int mCount, Member mMember,
+    public Topic(int mId, String mTitle, String mContent, int mReplyCount, int mClickRate, Member mMember,
                  String mTime,@Nullable List<Postscript> postscripts) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mContent = mContent;
-        this.mCount = mCount;
+        this.mReplyCount = mReplyCount;
+        this.mClickRate = mClickRate;
         this.mMember = mMember;
         this.mTime = mTime;
         this.mPostscripts = postscripts;
@@ -53,8 +55,12 @@ public class Topic extends Entity{
         return mContent;
     }
 
-    public int getCount() {
-        return mCount;
+    public int getReplyCount() {
+        return mReplyCount;
+    }
+
+    public int getClickRate() {
+        return mClickRate;
     }
 
     public Member getMember() {
@@ -90,7 +96,8 @@ public class Topic extends Entity{
         dest.writeByte(mHasInfo ? (byte) 1 : (byte) 0);
         dest.writeString(this.mTitle);
         dest.writeString(this.mContent);
-        dest.writeInt(this.mCount);
+        dest.writeInt(this.mReplyCount);
+        dest.writeInt(this.mClickRate);
         dest.writeParcelable(this.mMember, 0);
         dest.writeString(this.mTime);
     }
@@ -109,7 +116,8 @@ public class Topic extends Entity{
         this.mHasInfo = in.readByte() != 0;
         this.mTitle = in.readString();
         this.mContent = in.readString();
-        this.mCount = in.readInt();
+        this.mReplyCount = in.readInt();
+        this.mClickRate = in.readInt();
         this.mMember = in.readParcelable(Member.class.getClassLoader());
         this.mTime = in.readString();
         this.mPostscripts = null;
@@ -131,7 +139,8 @@ public class Topic extends Entity{
         if (o == null || getClass() != o.getClass()) return false;
         Topic topic = (Topic) o;
         return mId == topic.mId &&
-                mCount == topic.mCount &&
+                mReplyCount == topic.mReplyCount &&
+                mClickRate == topic.mClickRate &&
                 Objects.equal(mTitle, topic.mTitle) &&
                 Objects.equal(mContent, topic.mContent) &&
                 Objects.equal(mMember, topic.mMember) &&
@@ -140,7 +149,7 @@ public class Topic extends Entity{
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mTitle, mContent, mCount, mMember, mTime);
+        return Objects.hashCode(mId, mTitle, mContent, mReplyCount, mClickRate, mMember, mTime);
     }
 
     @Override
@@ -149,7 +158,8 @@ public class Topic extends Entity{
                 "mId=" + mId +
                 ", mTitle='" + mTitle + '\'' +
                 ", mContent='" + mContent + '\'' +
-                ", mCount=" + mCount +
+                ", mReplyCount=" + mReplyCount +
+                ", mClickRate=" + mClickRate +
                 ", mMember=" + mMember.getUserName() +
                 ", mTime='" + mTime + '\'' +
                 ", mHasInfo=" + mHasInfo +
@@ -163,7 +173,8 @@ public class Topic extends Entity{
                 .setTitle(mTitle)
                 .setContent(mContent)
                 .setMember(mMember)
-                .setCount(mCount)
+                .setReplyCount(mReplyCount)
+                .setClickRate(mClickRate)
                 .setTime(mTime);
     }
 
@@ -171,7 +182,8 @@ public class Topic extends Entity{
         private int mId;
         private String mTitle;
         private String mContent;
-        private int mCount;
+        private int mReplyCount;
+        private int mClickRate;
         private Member mMember;
         private String mTime;
         private List<Postscript> mPostscripts;
@@ -191,8 +203,13 @@ public class Topic extends Entity{
             return this;
         }
 
-        public Builder setCount(int mCount) {
-            this.mCount = mCount;
+        public Builder setReplyCount(int mReplyCount) {
+            this.mReplyCount = mReplyCount;
+            return this;
+        }
+
+        public Builder setClickRate(int mClickRate) {
+            this.mClickRate = mClickRate;
             return this;
         }
 
@@ -216,7 +233,7 @@ public class Topic extends Entity{
         }
 
         public Topic createTopic() {
-            return new Topic(mId, mTitle, mContent, mCount, mMember, mTime, mPostscripts);
+            return new Topic(mId, mTitle, mContent, mReplyCount, mClickRate, mMember, mTime, mPostscripts);
         }
     }
 }

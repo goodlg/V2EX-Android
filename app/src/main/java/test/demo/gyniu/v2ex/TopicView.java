@@ -65,7 +65,7 @@ public class TopicView extends FrameLayout {
         mTopicNode.setText("teach");
         mUserName.setText(topic.getMember().getUserName());
         mPostTime.setText(topic.getTime());
-        final int clickRate = topic.getCount();
+        final int clickRate = topic.getClickRate();
         mClickRate.setText(String.format("%d", clickRate) + " "
                 + mContext.getResources().getString(R.string.str_click_rate));
         mUserAvatar.setAvatar(topic.getMember().getAvatar());

@@ -61,7 +61,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
         mTopicNode.setText("teach");
         mUserName.setText(topic.getMember().getUserName());
         mReplyTime.setText(topic.getTime());
-        final int replyCount = topic.getCount();
+        final int replyCount = topic.getReplyCount();
         if (replyCount > 0) {
             mReplyCount.setVisibility(View.VISIBLE);
             mReplyCount.setText(String.format("%d", replyCount));

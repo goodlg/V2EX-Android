@@ -73,6 +73,7 @@ public class TopicParser extends ParserHelper {
         parseTopicTitle(builder, header);
         parseTopicContent(builder, topicBox);
         parsePostscript(builder, topicBox);
+        parseTopicReplyCount(builder, main);
 
         if (!builder.hasInfo()) {
             TopicListParser.parseMember(builder, JsoupObjects.child(header, ".fr"));
@@ -122,6 +123,20 @@ public class TopicParser extends ParserHelper {
         builder.setPostscripts(Lists.newArrayList(subtles));
     }
 
+    private static void parseTopicReplyCount(Topic.Builder builder, Element main) {
+        final Optional<Element> optional = new JsoupObjects(main).child(":nth-child(4)").child(".cell").child(".gray").getOptional();
+        if (optional.isPresent()) {
+            final String text = optional.get().ownText();
+            final Matcher matcher = PATTERN_NUMBERS.matcher(text);
+            Preconditions.checkState(matcher.find());
+
+            builder.setReplyCount(Integer.parseInt(matcher.group()));
+        } else {
+            // empty reply
+            builder.setReplyCount(0);
+        }
+    }
+
     private static void parseTopicClickRate(Topic.Builder builder, TextNode textNode) {
         final String text = textNode.text();
         final Matcher matcher = PATTERN_CLICKRATE.matcher(text);
@@ -137,7 +152,7 @@ public class TopicParser extends ParserHelper {
         }
 
         final int clickRate = Integer.parseInt(matcher1.group(0));
-        builder.setCount(clickRate);
+        builder.setClickRate(clickRate);
     }
 
     private static List<Comment> parseComments(Element main) {

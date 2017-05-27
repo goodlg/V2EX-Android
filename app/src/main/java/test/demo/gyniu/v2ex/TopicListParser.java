@@ -107,7 +107,7 @@ public class TopicListParser extends ParserHelper{
             // do not have reply yet
             count = 0;
         }
-        topicBuilder.setCount(count);
+        topicBuilder.setReplyCount(count);
     }
 
     private static void parseReplyTime(Topic.Builder topicBuilder, TextNode textNode) {
