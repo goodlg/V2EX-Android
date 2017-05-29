@@ -19,6 +19,7 @@ import com.google.common.base.Preconditions;
 import test.demo.gyniu.v2ex.model.Comment;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
+import test.demo.gyniu.v2ex.utils.ViewUtils;
 
 /**
  * Created by uiprj on 17-5-12.
@@ -114,7 +115,8 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         if (DEBUG) LogUtil.w(TAG, "init layout view start");
         mLayoutManager = new LinearLayoutManager(activity);
         mTopicAndCommentsView.setLayoutManager(mLayoutManager);
-        mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST, R.drawable.divider));
+        int offsets = ViewUtils.getDimensionPixelSize(R.dimen.decoration_offsets);
+        mTopicAndCommentsView.addItemDecoration(new CustomDecoration(activity, CustomDecoration.VERTICAL_LIST, R.drawable.divider, offsets));
         mTopicViewAdapter = new TopicViewAdapter();
         mTopicViewAdapter.setTopic(mTopic);
         mTopicViewAdapter.setDataSource(mComments);

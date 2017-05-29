@@ -25,6 +25,8 @@ public class CustomDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
+    private int mOffsets = 0;
+
     public CustomDecoration(Context context, int orientation) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
@@ -35,6 +37,11 @@ public class CustomDecoration extends RecyclerView.ItemDecoration {
     public CustomDecoration(Context context, int orientation, int drawableId) {
         this(context, orientation);
         mDivider = ContextCompat.getDrawable(context, drawableId);
+    }
+
+    public CustomDecoration(Context context, int orientation, int drawableId, int offsets) {
+        this(context, orientation, drawableId);
+        this.mOffsets = offsets;
     }
 
     public void setOrientation(int orientation) {
@@ -60,11 +67,17 @@ public class CustomDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            int position = parent.getChildAdapterPosition(child);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
+            if (position == 0) {
+                mDivider.setBounds(left, top, right, bottom);
+            } else {
+                mDivider.setBounds(left + mOffsets, top, right, bottom);
+            }
+
             mDivider.draw(c);
         }
     }
@@ -76,11 +89,16 @@ public class CustomDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
+            int position = parent.getChildAdapterPosition(child);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int left = child.getRight() + params.rightMargin;
             final int right = left + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
+            if (position == 0) {
+                mDivider.setBounds(left, top, right, bottom);
+            } else {
+                mDivider.setBounds(left + mOffsets, top, right, bottom);
+            }
             mDivider.draw(c);
         }
     }

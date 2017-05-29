@@ -20,4 +20,5 @@
     <dimen name="comment_avatar_size">48dp</dimen>
 
     <dimen name="separator2_height">5dp</dimen>
+    <dimen name="decoration_offsets">60dp</dimen>
 </resources>

@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="3dp"
-        android:textSize="12sp"
+        style="@style/AppTheme.Topic.Secondary"
         android:layout_below="@id/topic_title"
         android:layout_alignStart="@+id/topic_title"
         android:layout_alignLeft="@+id/topic_title" />
@@ -68,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_dot"
+        style="@style/AppTheme.Topic.Secondary"
         android:layout_marginBottom="3dp"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/username"
@@ -79,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:textSize="12sp"
+        style="@style/AppTheme.Topic.Secondary"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/dot1"
         android:layout_toRightOf="@id/dot1"  />
@@ -89,6 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_dot"
+        style="@style/AppTheme.Topic.Secondary"
         android:layout_marginBottom="3dp"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/post_time"
@@ -99,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
-        android:textSize="12sp"
+        style="@style/AppTheme.Topic.Secondary"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/dot2"
         android:layout_toRightOf="@id/dot2" />
