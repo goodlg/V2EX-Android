@@ -19,7 +19,7 @@
     <string name="str_r2">r2</string>
 
     <string name="str_right_arrow">"›"</string>
-    <string name="str_dot">"·"</string>
+    <string name="str_dot">"•"</string>
     <string name="str_click_rate">rate</string>
 
     <string name="title_postscript">Postscripts %d</string>
