@@ -73,9 +73,13 @@
     </style>
 
     <style name="AppTheme.Topic.Username" parent="TextAppearance.AppCompat.Subhead">
-        <item name="android:textColor">#FF7f8690</item>
+        <item name="android:textColor">#FF94989f</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TopicList.Username" parent="AppTheme.Topic.Username">
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

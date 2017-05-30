@@ -62,7 +62,7 @@ public class TopicView extends FrameLayout {
         if (DEBUG) LogUtil.w(TAG, "topic:" + topic);
         mTopic = topic;
         mTopicTitle.setText(topic.getTitle());
-        mTopicNode.setText("teach");
+        mTopicNode.setText(topic.getNode().getTitle());
         mUserName.setText(topic.getMember().getUserName());
         mPostTime.setText(topic.getTime());
         final int clickRate = topic.getClickRate();

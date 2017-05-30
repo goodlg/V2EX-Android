@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.widget.AvatarView;
@@ -58,7 +60,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
         if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
         mTopic = topic;
         mTopicTitle.setText(topic.getTitle());
-        mTopicNode.setText("teach");
+        mTopicNode.setText(topic.getNode().getTitle());
         mUserName.setText(topic.getMember().getUserName());
         mReplyTime.setText(topic.getTime());
         final int replyCount = topic.getReplyCount();

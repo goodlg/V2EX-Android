@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import test.demo.gyniu.v2ex.model.Avatar;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.model.Member;
+import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -30,7 +31,6 @@ public class TopicListParser extends ParserHelper{
     public static TopicListLoader.TopicList parseDoc(Document doc, Entity entity){
         final Element contentBox = new JsoupObjects(doc).bfs("body").child("#Wrapper")
                 .child(".content").child("#Main").child(".box").getOne();
-
         return parseDocForTab(contentBox);
     }
 
@@ -50,7 +50,7 @@ public class TopicListParser extends ParserHelper{
 
         final Element ele = list.get(2);
         parseTitle(topicBuilder, ele);
-        parseInfo(topicBuilder, ele);
+        parseInfo(topicBuilder, ele, null);
 
         parseReplyCount(topicBuilder, list.get(3));
 
@@ -83,18 +83,32 @@ public class TopicListParser extends ParserHelper{
         topicBuilder.setTitle(ele.html());
     }
 
-    private static void parseInfo(Topic.Builder topicBuilder, Element ele) {
+    private static void parseInfo(Topic.Builder builder, Element ele, Node node) {
         ele = JsoupObjects.child(ele, ".fade");
 
         boolean hasNode = false;
+        if (node == null) {
+            node = parseNode(JsoupObjects.child(ele, ".node"));
+        } else {
+            hasNode = true;
+        }
+
+        builder.setNode(node);
 
         final int index = hasNode ? 0 : 1;
         if (ele.textNodes().size() > index) {
-            parseReplyTime(topicBuilder, ele.textNodes().get(index));
+            parseReplyTime(builder, ele.textNodes().get(index));
         } else {
             // reply time may not exists
-            topicBuilder.setTime("");
+            builder.setTime("");
         }
+    }
+
+    private static Node parseNode(Element nodeEle) {
+        final String title = nodeEle.text();
+        final String url = nodeEle.attr("href");
+        final String name = Node.getNameFromUrl(url);
+        return new Node.Builder().setTitle(title).setName(name).createNode();
     }
 
     private static void parseReplyCount(Topic.Builder topicBuilder, Element ele) {

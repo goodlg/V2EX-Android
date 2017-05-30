@@ -30,4 +30,5 @@
     <color name="color_home_str">#FF465665</color>
     <color name="colorLineBg_separator">#FFEFEFEF</color>
     <color name="btn_background">#EEEFEFEF</color>
+    <color name="node_background">#FFf2f5f9</color>
 </resources>

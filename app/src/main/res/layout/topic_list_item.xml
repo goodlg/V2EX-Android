@@ -37,6 +37,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:textSize="12sp"
+        android:background="@drawable/node_background"
         android:layout_below="@id/topic_title"
         android:layout_alignStart="@+id/topic_title"
         android:layout_alignLeft="@+id/topic_title" />
@@ -57,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:textSize="12sp"
+        style="@style/AppTheme.TopicList.Username"
         android:layout_below="@id/topic_title"
         android:layout_toEndOf="@id/dot"
         android:layout_toRightOf="@id/dot" />

@@ -10,12 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import test.demo.gyniu.v2ex.Constant;
-import test.demo.gyniu.v2ex.HttpRequestHelper;
 
 /**
  * Created by uiprj on 17-3-22.
  */
-public class Topic extends Entity{
+public class Topic extends Entity {
     private static final Pattern PATTERN = Pattern.compile("/t/(\\d+?)(?:\\W|$)");
 
     private final int mId;
@@ -24,19 +23,21 @@ public class Topic extends Entity{
     private final int mReplyCount;
     private final int mClickRate;
     private final Member mMember;
+    private final Node mNode;
     private final String mTime;
     private final boolean mHasInfo;
     @Nullable
     private final List<Postscript> mPostscripts;
 
     public Topic(int mId, String mTitle, String mContent, int mReplyCount, int mClickRate, Member mMember,
-                 String mTime,@Nullable List<Postscript> postscripts) {
+                 Node mNode, String mTime, @Nullable List<Postscript> postscripts) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mContent = mContent;
         this.mReplyCount = mReplyCount;
         this.mClickRate = mClickRate;
         this.mMember = mMember;
+        this.mNode = mNode;
         this.mTime = mTime;
         this.mPostscripts = postscripts;
 
@@ -65,6 +66,10 @@ public class Topic extends Entity{
 
     public Member getMember() {
         return mMember;
+    }
+
+    public Node getNode() {
+        return mNode;
     }
 
     public String getTime() {
@@ -99,6 +104,7 @@ public class Topic extends Entity{
         dest.writeInt(this.mReplyCount);
         dest.writeInt(this.mClickRate);
         dest.writeParcelable(this.mMember, 0);
+        dest.writeParcelable(this.mNode, 0);
         dest.writeString(this.mTime);
     }
 
@@ -119,6 +125,7 @@ public class Topic extends Entity{
         this.mReplyCount = in.readInt();
         this.mClickRate = in.readInt();
         this.mMember = in.readParcelable(Member.class.getClassLoader());
+        this.mNode = in.readParcelable(Node.class.getClassLoader());
         this.mTime = in.readString();
         this.mPostscripts = null;
     }
@@ -143,13 +150,13 @@ public class Topic extends Entity{
                 mClickRate == topic.mClickRate &&
                 Objects.equal(mTitle, topic.mTitle) &&
                 Objects.equal(mContent, topic.mContent) &&
-                Objects.equal(mMember, topic.mMember) &&
+                Objects.equal(mNode, topic.mNode) &&
                 Objects.equal(mTime, topic.mTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mTitle, mContent, mReplyCount, mClickRate, mMember, mTime);
+        return Objects.hashCode(mId, mTitle, mContent, mReplyCount, mClickRate, mNode, mTime);
     }
 
     @Override
@@ -161,6 +168,7 @@ public class Topic extends Entity{
                 ", mReplyCount=" + mReplyCount +
                 ", mClickRate=" + mClickRate +
                 ", mMember=" + mMember.getUserName() +
+                ", mNode=" + mNode.getName() +
                 ", mTime='" + mTime + '\'' +
                 ", mHasInfo=" + mHasInfo +
                 ", mPostscripts=" + mPostscripts +
@@ -173,6 +181,7 @@ public class Topic extends Entity{
                 .setTitle(mTitle)
                 .setContent(mContent)
                 .setMember(mMember)
+                .setNode(mNode)
                 .setReplyCount(mReplyCount)
                 .setClickRate(mClickRate)
                 .setTime(mTime);
@@ -185,6 +194,7 @@ public class Topic extends Entity{
         private int mReplyCount;
         private int mClickRate;
         private Member mMember;
+        private Node mNode;
         private String mTime;
         private List<Postscript> mPostscripts;
 
@@ -218,6 +228,11 @@ public class Topic extends Entity{
             return this;
         }
 
+        public Builder setNode(Node mNode) {
+            this.mNode = mNode;
+            return this;
+        }
+
         public Builder setTime(String mTime) {
             this.mTime = mTime;
             return this;
@@ -233,7 +248,7 @@ public class Topic extends Entity{
         }
 
         public Topic createTopic() {
-            return new Topic(mId, mTitle, mContent, mReplyCount, mClickRate, mMember, mTime, mPostscripts);
+            return new Topic(mId, mTitle, mContent, mReplyCount, mClickRate, mMember, mNode, mTime, mPostscripts);
         }
     }
 }
