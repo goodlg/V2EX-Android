@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (DEBUG) LogUtil.d(TAG, "MainActivity create");
+
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
