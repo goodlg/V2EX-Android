@@ -21,24 +21,24 @@ import test.demo.gyniu.v2ex.utils.SharedPreferencesHelper;
 /**
  * Created by uiprj on 17-3-14.
  */
-public class TopNavFragment extends BaseNavFragment {
-    private static final String TAG = "TopNavFragment";
+public class HomeFragment extends BaseNavFragment {
+    private static final String TAG = "HomeFragment";
     private static final boolean DEBUG = LogUtil.LOGD;
 
-    public static TopNavFragment newInstance() {
-        return new TopNavFragment();
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (DEBUG) LogUtil.d(TAG, "create top nav fragment");
+        if (DEBUG) LogUtil.d(TAG, "create home fragment");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (DEBUG) LogUtil.d(TAG, "create top nav view");
+        if (DEBUG) LogUtil.d(TAG, "create home view");
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.nav_layout);
@@ -46,7 +46,7 @@ public class TopNavFragment extends BaseNavFragment {
 
         final View tabStrip = mTabLayout.getChildAt(0);
         Preconditions.checkNotNull(tabStrip, "tabStrip shouldn't be null");
-        ViewCompat.setPaddingRelative(tabStrip, 4, 0, 4, 0);
+        ViewCompat.setPaddingRelative(tabStrip, 8, 0, 8, 0);
 
         return view;
     }

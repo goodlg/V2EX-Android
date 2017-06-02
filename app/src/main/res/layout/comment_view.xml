@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
     <test.demo.gyniu.v2ex.widget.AvatarView
         android:id="@+id/avatar_img"
-        tools:src="@mipmap/ic_default_avatar"
+        tools:src="@drawable/ic_default_avatar"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:padding="8dp"

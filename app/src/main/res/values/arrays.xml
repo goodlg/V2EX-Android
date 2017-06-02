@@ -2,20 +2,20 @@
 <resources>
     <string-array name="bootom_tab_title">
         <item>@string/str_home</item>
-        <item>@string/str_fav</item>
+        <item>@string/str_node</item>
         <item>@string/str_me</item>
     </string-array>
 
     <integer-array name="bootom_tab_normal_icon">
-        <item>@mipmap/ic_home</item>
-        <item>@mipmap/ic_fav</item>
-        <item>@mipmap/ic_me</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_node</item>
+        <item>@drawable/ic_me</item>
     </integer-array>
 
     <integer-array name="bootom_tab_icon_select">
-        <item>@mipmap/ic_home_select</item>
-        <item>@mipmap/ic_fav_select</item>
-        <item>@mipmap/ic_me_select</item>
+        <item>@drawable/ic_home_select</item>
+        <item>@drawable/ic_node_select</item>
+        <item>@drawable/ic_me_select</item>
     </integer-array>
 
 </resources>

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     private int[] mBottomTabIconNormal;
     private int[] mBottomTabIconSelect;
 
-    private Class fragmentArray[] = { TopNavFragment.class, FavFragment.class, MeFragment.class };
+    private Class fragmentArray[] = { HomeFragment.class, NodeFragment.class, MeFragment.class };
 
     private static final int MAX_BOTTOM_TAB_COUNT = 3;
 

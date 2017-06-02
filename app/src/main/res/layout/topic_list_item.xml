@@ -8,7 +8,7 @@
 
     <test.demo.gyniu.v2ex.widget.AvatarView
         android:id="@+id/user_avatar"
-        android:src="@mipmap/ic_default_avatar"
+        android:src="@drawable/ic_default_avatar"
         android:padding="4dp"
         android:layout_width="@dimen/user_avatar_size"
         android:layout_height="@dimen/user_avatar_size" />

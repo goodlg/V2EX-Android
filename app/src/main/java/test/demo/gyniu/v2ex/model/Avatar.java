@@ -16,7 +16,7 @@ import test.demo.gyniu.v2ex.AppCtx;
 /**
  * Created by uiprj on 17-5-10.
  */
-public class Avatar implements Parcelable {
+public class    Avatar implements Parcelable {
     public static final float DENSITY;
     public static final int SIZE_NORMAL = 48;
     public static final int SIZE_MINI = 24;

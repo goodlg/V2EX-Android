@@ -40,7 +40,7 @@ public class AvatarView extends ImageView {
     public void setAvatar(Avatar avatar) {
         final int size = getRealSize();
         final String url = avatar.getUrlByPx(size);
-        Glide.with(getContext()).load(url).placeholder(R.mipmap.ic_default_avatar)
+        Glide.with(getContext()).load(url).placeholder(R.drawable.ic_default_avatar)
                 .override(size, size).crossFade().fitCenter().into(this);
     }
 
