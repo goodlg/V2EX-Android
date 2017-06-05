@@ -23,4 +23,15 @@
     <string name="str_al_reply">全部回复 %d</string>
     <string name="str_option_ignore">忽略主题</string>
     <string name="str_option_thank">感谢</string>
+
+    <string name="str_default_name">goodlg</string>
+    <string name="str_gold">财富 %d</string>
+    <string name="str_remind">提醒 %d</string>
+
+    <string name="str_node_collect">节点收藏</string>
+    <string name="str_topic_collect">主题收藏</string>
+    <string name="str_attention">特别关注</string>
+    <string name="str_settings">设置</string>
+    <string name="str_about">关于</string>
+    <string name="str_update">更新</string>
 </resources>
