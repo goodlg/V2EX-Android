@@ -23,6 +23,11 @@
         <activity android:name=".TopicActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/str_about">
+        </activity>
     </application>
 
 </manifest>

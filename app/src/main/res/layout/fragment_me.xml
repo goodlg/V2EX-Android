@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite" >
@@ -18,8 +19,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -159,101 +160,55 @@
                 android:layout_height="10dp"
                 android:background="@color/colorBgGrayLight1" />
 
-            <LinearLayout
+            <test.demo.gyniu.v2ex.ListOptionView
                 android:id="@+id/settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_settings" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/str_settings"
-                    android:textColor="@color/colorBlack2" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/arrow_right" />
-            </LinearLayout>
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:tag="0"
+                app:leftIcon="@drawable/ic_settings"
+                app:text="@string/str_settings"
+                app:rightIcon="@drawable/arrow_right"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/colorBgGrayLight" />
-            <LinearLayout
+
+            <test.demo.gyniu.v2ex.ListOptionView
                 android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_update" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/str_update"
-                    android:textColor="@color/colorBlack2" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/arrow_right" />
-            </LinearLayout>
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:tag="1"
+                app:leftIcon="@drawable/ic_update"
+                app:text="@string/str_update"
+                app:rightIcon="@drawable/arrow_right"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/colorBgGrayLight" />
-            <LinearLayout
+
+            <test.demo.gyniu.v2ex.ListOptionView
                 android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_about" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/str_about"
-                    android:textColor="@color/colorBlack2" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/arrow_right" />
-            </LinearLayout>
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:tag="2"
+                app:leftIcon="@drawable/ic_about"
+                app:text="@string/str_about"
+                app:rightIcon="@drawable/arrow_right"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

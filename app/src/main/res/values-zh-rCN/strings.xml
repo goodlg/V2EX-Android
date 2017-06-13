@@ -34,4 +34,9 @@
     <string name="str_settings">设置</string>
     <string name="str_about">关于</string>
     <string name="str_update">更新</string>
+
+    <string name="str_author">
+        作者:\tgoodlg\n\n邮箱:\tngyzqf@163.com
+    </string>
+    <string name="str_version">当前版本: %s</string>
 </resources>
