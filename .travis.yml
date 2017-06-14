@@ -28,3 +28,4 @@ android:
 
 script:
   - "./gradlew assembleRelease"
+  
