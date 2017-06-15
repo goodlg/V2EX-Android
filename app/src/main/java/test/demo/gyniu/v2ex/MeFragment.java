@@ -60,7 +60,8 @@ public class MeFragment extends Fragment implements OnDoOptionListener{
                 Toast.makeText(getActivity(), "settings", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                Toast.makeText(getActivity(), "update", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(getActivity(), SigninActivity.class);
+                startActivity(intent1);
                 break;
             case 2:
                 Intent intent = new Intent(getActivity(), AboutActivity.class);

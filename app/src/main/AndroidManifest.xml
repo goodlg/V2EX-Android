@@ -28,6 +28,10 @@
             android:name=".AboutActivity"
             android:label="@string/str_about">
         </activity>
+        <activity
+            android:name=".SigninActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

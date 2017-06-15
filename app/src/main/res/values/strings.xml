@@ -42,4 +42,11 @@
         Author:\tgoodlg\n\nEmail:\tngyzqf@163.com
     </string>
     <string name="str_version">Version: %s</string>
+
+    <string name="str_username">UserName</string>
+    <string name="str_passwd">Passwd</string>
+    <string name="str_signin">Signin</string>
+    <string name="str_forget">Forget?</string>
+    <string name="str_no_accout">No account?</string>
+    <string name="str_signup">Sign up</string>
 </resources>
