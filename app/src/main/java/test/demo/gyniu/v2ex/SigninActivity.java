@@ -1,7 +1,6 @@
 package test.demo.gyniu.v2ex;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -9,14 +8,11 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by uiprj on 17-5-10.
@@ -77,7 +73,6 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onClick(View widget) {
-            widget.setBackground(null);
             Toast.makeText(context, "Sign up", Toast.LENGTH_SHORT).show();
         }
     }
