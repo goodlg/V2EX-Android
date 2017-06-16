@@ -32,6 +32,11 @@
             android:name=".SigninActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".LoadingActivity"
+            android:label="@string/title_activity_loading"
+            android:noHistory="true" >
+        </activity>
     </application>
 
 </manifest>
