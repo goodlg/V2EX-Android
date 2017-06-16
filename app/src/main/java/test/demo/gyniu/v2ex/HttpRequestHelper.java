@@ -10,20 +10,17 @@ import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import test.demo.gyniu.v2ex.model.Entity;
+import test.demo.gyniu.v2ex.model.LoginResult;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -141,6 +138,63 @@ public class HttpRequestHelper {
 
         if (DEBUG) LogUtil.w(TAG, "response: " + response);
         return response;
+    }
+
+    public LoginResult login(String account, String password) throws Exception {
+        if (DEBUG) LogUtil.d(TAG, "login user: " + account);
+
+        final String onceCode = getOnceCode();
+        final String nextUrl = "/mission";
+        final RequestBody requestBody = new FormBody.Builder().add("once", onceCode)
+                .add("u", account)
+                .add("p", password)
+                .add("next", nextUrl)
+                .build();
+
+        if (DEBUG) LogUtil.d(TAG, "requestBody: " + requestBody);
+
+        Request request = newRequest().url(Constant.URL_SIGN_IN).post(requestBody).build();
+
+        Response response = sendRequest(request);
+
+        // v2ex will redirect if login success
+        if (response.code() != 302) {
+            return null;
+        }
+
+        final String location = response.header(HttpHeaders.LOCATION);
+        if (!location.equals(nextUrl)) {
+            return null;
+        }
+
+        request = newRequest().url(Constant.BASE_URL + location).build();
+        response = sendRequest(request);
+
+        try {
+            final String html = response.body().string();
+            final Document document = ParserHelper.toDoc(html);
+            return MyselfParser.parseLoginResult(document);
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, "HAS Exception: " + e);
+            throw new Exception(e);
+        }
+    }
+
+    public String getOnceCode() throws Exception {
+        if (DEBUG) LogUtil.d(TAG, "get once code");
+
+        final Request request = newRequest().url(Constant.URL_ONCE_CODE).build();
+        final Response response = sendRequest(request);
+
+        try {
+            final String html = response.body().string();
+            return ParserHelper.parseOnceCode(html);
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, "HAS Exception: " + e);
+            throw new Exception(e);
+        }
     }
 
 }

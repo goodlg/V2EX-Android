@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.google.common.eventbus.Subscribe;
+
+import test.demo.gyniu.v2ex.eventbus.LoginEvent;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -139,5 +142,22 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
                 view.setBackgroundResource(R.drawable.selector_tab_background);
             }
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AppCtx.getEventBus().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AppCtx.getEventBus().unregister(this);
+    }
+
+    @Subscribe
+    public void onLoginEvent(LoginEvent e) {
+        if (DEBUG) LogUtil.d(TAG, "login success !!!");
     }
 }

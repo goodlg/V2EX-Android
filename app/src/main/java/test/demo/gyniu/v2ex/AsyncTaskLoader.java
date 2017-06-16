@@ -27,9 +27,13 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
 
         if (DEBUG) LogUtil.d(TAG, "start loading...");
         if (mResult != null && isStarted()) {
+            if (DEBUG) LogUtil.d(TAG, "start loading 2...");
             deliverResult(mResult);
         }
+
+        if (DEBUG) LogUtil.d(TAG, "start loading 3...");
         if (takeContentChanged() || mResult == null) {
+            if (DEBUG) LogUtil.d(TAG, "start loading 4...");
             forceLoad();
         }
     }

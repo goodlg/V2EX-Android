@@ -45,7 +45,7 @@
 
     <string name="str_username">UserName</string>
     <string name="str_passwd">Passwd</string>
-    <string name="str_signin">Signin</string>
+    <string name="str_signin">Sign in</string>
     <string name="str_forget">Forget?</string>
     <string name="str_no_accout">No account?</string>
     <string name="str_signup">Sign up</string>
@@ -53,4 +53,8 @@
 
     <string name="toast_please_wait">Please wait...</string>
     <string name="title_activity_loading">Loading</string>
+
+    <string name="error_incorrect_password">Login failed!</string>
+    <string name="toast_login_success">Welcome back, %s!</string>
+    <string name="error_field_required">This field is required</string>
 </resources>

@@ -5,8 +5,6 @@ import android.app.Application;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 
-import java.util.concurrent.TimeUnit;
-
 import test.demo.gyniu.v2ex.dao.DbHelper;
 import test.demo.gyniu.v2ex.eventbus.BaseEvent;
 import test.demo.gyniu.v2ex.eventbus.executor.HandlerExecutor;
