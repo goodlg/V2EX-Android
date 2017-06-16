@@ -17,7 +17,7 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 /**
  * Created by uiprj on 17-3-13.
  */
-public class MainActivity extends AppCompatActivity implements TabHost.OnTabChangeListener{
+public class MainActivity extends BaseActivity implements TabHost.OnTabChangeListener{
     private static final String TAG = "MainActivity";
 
     private static final boolean DEBUG = LogUtil.LOGD;

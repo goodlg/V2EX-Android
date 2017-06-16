@@ -17,7 +17,7 @@ import android.widget.Toast;
 /**
  * Created by uiprj on 17-5-10.
  */
-public class SigninActivity extends AppCompatActivity implements View.OnClickListener{
+public class SigninActivity extends BaseActivity implements View.OnClickListener{
 
     private EditText mUserName;
     private EditText mUserPasswd;

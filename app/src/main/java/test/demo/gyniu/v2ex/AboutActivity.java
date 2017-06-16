@@ -16,7 +16,7 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 /**
  * Created by uiprj on 17-5-10.
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     private TextView mVersion;
 
