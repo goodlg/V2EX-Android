@@ -1,5 +1,6 @@
 package test.demo.gyniu.v2ex;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentTabHost;
@@ -147,17 +148,15 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     @Override
     protected void onStart() {
         super.onStart();
-        AppCtx.getEventBus().register(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        AppCtx.getEventBus().unregister(this);
     }
 
-    @Subscribe
-    public void onLoginEvent(LoginEvent e) {
-        if (DEBUG) LogUtil.d(TAG, "login success !!!");
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

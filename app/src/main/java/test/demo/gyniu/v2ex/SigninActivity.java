@@ -40,7 +40,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
     private View mProgressView;
     private View mLoginFormView;
 
-    private UserLoginTask mAuthTask = null;
+    private LoginTask mLoginTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void doLogin() {
-        if (mAuthTask != null) {
+        if (mLoginTask != null) {
             return;
         }
 
@@ -147,19 +147,19 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
             focusView.requestFocus();
         } else {
             showProgress(true);
-            mAuthTask = new UserLoginTask(nameOremail, password);
-            mAuthTask.execute((Void) null);
+            mLoginTask = new LoginTask(nameOremail, password);
+            mLoginTask.execute((Void) null);
         }
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        private final String TAG = UserLoginTask.class.getSimpleName();
+    public class LoginTask extends AsyncTask<Void, Void, Boolean> {
+        private final String TAG = LoginTask.class.getSimpleName();
 
         private final String mAccount;
         private final String mPasswd;
         private Exception mException;
 
-        UserLoginTask(String username, String password) {
+        LoginTask(String username, String password) {
             mAccount = username;
             mPasswd = password;
         }
@@ -169,13 +169,14 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
             try {
                 final LoginResult result = HttpRequestHelper.getInstance().login(mAccount, mPasswd);
                 if (result != null) {
+                    if (DEBUG) LogUtil.w(TAG, "login result: " + result);
                     UserState.getInstance().login(result.mAccount, result.mAvatar);
                     return true;
                 }
             } catch (Exception e) {
                 mException = e;
-                LogUtil.e(TAG, "HAS Exception: " + e);
                 e.printStackTrace();
+                LogUtil.e(TAG, "Exception: " + e);
             }
 
             return false;
@@ -183,14 +184,14 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+            mLoginTask = null;
             showProgress(false);
-
+            //success
             if (success) {
                 onLoginSuccess(mAccount);
                 return;
             }
-
+            //failed
             if (mException == null) {
                 SigninActivity.this.mPasswd.setError(getString(R.string.error_incorrect_password));
                 SigninActivity.this.mPasswd.requestFocus();
@@ -205,7 +206,8 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         protected void onCancelled() {
-            mAuthTask = null;
+            if (DEBUG) LogUtil.w(TAG, "cancel login!!!");
+            mLoginTask = null;
             showProgress(false);
         }
     }
@@ -233,8 +235,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void onLoginSuccess(String username) {
-        Toast.makeText(this, getString(R.string.toast_login_success, username),
-                Toast.LENGTH_LONG).show();
+        if (DEBUG) LogUtil.w(TAG, "Welcome back: " + username);
         setResult(RESULT_OK);
         finish();
     }

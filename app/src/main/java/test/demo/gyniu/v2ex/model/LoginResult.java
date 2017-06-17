@@ -11,4 +11,12 @@ public class LoginResult {
         mAccount = username;
         mAvatar = avatar;
     }
+
+    @Override
+    public String toString() {
+        return "LoginResult{" +
+                "mAccount='" + mAccount + '\'' +
+                ", mAvatar=" + mAvatar +
+                '}';
+    }
 }

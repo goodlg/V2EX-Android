@@ -57,4 +57,5 @@
     <string name="error_incorrect_password">Login failed!</string>
     <string name="toast_login_success">Welcome back, %s!</string>
     <string name="error_field_required">This field is required</string>
+    <string name="toast_has_sign_out">Account has sign out!</string>
 </resources>

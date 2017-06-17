@@ -1,5 +1,6 @@
 package test.demo.gyniu.v2ex;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.eventbus.Subscribe;
+
 import test.demo.gyniu.v2ex.common.UserState;
+import test.demo.gyniu.v2ex.eventbus.LoginEvent;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.ListOptionView.OnDoOptionListener;
 
@@ -47,6 +51,7 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (DEBUG) LogUtil.d(TAG, "create me fragment");
+        AppCtx.getEventBus().register(this);
     }
 
     @Override
@@ -74,16 +79,7 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
         mTopics = (TextView) view.findViewById(R.id.topic_collect_count);
         mAttentions = (TextView) view.findViewById(R.id.attention_count);
 
-        final UserState us = UserState.getInstance();
-        if (us.isLoggedIn()) {
-            mProfileLayout.setVisibility(View.VISIBLE);
-            mLogin.setVisibility(View.GONE);
-            mLayout2.setVisibility(View.VISIBLE);
-        } else {
-            mProfileLayout.setVisibility(View.GONE);
-            mLogin.setVisibility(View.VISIBLE);
-            mLayout2.setVisibility(View.GONE);
-        }
+        updateUserStatusUI();
         return view;
     }
 
@@ -124,5 +120,31 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
             Intent intent = new Intent(getActivity(), SigninActivity.class);
             startActivity(intent);
         }
+    }
+
+    @SuppressWarnings("unused")
+    @Subscribe
+    public void onLoginEvent(LoginEvent e) {
+        if (DEBUG) LogUtil.d(TAG, "login success !!!");
+        updateUserStatusUI();
+    }
+
+    private void updateUserStatusUI() {
+        final UserState us = UserState.getInstance();
+        if (us.isLoggedIn()) {
+            mProfileLayout.setVisibility(View.VISIBLE);
+            mLogin.setVisibility(View.GONE);
+            mLayout2.setVisibility(View.VISIBLE);
+        } else {
+            mProfileLayout.setVisibility(View.GONE);
+            mLogin.setVisibility(View.VISIBLE);
+            mLayout2.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AppCtx.getEventBus().unregister(this);
     }
 }

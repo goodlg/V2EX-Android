@@ -21,6 +21,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.model.LoginResult;
+import test.demo.gyniu.v2ex.model.SignInForm;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -67,7 +68,8 @@ public class HttpRequestHelper {
                     .cookieJar(mCookieJar)
                     .build();
         } catch (Exception e) {
-            LogUtil.e(TAG, "init Okhttp Excepion:" + e);
+            e.printStackTrace();
+            LogUtil.e(TAG, "Exception:" + e);
         }
     }
 
@@ -77,7 +79,7 @@ public class HttpRequestHelper {
 
         final Response response = sendRequest(request);
         if (response.isRedirect()) {
-            LogUtil.e(TAG, "Has Exception: topics should be not redirect");
+            LogUtil.e(TAG, "Exception: Topics should be not redirect");
             throw new IllegalStateException("topics should be not redirect");
         }
 
@@ -88,7 +90,8 @@ public class HttpRequestHelper {
             doc = ParserHelper.toDoc(response.body().string());
             topics = TopicListParser.parseDoc(doc, entity);
         } catch (IOException e) {
-            LogUtil.e(TAG, "HAS Exception: \n parse doc failed!");
+            e.printStackTrace();
+            LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
 
@@ -113,7 +116,7 @@ public class HttpRequestHelper {
             doc = ParserHelper.toDoc(response.body().string());
             result = TopicParser.parseDoc(doc, topic);
         } catch (IOException e) {
-            LogUtil.e(TAG, "HAS Exception: \n" + e);
+            LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
 
@@ -127,43 +130,50 @@ public class HttpRequestHelper {
     }
 
     private Response sendRequest(Request request) throws Exception{
-        final Response response;
+        final Response rsp;
         try {
-            if (DEBUG) LogUtil.w(TAG, "send a request to remote");
-            response = mClient.newCall(request).execute();
+            if (DEBUG) LogUtil.d(TAG, "send req to remote");
+            rsp = mClient.newCall(request).execute();
         } catch (IOException e) {
-            LogUtil.e(TAG, "HAS Exception: " + e);
+            e.printStackTrace();
+            LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
 
-        if (DEBUG) LogUtil.w(TAG, "response: " + response);
-        return response;
+        if (DEBUG) LogUtil.w(TAG, "rsp: " + rsp);
+        return rsp;
     }
 
     public LoginResult login(String account, String password) throws Exception {
         if (DEBUG) LogUtil.d(TAG, "login user: " + account);
 
-        final String onceCode = getOnceCode();
+        final SignInForm form = getSignInForm();
+        if (DEBUG) LogUtil.d(TAG, "form info: " + form);
+        Preconditions.checkNotNull(form);
         final String nextUrl = "/mission";
-        final RequestBody requestBody = new FormBody.Builder().add("once", onceCode)
-                .add("u", account)
-                .add("p", password)
+        final RequestBody requestBody = new FormBody.Builder()
+                .add("once", form.getOnceCode())
+                .add(form.getAccount(), account)
+                .add(form.getPasswd(), password)
                 .add("next", nextUrl)
                 .build();
 
-        if (DEBUG) LogUtil.d(TAG, "requestBody: " + requestBody);
-
-        Request request = newRequest().url(Constant.URL_SIGN_IN).post(requestBody).build();
+        Request request = newRequest().url(Constant.URL_SIGN_IN)
+                .header(HttpHeaders.REFERER, Constant.URL_SIGN_IN)
+                .post(requestBody).build();
 
         Response response = sendRequest(request);
 
         // v2ex will redirect if login success
         if (response.code() != 302) {
+            if (DEBUG) LogUtil.d(TAG, "will be redirect if login successfully, resp code: "
+                    + response.code());
             return null;
         }
 
         final String location = response.header(HttpHeaders.LOCATION);
         if (!location.equals(nextUrl)) {
+            if (DEBUG) LogUtil.d(TAG, "http header nextUrl: " + nextUrl);
             return null;
         }
 
@@ -176,14 +186,29 @@ public class HttpRequestHelper {
             return MyselfParser.parseLoginResult(document);
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.e(TAG, "HAS Exception: " + e);
+            LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
     }
 
+    private SignInForm getSignInForm() {
+        Request request = newRequest()
+                .header(HttpHeaders.USER_AGENT, Constant.USER_AGENT_ANDROID)
+                .url(Constant.URL_ONCE_TOKEN).build();
+        if (DEBUG) LogUtil.d(TAG, "request: " + request);
+        try {
+            final Response response = sendRequest(request);
+            final String html = response.body().string();
+            return ParserHelper.parseSignInForm(html);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, "Exception: " + e);
+        }
+        return null;
+    }
+
     public String getOnceCode() throws Exception {
         if (DEBUG) LogUtil.d(TAG, "get once code");
-
         final Request request = newRequest().url(Constant.URL_ONCE_CODE).build();
         final Response response = sendRequest(request);
 
@@ -192,7 +217,7 @@ public class HttpRequestHelper {
             return ParserHelper.parseOnceCode(html);
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.e(TAG, "HAS Exception: " + e);
+            LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
     }

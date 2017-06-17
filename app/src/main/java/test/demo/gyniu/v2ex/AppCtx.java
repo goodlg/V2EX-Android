@@ -5,6 +5,7 @@ import android.app.Application;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 
+import test.demo.gyniu.v2ex.common.UserState;
 import test.demo.gyniu.v2ex.dao.DbHelper;
 import test.demo.gyniu.v2ex.eventbus.BaseEvent;
 import test.demo.gyniu.v2ex.eventbus.executor.HandlerExecutor;
@@ -56,6 +57,7 @@ public class AppCtx extends Application {
         @Override
         public void run() {
             DbHelper.getInstance().init();
+            UserState.getInstance().init();
 
             mIsInited = true;
             if (DEBUG) LogUtil.d(TAG, "init done ,post done event");
