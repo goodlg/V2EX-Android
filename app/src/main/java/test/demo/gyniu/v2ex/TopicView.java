@@ -22,6 +22,8 @@ public class TopicView extends FrameLayout {
 
     private static final int TOPIC_PICTURE_OTHER_WIDTH =
             ViewUtils.getDimensionPixelSize(R.dimen.topic_picture_other_width);
+    private static final int TOPIC_TITLE_PICTURE_OTHER_WIDTH =
+            ViewUtils.getDimensionPixelSize(R.dimen.topic_title_picture_other_width);
 
     private final View mRootView;
     private final AvatarView mUserAvatar;
@@ -61,7 +63,8 @@ public class TopicView extends FrameLayout {
     public void buildItem(Topic topic) {
         if (DEBUG) LogUtil.w(TAG, "topic:" + topic);
         mTopic = topic;
-        mTopicTitle.setText(topic.getTitle());
+        ViewUtils.setHtmlIntoTextView(mTopicTitle, topic.getTitle(), ViewUtils.getWidthPixels() -
+                TOPIC_TITLE_PICTURE_OTHER_WIDTH, false);
         mTopicNode.setText(topic.getNode().getTitle());
         mUserName.setText(topic.getMember().getUserName());
         mPostTime.setText(topic.getTime());
