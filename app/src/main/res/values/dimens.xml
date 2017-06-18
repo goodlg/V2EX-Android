@@ -15,6 +15,7 @@
     <dimen name="reply_counter_size">32dp</dimen>
 
     <dimen name="topic_picture_other_width">32dp</dimen>
+    <dimen name="topic_title_picture_other_width">100dp</dimen>
     <dimen name="comment_picture_other_width">76dp</dimen>
     <dimen name="content_spacing">8dp</dimen>
     <dimen name="comment_avatar_size">48dp</dimen>
@@ -23,4 +24,5 @@
     <dimen name="decoration_offsets">60dp</dimen>
 
     <dimen name="balance_size">14dp</dimen>
+
 </resources>

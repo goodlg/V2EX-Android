@@ -80,16 +80,16 @@ public class TopicListParser extends ParserHelper{
         ele = new JsoupObjects(ele).child(".item_title").child("a").getOne();
         String url = ele.attr("href");
         topicBuilder.setId(Topic.getIdFromUrl(url));
-        List<Element> imgs = new JsoupObjects(ele).child("img").getList();
-        for (Element e : imgs) {
-            String imgUrl = e.attr("src");
-            if (imgUrl != null) {
-                if (imgUrl.trim().startsWith("/")) {
-                    imgUrl = Constant.BASE_URL + imgUrl;
-                    e.attr("src", imgUrl);
-                }
-            }
-        }
+//        List<Element> imgs = new JsoupObjects(ele).child("img").getList();
+//        for (Element e : imgs) {
+//            String imgUrl = e.attr("src");
+//            if (imgUrl != null) {
+//                if (imgUrl.trim().startsWith("/")) {
+//                    imgUrl = Constant.BASE_URL + imgUrl;
+//                    e.attr("src", imgUrl);
+//                }
+//            }
+//        }
         topicBuilder.setTitle(ele.html());
     }
 

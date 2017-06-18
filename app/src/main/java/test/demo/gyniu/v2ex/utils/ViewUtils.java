@@ -25,6 +25,7 @@ public class ViewUtils {
     }
 
     public static void setHtmlIntoTextView(TextView view, String html, int maxWidthPixels, boolean isTopic) {
+        if (DEBUG) LogUtil.d(TAG, "VIEW: " + view + ", maxWidthPixels=" + maxWidthPixels);
         setHtmlIntoTextView(view, html, new AsyncImageGetter(view, maxWidthPixels), isTopic);
     }
 
@@ -37,6 +38,7 @@ public class ViewUtils {
             if (length > 2) {
                 final CharSequence subSequence = builder.subSequence(length - 2, length);
                 if (TextUtils.equals(subSequence, "\n\n")) {
+                    if (DEBUG) LogUtil.d(TAG, ".......................... remove \n\n");
                     builder.delete(length - 2, length);
                 }
             }
@@ -60,7 +62,7 @@ public class ViewUtils {
         }
 
         if (DEBUG)
-            LogUtil.d(TAG, "get exactly width, result:" + width + "view=" + view);
+            LogUtil.d(TAG, "get exactly width: " + width + ", view=" + view);
         return width;
     }
 

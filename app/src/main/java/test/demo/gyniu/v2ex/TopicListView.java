@@ -15,6 +15,7 @@ import java.net.URL;
 
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
+import test.demo.gyniu.v2ex.utils.ViewUtils;
 import test.demo.gyniu.v2ex.widget.AvatarView;
 
 /**
@@ -23,6 +24,9 @@ import test.demo.gyniu.v2ex.widget.AvatarView;
 public class TopicListView extends FrameLayout implements View.OnClickListener{
     private static final String TAG = "TopicItemView";
     private static final boolean DEBUG = LogUtil.LOGD;
+
+    private static final int TOPIC_TITLE_PICTURE_OTHER_WIDTH =
+            ViewUtils.getDimensionPixelSize(R.dimen.topic_title_picture_other_width);
 
     private final View mRootView;
     private final AvatarView mUserAvatar;
@@ -64,27 +68,35 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
         if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
         mTopic = topic;
 
-        String title = topic.getTitle();
-        Spanned sp = Html.fromHtml(title, new Html.ImageGetter() {
-            @Override
-            public Drawable getDrawable(String source) {
-                InputStream is = null;
-                try {
-                    is = (InputStream) new URL(source).getContent();
-                    Drawable d = Drawable.createFromStream(is, "src");
-                    d.setBounds(0, 0, d.getIntrinsicWidth(),
-                            d.getIntrinsicHeight());
-                    if (DEBUG) LogUtil.d(TAG, ".......................topic img w:" + d.getIntrinsicWidth() + ", h:" +  d.getIntrinsicHeight());
-                    is.close();
-                    return d;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtil.e(TAG, "Exception: " + e);
-                    return null;
-                }
-            }
-        }, null);
-        mTopicTitle.setText(sp);
+        /**
+         * it throw exception:
+         * android.os.NetworkOnMainThreadException
+         */
+//        String title = topic.getTitle();
+//        Spanned sp = Html.fromHtml(title, new Html.ImageGetter() {
+//            @Override
+//            public Drawable getDrawable(String source) {
+//                InputStream is = null;
+//                try {
+//                    is = (InputStream) new URL(source).getContent();
+//                    Drawable d = Drawable.createFromStream(is, "src");
+//                    d.setBounds(0, 0, d.getIntrinsicWidth(),
+//                            d.getIntrinsicHeight());
+//                    if (DEBUG) LogUtil.d(TAG, ".......................topic img w:"
+//                            + d.getIntrinsicWidth() + ", h:" +  d.getIntrinsicHeight());
+//                    is.close();
+//                    return d;
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    LogUtil.e(TAG, "Exception: " + e);
+//                    return null;
+//                }
+//            }
+//        }, null);
+//        mTopicTitle.setText(sp);
+
+        ViewUtils.setHtmlIntoTextView(mTopicTitle, topic.getTitle(), ViewUtils.getWidthPixels() -
+                TOPIC_TITLE_PICTURE_OTHER_WIDTH, false);
         mTopicNode.setText(topic.getNode().getTitle());
         mUserName.setText(topic.getMember().getUserName());
         mReplyTime.setText(topic.getTime());
