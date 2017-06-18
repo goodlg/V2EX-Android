@@ -27,9 +27,9 @@
     <string name="str_option_ignore">Ignore</string>
     <string name="str_option_thank">Thank</string>
 
-    <string name="str_default_name">goodlg</string>
+    <string name="str_default_name">unknow</string>
     <string name="str_gold">Gold %d</string>
-    <string name="str_remind">Remind %d</string>
+    <string name="str_remind">%d Remind</string>
 
     <string name="str_node_collect">Node fav</string>
     <string name="str_topic_collect">Topic fav</string>

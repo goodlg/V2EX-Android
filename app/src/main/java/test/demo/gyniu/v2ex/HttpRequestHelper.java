@@ -10,7 +10,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -20,7 +19,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import test.demo.gyniu.v2ex.model.Entity;
-import test.demo.gyniu.v2ex.model.LoginResult;
+import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.model.SignInForm;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
@@ -144,7 +143,7 @@ public class HttpRequestHelper {
         return rsp;
     }
 
-    public LoginResult login(String account, String password) throws Exception {
+    public UserProfile login(String account, String password) throws Exception {
         if (DEBUG) LogUtil.d(TAG, "login user: " + account);
 
         final SignInForm form = getSignInForm();

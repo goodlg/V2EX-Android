@@ -1,12 +1,11 @@
 package test.demo.gyniu.v2ex.common;
 
 import android.widget.Toast;
-
 import test.demo.gyniu.v2ex.AppCtx;
 import test.demo.gyniu.v2ex.R;
-import test.demo.gyniu.v2ex.dao.ConfigDao;
+import test.demo.gyniu.v2ex.dao.UserDao;
 import test.demo.gyniu.v2ex.eventbus.LoginEvent;
-import test.demo.gyniu.v2ex.model.Avatar;
+import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.utils.ExecutorUtils;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -27,26 +26,23 @@ public class UserState {
         return instance;
     }
 
-    private String mUsername;
+    private UserProfile mProfile = null;
 
     public void init() {
         AppCtx.getEventBus().register(this);
-        mUsername = ConfigDao.get(ConfigDao.KEY_USERNAME, null);
+        mProfile = UserDao.get(UserDao.KEY_USERNAME);
     }
 
-    public void login(String username, Avatar avatar) {
-        ConfigDao.put(ConfigDao.KEY_AVATAR, avatar.getBaseUrl());
-        ConfigDao.put(ConfigDao.KEY_USERNAME, username);
-
-        mUsername = username;
+    public void login(UserProfile profile) {
+        UserDao.put(UserDao.KEY_USERNAME, profile);
+        mProfile = profile;
         if (DEBUG) LogUtil.d(TAG, "post sign in event");
-        AppCtx.getEventBus().post(new LoginEvent(username));
+        AppCtx.getEventBus().post(new LoginEvent(profile.getAccount()));
     }
 
     public void logout() {
-        mUsername = null;
-        ConfigDao.remove(ConfigDao.KEY_USERNAME);
-        ConfigDao.remove(ConfigDao.KEY_AVATAR);
+        mProfile = null;
+        UserDao.remove(UserDao.KEY_USERNAME);
 
         ExecutorUtils.runInUiThread(new Runnable() {
             @Override
@@ -60,10 +56,10 @@ public class UserState {
     }
 
     public boolean isLoggedIn() {
-        return mUsername != null;
+        return mProfile != null;
     }
 
-    public String getUsername() {
-        return mUsername;
+    public UserProfile getProfile() {
+        return mProfile;
     }
 }

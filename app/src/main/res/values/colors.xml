@@ -25,6 +25,7 @@
 
     <color name="reply_count_color">#FF505050</color>
     <color name="reply_count_background">#FFB0C0D0</color>
+    <color name="balance_background">#FFEFEFEF</color>
 
     <color name="colorTopicViewLine">#CFCFCF</color>
     <color name="color_home_str">#FF465665</color>

@@ -18,6 +18,7 @@ import com.google.common.eventbus.Subscribe;
 
 import test.demo.gyniu.v2ex.common.UserState;
 import test.demo.gyniu.v2ex.eventbus.LoginEvent;
+import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.ListOptionView.OnDoOptionListener;
 
@@ -36,7 +37,8 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
 
     private RelativeLayout mProfileLayout;
     private TextView mUsername;
-    private TextView mGold;
+    private TextView mSilver;
+    private TextView mBronze;
     private TextView mRemind;
 
     //show if user not login
@@ -68,7 +70,8 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
         mAvatar = (ImageView) view.findViewById(R.id.avatar);
         mProfileLayout = (RelativeLayout) view.findViewById(R.id.profileLayout);
         mUsername = (TextView) view.findViewById(R.id.username);
-        mGold = (TextView) view.findViewById(R.id.gold);
+        mSilver = (TextView) view.findViewById(R.id.tv_silver);
+        mBronze = (TextView) view.findViewById(R.id.tv_bronze);
         mRemind = (TextView) view.findViewById(R.id.remind);
 
         mLogin = (TextView) view.findViewById(R.id.login);
@@ -101,8 +104,7 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
                 Toast.makeText(getActivity(), "settings", Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                Intent intent1 = new Intent(getActivity(), SigninActivity.class);
-                startActivity(intent1);
+                Toast.makeText(getActivity(), "update", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
                 Intent intent = new Intent(getActivity(), AboutActivity.class);
@@ -131,10 +133,32 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
 
     private void updateUserStatusUI() {
         final UserState us = UserState.getInstance();
-        if (us.isLoggedIn()) {
+        final UserProfile profile = us.getProfile();
+        if (profile!=null && us.isLoggedIn()) {
             mProfileLayout.setVisibility(View.VISIBLE);
             mLogin.setVisibility(View.GONE);
             mLayout2.setVisibility(View.VISIBLE);
+            //username
+            mUsername.setText(profile.getAccount());
+            mUsername.setVisibility(View.VISIBLE);
+            //silver
+            mSilver.setText(String.format("%d", profile.getSilver()));
+            mSilver.setVisibility(View.VISIBLE);
+            //bronze
+            mBronze.setText(String.format("%d", profile.getBronze()));
+            mSilver.setVisibility(View.VISIBLE);
+            //notifications
+            mRemind.setText(getString(R.string.str_remind, profile.getRemind()));
+            mRemind.setVisibility(View.VISIBLE);
+            //nodes
+            mNodes.setText(String.format("%d", profile.getNodesCount()));
+            mNodes.setVisibility(View.VISIBLE);
+            //topics
+            mTopics.setText(String.format("%d", profile.getTopicsCount()));
+            mTopics.setVisibility(View.VISIBLE);
+            //followings
+            mAttentions.setText(String.format("%d", profile.getFollowings()));
+            mAttentions.setVisibility(View.VISIBLE);
         } else {
             mProfileLayout.setVisibility(View.GONE);
             mLogin.setVisibility(View.VISIBLE);

@@ -39,6 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         if (DEBUG) LogUtil.d(TAG, "Create db table");
         ConfigDao.createTable(db);
+        UserDao.createTable(db);
     }
 
     @Override

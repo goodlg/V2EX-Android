@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.RemoteException;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -22,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import test.demo.gyniu.v2ex.common.UserState;
-import test.demo.gyniu.v2ex.model.LoginResult;
+import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -167,10 +165,10 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                final LoginResult result = HttpRequestHelper.getInstance().login(mAccount, mPasswd);
-                if (result != null) {
-                    if (DEBUG) LogUtil.w(TAG, "login result: " + result);
-                    UserState.getInstance().login(result.mAccount, result.mAvatar);
+                final UserProfile profile = HttpRequestHelper.getInstance().login(mAccount, mPasswd);
+                if (profile != null) {
+                    if (DEBUG) LogUtil.w(TAG, "already login, profile: " + profile);
+                    UserState.getInstance().login(profile);
                     return true;
                 }
             } catch (Exception e) {

@@ -51,25 +51,56 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:text="@string/str_default_name"
+                            android:textSize="14sp"
                             android:textColor="@color/colorBlack2" />
 
-                        <TextView
+                        <LinearLayout
                             android:id="@+id/gold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignLeft="@+id/username"
                             android:layout_alignParentBottom="true"
-                            android:textColor="@color/colorBlack2"
-                            android:text="@string/str_gold"/>
+                            android:orientation="horizontal"
+                            android:background="@drawable/balance_background">
 
+                            <TextView
+                                android:id="@+id/tv_silver"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/colorBlack2" />
+
+                            <ImageView
+                                android:layout_width="@dimen/balance_size"
+                                android:layout_height="@dimen/balance_size"
+                                android:layout_marginLeft="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/silver"/>
+
+                            <TextView
+                                android:id="@+id/tv_bronze"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="14sp"
+                                android:textColor="@color/colorBlack2" />
+
+                            <ImageView
+                                android:layout_width="@dimen/balance_size"
+                                android:layout_height="@dimen/balance_size"
+                                android:layout_marginLeft="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/bronze"/>
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/remind"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_toRightOf="@+id/gold"
+                            android:layout_toRightOf="@id/gold"
                             android:textColor="@color/colorBlack2"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
+                            android:textSize="14sp"
                             android:text="@string/str_remind" />
                     </RelativeLayout>
                     <TextView
@@ -107,6 +138,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="0"
+                            android:textSize="14sp"
                             android:textColor="@color/colorBlack2" />
 
                         <TextView
@@ -137,6 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="0"
+                            android:textSize="14sp"
                             android:textColor="@color/colorBlack2" />
 
                         <TextView
@@ -167,6 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="0"
+                            android:textSize="14sp"
                             android:textColor="@color/colorBlack2" />
 
                         <TextView
