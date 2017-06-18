@@ -1,13 +1,17 @@
 package test.demo.gyniu.v2ex;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.io.InputStream;
+import java.net.URL;
 
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
@@ -59,7 +63,28 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
     public void buildItem(Topic topic) {
         if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
         mTopic = topic;
-        mTopicTitle.setText(topic.getTitle());
+
+        String title = topic.getTitle();
+        Spanned sp = Html.fromHtml(title, new Html.ImageGetter() {
+            @Override
+            public Drawable getDrawable(String source) {
+                InputStream is = null;
+                try {
+                    is = (InputStream) new URL(source).getContent();
+                    Drawable d = Drawable.createFromStream(is, "src");
+                    d.setBounds(0, 0, d.getIntrinsicWidth(),
+                            d.getIntrinsicHeight());
+                    if (DEBUG) LogUtil.d(TAG, ".......................topic img w:" + d.getIntrinsicWidth() + ", h:" +  d.getIntrinsicHeight());
+                    is.close();
+                    return d;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LogUtil.e(TAG, "Exception: " + e);
+                    return null;
+                }
+            }
+        }, null);
+        mTopicTitle.setText(sp);
         mTopicNode.setText(topic.getNode().getTitle());
         mUserName.setText(topic.getMember().getUserName());
         mReplyTime.setText(topic.getTime());
