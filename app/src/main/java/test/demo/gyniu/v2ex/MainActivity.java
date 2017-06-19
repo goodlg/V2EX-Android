@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.google.common.eventbus.Subscribe;
 
 import test.demo.gyniu.v2ex.eventbus.LoginEvent;
 import test.demo.gyniu.v2ex.utils.LogUtil;
+import test.demo.gyniu.v2ex.Constant.orientation;
 
 /**
  * Created by uiprj on 17-3-13.
@@ -28,6 +30,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
 
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolBar;
+    private TextView mCustomTitle;
 
     private LayoutInflater layoutInflater;
 
@@ -52,10 +55,27 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         mAppBarLayout = (AppBarLayout) findViewById(R.id.appBar);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolBar != null){
-            mToolBar.setTitle(R.string.app_name);
+            mCustomTitle = (TextView) mToolBar.findViewById(R.id.customTitle);
             setSupportActionBar(mToolBar);
         }
         initBottomTabHost();
+    }
+
+    public void alignTitle(orientation o, String title) {
+        if (mToolBar == null && mCustomTitle == null) return;
+        mToolBar.setTitle("");
+        mCustomTitle.setText(title);
+        switch (o) {
+            case left:
+                mCustomTitle.setGravity(Gravity.START);
+                break;
+            case center:
+                mCustomTitle.setGravity(Gravity.CENTER);
+                break;
+            case right:
+                mCustomTitle.setGravity(Gravity.END);
+                break;
+        }
     }
 
     private void getRes(){

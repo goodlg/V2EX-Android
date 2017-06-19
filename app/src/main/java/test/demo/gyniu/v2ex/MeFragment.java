@@ -21,6 +21,7 @@ import test.demo.gyniu.v2ex.eventbus.LoginEvent;
 import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.ListOptionView.OnDoOptionListener;
+import test.demo.gyniu.v2ex.Constant.orientation;
 
 /**
  * Created by uiprj on 17-3-17.
@@ -93,7 +94,7 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
         if (DEBUG) LogUtil.d(TAG, "activity already created");
 
         final MainActivity activity = (MainActivity) getActivity();
-        activity.setTitle(R.string.str_me);
+        activity.alignTitle(orientation.center, getString(R.string.str_me));
     }
 
     @Override

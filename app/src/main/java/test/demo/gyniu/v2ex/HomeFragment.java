@@ -17,6 +17,7 @@ import java.util.List;
 import test.demo.gyniu.v2ex.model.Tab;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.SharedPreferencesHelper;
+import test.demo.gyniu.v2ex.Constant.orientation;
 
 /**
  * Created by uiprj on 17-3-14.
@@ -49,6 +50,13 @@ public class HomeFragment extends BaseNavFragment {
         ViewCompat.setPaddingRelative(tabStrip, 8, 0, 8, 0);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final MainActivity activity = (MainActivity) getActivity();
+        activity.alignTitle(orientation.left, getString(R.string.app_name));
     }
 
     @Override
