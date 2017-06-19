@@ -25,4 +25,6 @@
 
     <dimen name="balance_size">14dp</dimen>
 
+    <dimen name="bottom_replay_layout_height">45dp</dimen>
+    <dimen name="bottom_replay_send_btn_size">30dp</dimen>
 </resources>
