@@ -2,52 +2,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/reply_layout"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/reply_edit_layout"
+    android:gravity="center_vertical"
     android:layout_alignParentBottom="true">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/reply_edit_layout"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/reply_edit_select"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="7dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="3dp"
+            android:textColor="#222222"
+            android:maxLines="4"
             android:layout_weight="1"
-            android:background="@drawable/reply_edit_select"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/comment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="3dp"
-                android:textColor="#222222"
-                android:maxLines="4"
-                android:layout_weight="1"
-                android:background="@null" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="@dimen/bottom_replay_layout_height"
-            android:layout_height="@dimen/bottom_replay_layout_height"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="2dp">
-
-            <ImageButton
-                android:id="@+id/send"
-                android:layout_width="@dimen/bottom_replay_send_btn_size"
-                android:layout_height="@dimen/bottom_replay_send_btn_size"
-                android:layout_centerInParent="true"
-                android:background="@drawable/send_btn_selector"
-                android:padding="5dp" />
-        </RelativeLayout>
+            android:background="@null" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/bottom_replay_layout_height"
+        android:layout_height="@dimen/bottom_replay_layout_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2dp">
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="@dimen/bottom_replay_send_btn_size"
+            android:layout_height="@dimen/bottom_replay_send_btn_size"
+            android:layout_centerInParent="true"
+            android:background="@drawable/send_btn_selector"
+            android:padding="5dp" />
+    </RelativeLayout>
 </LinearLayout>
