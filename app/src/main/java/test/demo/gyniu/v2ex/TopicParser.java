@@ -196,8 +196,8 @@ public class TopicParser extends ParserHelper {
 
         final List<Element> elements = new JsoupObjects(ele).child(".small").getList();
 
-        final Element timeEle = elements.get(0);
-        builder.setReplyTime(timeEle.text());
+        final Element ertime = JsoupObjects.child(ele, ".ago");
+        builder.setReplyTime(ertime.text());
     }
 
     private static void parseCommentContent(Comment.Builder builder, Element ele) {
