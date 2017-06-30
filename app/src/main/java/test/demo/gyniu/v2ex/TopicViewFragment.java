@@ -13,11 +13,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.common.base.Preconditions;
 
+import test.demo.gyniu.v2ex.common.ExceptionHelper;
+import test.demo.gyniu.v2ex.common.RequestException;
 import test.demo.gyniu.v2ex.model.Comment;
 import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.network.HttpStatus;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
 
@@ -187,6 +191,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         if (DEBUG) LogUtil.w(TAG, "load topic done");
         if (result.hasException()) {
             LogUtil.e(TAG, "HAS Exception: " + result.getException());
+            handleLoadException(result);
             return;
         }
 
@@ -221,5 +226,38 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         if (DEBUG) LogUtil.w(TAG, "reset topic loader");
         mTopicViewAdapter.setDataSource(null);
         mComments.clear();
+    }
+
+    private void handleLoadException(AsyncTaskLoader.LoaderResult<TopicWithComments> result) {
+        boolean finishActivity = false;
+        try {
+            ExceptionHelper.handleExceptionNoCatch(this, result.mException);
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof RequestException) {
+                final RequestException ex = (RequestException) e.getCause();
+                int strId;
+                switch (ex.getCode()) {
+                    case HttpStatus.SC_NOT_FOUND:
+                        strId = R.string.toast_topic_not_found;
+                        break;
+                    default:
+                        throw e;
+                }
+
+                if (getUserVisibleHint()) {
+                    Toast.makeText(getActivity(), strId, Toast.LENGTH_SHORT).show();
+                }
+                finishActivity = true;
+            } else {
+                throw e;
+            }
+        }
+
+        if (DEBUG) LogUtil.w(TAG, "need finish activity ? " + finishActivity);
+
+        if (finishActivity) {
+            if (DEBUG) LogUtil.w(TAG, "finish this activity");
+            getActivity().finish();
+        }
     }
 }

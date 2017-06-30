@@ -58,4 +58,9 @@
     <string name="toast_login_success">Welcome back, %s!</string>
     <string name="error_field_required">This field is required</string>
     <string name="toast_has_sign_out">Account has sign out!</string>
+
+    <string name="toast_parse_failed">Parse failed!</string>
+    <string name="toast_access_denied">Access denied, please try later!</string>
+    <string name="toast_topic_not_found">Topic not found!</string>
+
 </resources>

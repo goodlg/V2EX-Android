@@ -34,8 +34,10 @@ public class TopicParser extends ParserHelper {
     public static TopicWithComments parseDoc(Document doc, Topic topic) {
         if (DEBUG) LogUtil.w(TAG, "TopicParser parseDoc");
         final Topic.Builder topicBuilder = topic.toBuilder();
+        if (DEBUG) LogUtil.w(TAG, "TopicParser parseDoc 2");
         final Element mainElement = new JsoupObjects(doc).bfs("body").child("#Wrapper")
                 .child(".content").child("#Main").getOne();
+        if (DEBUG) LogUtil.w(TAG, "TopicParser parseDoc 3");
 
         parseTopicInfo(topicBuilder, mainElement);
 

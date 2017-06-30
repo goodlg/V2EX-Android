@@ -56,4 +56,9 @@
 
     <string name="error_field_required">必填项</string>
     <string name="toast_has_sign_out">账户已登出！</string>
+
+    <string name="toast_parse_failed">解析失败！</string>
+    <string name="toast_access_denied">拒绝访问，请稍候再试！</string>
+    <string name="toast_topic_not_found">主题未找到！</string>
+
 </resources>

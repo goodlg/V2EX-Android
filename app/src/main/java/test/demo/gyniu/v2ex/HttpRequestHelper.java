@@ -18,10 +18,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import test.demo.gyniu.v2ex.common.RequestException;
 import test.demo.gyniu.v2ex.model.Entity;
 import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.model.SignInForm;
 import test.demo.gyniu.v2ex.model.Topic;
+import test.demo.gyniu.v2ex.network.HttpStatus;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -115,6 +117,7 @@ public class HttpRequestHelper {
             doc = ParserHelper.toDoc(response.body().string());
             result = TopicParser.parseDoc(doc, topic);
         } catch (IOException e) {
+            e.printStackTrace();
             LogUtil.e(TAG, "Exception: " + e);
             throw new Exception(e);
         }
@@ -128,7 +131,11 @@ public class HttpRequestHelper {
         return new Request.Builder().header(HttpHeaders.USER_AGENT, Constant.USER_AGENT);
     }
 
-    private Response sendRequest(Request request) throws Exception{
+    private Response sendRequest(Request request) throws Exception {
+        return sendRequest(request, true);
+    }
+
+    private Response sendRequest(Request request, boolean checkResponse) throws Exception{
         final Response rsp;
         try {
             if (DEBUG) LogUtil.d(TAG, "send req to remote");
@@ -139,8 +146,23 @@ public class HttpRequestHelper {
             throw new Exception(e);
         }
 
-        if (DEBUG) LogUtil.w(TAG, "rsp: " + rsp);
+        if (checkResponse) {
+            checkResponse(rsp);
+        }
+
         return rsp;
+    }
+
+    private void checkResponse(Response response) throws Exception {
+        if (response.isSuccessful()) {
+            return;
+        }
+        final int code = response.code();
+        if (code == HttpStatus.SC_NOT_FOUND || code == HttpStatus.SC_FORBIDDEN) {
+            final RequestException ex = new RequestException(response);
+            throw ex;
+        }
+        throw new RuntimeException(response.code() + "");
     }
 
     public UserProfile login(String account, String password) throws Exception {
@@ -161,10 +183,10 @@ public class HttpRequestHelper {
                 .header(HttpHeaders.REFERER, Constant.URL_SIGN_IN)
                 .post(requestBody).build();
 
-        Response response = sendRequest(request);
+        Response response = sendRequest(request, false);
 
         // v2ex will redirect if login success
-        if (response.code() != 302) {
+        if (response.code() != HttpStatus.SC_MOVED_TEMPORARILY) {
             if (DEBUG) LogUtil.d(TAG, "will be redirect if login successfully, resp code: "
                     + response.code());
             return null;
