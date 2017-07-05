@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">V2EX+</string>
+    <string name="app_name">V2EX++</string>
 
     <string name="str_home">Home</string>
     <string name="str_node">Node</string>
@@ -62,5 +62,8 @@
     <string name="toast_parse_failed">Parse failed!</string>
     <string name="toast_access_denied">Access denied, please try later!</string>
     <string name="toast_topic_not_found">Topic not found!</string>
+
+    <string name="node_summary">The description of node</string>
+    <string name="str_nodes_topics_count">%d Topics</string>
 
 </resources>

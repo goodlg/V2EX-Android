@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_node"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_node"
-        android:textSize="20sp"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <test.demo.gyniu.v2ex.widget.NodesIndexRecyclerView
+            android:id="@+id/all_nodes"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

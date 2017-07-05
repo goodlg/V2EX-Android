@@ -49,7 +49,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
     private boolean mIsLoading;
     private boolean mLastIsFailed;
 
-    private final int LOADER_ID = 0;
+    private final int LOADER_ID = 1;
 
     public TopicViewFragment(){}
 

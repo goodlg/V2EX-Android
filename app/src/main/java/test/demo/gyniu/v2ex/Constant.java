@@ -24,4 +24,5 @@ public class Constant {
     public static final String URL_ONCE_CODE = URL_SIGN_IN;
 
     public static final String URL_ONCE_TOKEN = URL_SIGN_IN;
+    public static final String API_GET_ALL_NODES = BASE_URL + "/api/nodes/all.json";
 }

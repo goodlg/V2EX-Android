@@ -1,10 +1,8 @@
 package test.demo.gyniu.v2ex;
 
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -14,9 +12,6 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.google.common.eventbus.Subscribe;
-
-import test.demo.gyniu.v2ex.eventbus.LoginEvent;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.Constant.orientation;
 
@@ -39,7 +34,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     private int[] mBottomTabIconNormal;
     private int[] mBottomTabIconSelect;
 
-    private Class fragmentArray[] = { HomeFragment.class, NodeFragment.class, MeFragment.class };
+    private Class fragmentArray[] = { HomeFragment.class, NodeListFragment.class, MeFragment.class };
 
     private static final int MAX_BOTTOM_TAB_COUNT = 3;
 

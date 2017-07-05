@@ -5,11 +5,15 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.google.common.base.Preconditions;
 import com.google.common.net.HttpHeaders;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -20,10 +24,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import test.demo.gyniu.v2ex.common.RequestException;
 import test.demo.gyniu.v2ex.model.Entity;
+import test.demo.gyniu.v2ex.model.Etag;
+import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.model.UserProfile;
 import test.demo.gyniu.v2ex.model.SignInForm;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.network.HttpStatus;
+import test.demo.gyniu.v2ex.utils.GsonFactory;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -125,6 +132,24 @@ public class HttpRequestHelper {
         if (DEBUG) LogUtil.e(TAG, "result : " + result);
 
         return result;
+    }
+
+    public List<Node> getALlNodes() throws Exception {
+        if (BuildConfig.DEBUG) LogUtil.d(TAG, "request all nodes");
+        final Request request = newRequest().url(Constant.API_GET_ALL_NODES).build();
+        final Response response = sendRequest(request);
+        try {
+            final String json = response.body().string();
+            return GsonFactory.getInstance().fromJson(json, new TypeToken<List<Node>>() {
+            }.getType());
+//            Gson gson = new Gson();
+//            Type listType = new TypeToken<List<Node>>(){}.getType();
+//            return gson.fromJson(json, listType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, "Exception: " + e);
+            throw new Exception(e);
+        }
     }
 
     private Request.Builder newRequest() {

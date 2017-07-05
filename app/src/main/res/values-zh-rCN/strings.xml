@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">V2EX+</string>
+    <string name="app_name">V2EX++</string>
 
     <string name="str_home">首页</string>
     <string name="str_node">节点</string>
@@ -61,4 +61,6 @@
     <string name="toast_access_denied">拒绝访问，请稍候再试！</string>
     <string name="toast_topic_not_found">主题未找到！</string>
 
+    <string name="node_summary">节点描述</string>
+    <string name="str_nodes_topics_count">%d 主题</string>
 </resources>

@@ -89,6 +89,19 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
         return Objects.hashCode(mId, mTitle, mName, mTitleAlternative, mTopics, mAvatar);
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "mId=" + mId +
+                ", mTitle='" + mTitle + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mTitleAlternative='" + mTitleAlternative + '\'' +
+                ", mTopics=" + mTopics +
+                ", mAvatar=" + mAvatar +
+                ", mHasInfo=" + mHasInfo +
+                '}';
+    }
+
     public static String buildUrlByName(String name) {
         return Constant.BASE_URL + "/go/" + name;
     }
