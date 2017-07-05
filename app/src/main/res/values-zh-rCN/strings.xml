@@ -63,4 +63,6 @@
 
     <string name="node_summary">节点描述</string>
     <string name="str_nodes_topics_count">%d 主题</string>
+    <string name="menu_title_search">搜索</string>
+    <string name="search_nodes_hint">输入节点名称</string>
 </resources>
