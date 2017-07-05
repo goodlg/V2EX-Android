@@ -33,12 +33,13 @@ public class NodeDao extends BaseDao {
     private static final String KEY_TITLE = "title";
     private static final String KEY_HEADER = "header";
     private static final String KEY_FOOTER = "footer";
+    private static final String KEY_TOPICS = "topics";
 
     // meaning alternative
     private static final String KEY_ALT = "alt";
     private static final String KEY_AVATAR = "avatar";
 
-    private static final String[] SCHEMA = {KEY_ID, KEY_NAME, KEY_TITLE, KEY_HEADER, KEY_FOOTER, KEY_ALT, KEY_AVATAR};
+    private static final String[] SCHEMA = {KEY_ID, KEY_NAME, KEY_TITLE, KEY_HEADER, KEY_FOOTER, KEY_TOPICS, KEY_ALT, KEY_AVATAR};
 
     private static final String SQL_GET_BY_NAME = SQLiteQueryBuilder.buildQueryString(false,
             TABLE_NAME, SCHEMA, KEY_NAME + " = ?", null, null, null ,null);
@@ -56,6 +57,7 @@ public class NodeDao extends BaseDao {
                 KEY_TITLE + " TEXT NOT NULL," +
                 KEY_HEADER + " TEXT," +
                 KEY_FOOTER + " TEXT," +
+                KEY_TOPICS + " INTEGER," +
                 KEY_ALT + " TEXT," +
                 KEY_AVATAR + " TEXT" +
                 ")";
@@ -72,6 +74,7 @@ public class NodeDao extends BaseDao {
         values.put(KEY_TITLE, node.getTitle());
         values.put(KEY_HEADER, node.getHeader());
         values.put(KEY_FOOTER, node.getFooter());
+        values.put(KEY_TOPICS, node.getTopics());
         values.put(KEY_ALT, node.getTitleAlternative());
         final Avatar avatar = node.getAvatar();
         if (avatar != null) {
@@ -99,12 +102,13 @@ public class NodeDao extends BaseDao {
                 .setName(cursor.getString(1))//name
                 .setTitle(cursor.getString(2))//title
                 .setHeader(cursor.getString(3))//header
-                .setFooter(cursor.getString(4));//footer
-        String str = cursor.getString(5);//alternative
+                .setFooter(cursor.getString(4))//footer
+                .setTopics(cursor.getInt(5));//topics
+        String str = cursor.getString(6);//alternative
         if (str != null) {
             builder.setTitleAlternative(str);
         }
-        str = cursor.getString(4);//avatar
+        str = cursor.getString(7);//avatar
         if (str != null) {
             final Avatar avatar = new Avatar.Builder().setBaseUrl(str).createAvatar();
             builder.setAvatar(avatar);

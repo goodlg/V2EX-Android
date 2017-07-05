@@ -90,6 +90,9 @@ public class AppCtx extends Application {
                 LogUtil.e(TAG, "Exception: " + e);
                 return;
             }
+            for (Node node :  result) {
+                LogUtil.d(TAG, "node: " + node);
+            }
             //for debug
             if (BuildConfig.DEBUG) {
                 long consumingTime = System.nanoTime() - startTime;
@@ -101,7 +104,7 @@ public class AppCtx extends Application {
                 ConfigDao.put(ConfigDao.KEY_NODE_ETAG, etag.getNewEtag());
             }
             if (BuildConfig.DEBUG)
-                LogUtil.d(TAG, "load nodes finish!");
+                LogUtil.d(TAG, "load nodes finish! etagStr: " + etagStr);
         }
     }
 }
