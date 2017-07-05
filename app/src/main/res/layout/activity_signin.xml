@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="test.demo.gyniu.v2ex.SigninActivity">
+    tools:context=".Activity.SigninActivity">
 
     <ProgressBar
         android:id="@+id/login_progress"

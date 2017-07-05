@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import test.demo.gyniu.v2ex.AppCtx;
-import test.demo.gyniu.v2ex.AsyncImageGetter;
 
 /**
  * Created by uiprj on 17-5-15.

@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <test.demo.gyniu.v2ex.TopicView
+    <test.demo.gyniu.v2ex.widget.TopicView
         android:id="@+id/topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

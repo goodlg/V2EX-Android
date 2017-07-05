@@ -219,7 +219,7 @@
                 android:layout_height="10dp"
                 android:background="@color/colorBgGrayLight1" />
 
-            <test.demo.gyniu.v2ex.ListOptionView
+            <test.demo.gyniu.v2ex.widget.ListOptionView
                 android:id="@+id/settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorBgGrayLight" />
 
-            <test.demo.gyniu.v2ex.ListOptionView
+            <test.demo.gyniu.v2ex.widget.ListOptionView
                 android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorBgGrayLight" />
 
-            <test.demo.gyniu.v2ex.ListOptionView
+            <test.demo.gyniu.v2ex.widget.ListOptionView
                 android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

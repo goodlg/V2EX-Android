@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test.demo.gyniu.v2ex.ExSwipeRefreshLayout
+<test.demo.gyniu.v2ex.widget.ExSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.demo.gyniu.v2ex.TopicListFragment">
+    tools:context=".fragment.TopicListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
@@ -12,5 +12,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/AppTheme.Topic.ItemDivider"/>
-</test.demo.gyniu.v2ex.ExSwipeRefreshLayout>
+</test.demo.gyniu.v2ex.widget.ExSwipeRefreshLayout>
 

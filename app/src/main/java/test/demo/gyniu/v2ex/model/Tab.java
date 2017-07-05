@@ -10,8 +10,7 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 
-import test.demo.gyniu.v2ex.AppCtx;
-import test.demo.gyniu.v2ex.Constant;
+import test.demo.gyniu.v2ex.utils.Constant;
 import test.demo.gyniu.v2ex.R;
 
 /**

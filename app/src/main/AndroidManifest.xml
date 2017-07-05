@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,20 +20,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TopicActivity"
+        <activity android:name=".Activity.TopicActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
-            android:name=".AboutActivity"
+            android:name=".Activity.AboutActivity"
             android:label="@string/str_about">
         </activity>
         <activity
-            android:name=".SigninActivity"
+            android:name=".Activity.SigninActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".LoadingActivity"
+            android:name=".Activity.LoadingActivity"
             android:label="@string/title_activity_loading"
             android:noHistory="true" >
         </activity>

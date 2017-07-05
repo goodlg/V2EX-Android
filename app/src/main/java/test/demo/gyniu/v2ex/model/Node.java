@@ -14,8 +14,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import test.demo.gyniu.v2ex.Constant;
-import test.demo.gyniu.v2ex.ExArrayAdapter;
+import test.demo.gyniu.v2ex.utils.Constant;
+import test.demo.gyniu.v2ex.adapter.ExArrayAdapter;
 
 /**
  * Created by gyniu on 17-5-29.

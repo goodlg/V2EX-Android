@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="test.demo.gyniu.v2ex.MainActivity" >
+    tools:context=".Activity.MainActivity" >
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

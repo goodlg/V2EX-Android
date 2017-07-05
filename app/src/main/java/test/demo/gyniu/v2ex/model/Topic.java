@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import test.demo.gyniu.v2ex.Constant;
+import test.demo.gyniu.v2ex.utils.Constant;
 
 /**
  * Created by uiprj on 17-3-22.

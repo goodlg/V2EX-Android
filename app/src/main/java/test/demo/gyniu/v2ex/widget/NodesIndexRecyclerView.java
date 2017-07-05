@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import test.demo.gyniu.v2ex.utils.IndexScroller;
+
 /**
  * Created by uiprj on 17-7-5.
  */
