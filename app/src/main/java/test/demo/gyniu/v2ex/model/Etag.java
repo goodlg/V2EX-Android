@@ -18,9 +18,7 @@ public class Etag {
      */
     public boolean setNewEtag(String etag) {
         Preconditions.checkNotNull(etag);
-
         mNewEtag = etag;
-
         return isModified();
     }
 

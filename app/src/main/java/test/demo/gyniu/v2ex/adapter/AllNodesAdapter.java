@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.utils.LogUtil;
@@ -56,9 +57,9 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         final Node node = mNodes.get(position);
         viewHolder.title.setText(node.getTitle());
-        if (node.getTitleAlternative() != null) {
+        if (node.getHeader() != null) {
             viewHolder.summary.setVisibility(View.VISIBLE);
-            viewHolder.summary.setText(Html.fromHtml(node.getTitleAlternative()));
+            viewHolder.summary.setText(Html.fromHtml(node.getHeader()));
         } else {
             viewHolder.summary.setVisibility(View.GONE);
         }
@@ -77,10 +78,13 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
     }
 
     public void setDataSource(List<Node> data) {
+        //for debug
+        long startTime = 0L;
+        if (BuildConfig.DEBUG) startTime = System.nanoTime();
+        //////////////////////
         TreeMap<String, List<Node>> lists = new TreeMap<String, List<Node>>();
         for (int i = 0; i < data.size(); i++) {
             Node node = data.get(i);
-            LogUtil.d(TAG, "node: " + node);
             String alpha = PinyinAlpha.getFirstChar(node.getTitle());
             if (!lists.containsKey(alpha)) {
                 List<Node> list = new ArrayList<Node>();
@@ -106,6 +110,12 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
         }
 
         mAllNodes = mNodes;
+        //for debug
+        if (BuildConfig.DEBUG) {
+            long consumingTime = System.nanoTime() - startTime;
+            LogUtil.d(TAG, "!!!consuming time : " + consumingTime/1000 + "μs");
+        }
+        //////////////////////////
         notifyDataSetChanged();
     }
 
@@ -167,7 +177,8 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
         @Override
         public void onClick(View view) {
             final int position = getAdapterPosition();
-            LogUtil.d(TAG, "node click position: " + position);
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "node click position: " + position);
         }
     }
 }

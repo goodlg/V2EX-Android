@@ -16,20 +16,20 @@ public abstract class AsyncTaskLoader<T> extends android.support.v4.content.Asyn
     protected LoaderResult<T> mResult;
     private static final long DEFAULT_UPDATE_THROTTLE = TimeUnit.SECONDS.toMillis(3);
 
-    protected boolean mRefresh = false;
+//    protected boolean mRefresh = false;
 
     public AsyncTaskLoader(Context context) {
         super(context);
         setUpdateThrottle(DEFAULT_UPDATE_THROTTLE);
     }
 
-    public boolean isRefresh() {
-        return mRefresh;
-    }
-
-    public void setRefresh(boolean mRefresh) {
-        this.mRefresh = mRefresh;
-    }
+//    public boolean isRefresh() {
+//        return mRefresh;
+//    }
+//
+//    public void setRefresh(boolean mRefresh) {
+//        this.mRefresh = mRefresh;
+//    }
 
     @Override
     protected void onStartLoading() {

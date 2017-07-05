@@ -27,6 +27,7 @@ import test.demo.gyniu.v2ex.loader.ParserHelper;
 import test.demo.gyniu.v2ex.loader.TopicListLoader;
 import test.demo.gyniu.v2ex.loader.TopicListParser;
 import test.demo.gyniu.v2ex.loader.TopicParser;
+import test.demo.gyniu.v2ex.model.Etag;
 import test.demo.gyniu.v2ex.model.TopicWithComments;
 import test.demo.gyniu.v2ex.common.RequestException;
 import test.demo.gyniu.v2ex.model.Entity;
@@ -139,10 +140,14 @@ public class HttpRequestHelper {
         return result;
     }
 
-    public List<Node> getALlNodes() throws Exception {
+    public List<Node> getAllNodes(Etag etag) throws Exception {
         if (BuildConfig.DEBUG) LogUtil.d(TAG, "request all nodes");
         final Request request = newRequest().url(Constant.API_GET_ALL_NODES).build();
         final Response response = sendRequest(request);
+        final String newEtag = response.header(HttpHeaders.ETAG);
+        if (etag != null && !etag.setNewEtag(newEtag)) {
+            return null;
+        }
         try {
             final String json = response.body().string();
             return GsonFactory.getInstance().fromJson(json, new TypeToken<List<Node>>() {

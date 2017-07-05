@@ -4,6 +4,7 @@ import android.content.Context;
 import java.util.Collections;
 import java.util.List;
 
+import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.dao.NodeDao;
 import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.network.HttpRequestHelper;
@@ -23,17 +24,20 @@ public class NodeListLoader extends AsyncTaskLoader<List<Node>> {
     @Override
     public List<Node> loadInBackgroundWithException() throws Exception {
         List<Node> nodes;
-        if (!isRefresh()) {
-            //load nodes from cache
-            if (DEBUG) LogUtil.d(TAG, "load nodes from cache");
-            nodes = NodeDao.getAll();
-            if (nodes != null && nodes.size() > 0) {
-                Collections.sort(nodes);
-                return nodes;
-            }
+        //for debug
+        long startTime = 0;
+        if (BuildConfig.DEBUG) startTime = System.nanoTime();
+        //////////////////////////
+        nodes = NodeDao.getAllNodes();
+        //for debug
+        if (BuildConfig.DEBUG) {
+            long consumingTime = System.nanoTime() - startTime;
+            LogUtil.d(TAG, "!!!consuming time : " + consumingTime/1000 + "μs");
         }
-        List<Node> lists = HttpRequestHelper.getInstance().getALlNodes();
-        LogUtil.d(TAG, "lists : " + lists.size());
-        return lists;
+        ///////////////////////
+        if (nodes != null && nodes.size() > 0) {
+            Collections.sort(nodes);
+        }
+        return nodes;
     }
 }

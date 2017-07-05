@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import test.demo.gyniu.v2ex.AppCtx;
+import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -37,9 +38,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if (DEBUG) LogUtil.d(TAG, "Create db table");
+        if (BuildConfig.DEBUG) LogUtil.d(TAG, "Create db table");
         ConfigDao.createTable(db);
         UserDao.createTable(db);
+        NodeDao.createTable(db);
     }
 
     @Override

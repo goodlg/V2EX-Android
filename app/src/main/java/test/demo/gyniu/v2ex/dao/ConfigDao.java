@@ -28,6 +28,8 @@ public class ConfigDao extends BaseDao {
     public static final String KEY_USERNAME = "username";
     public static final String KEY_AVATAR = "avatar";
 
+    public static final String KEY_NODE_ETAG = "node_etag";
+
     static void createTable(SQLiteDatabase db) {
         Preconditions.checkState(db.inTransaction(), "create table must be in transaction");
 

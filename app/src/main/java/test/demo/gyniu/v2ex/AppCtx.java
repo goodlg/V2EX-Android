@@ -5,10 +5,18 @@ import android.app.Application;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 
+import java.sql.BatchUpdateException;
+import java.util.List;
+
 import test.demo.gyniu.v2ex.common.UserState;
+import test.demo.gyniu.v2ex.dao.ConfigDao;
 import test.demo.gyniu.v2ex.dao.DbHelper;
+import test.demo.gyniu.v2ex.dao.NodeDao;
 import test.demo.gyniu.v2ex.eventbus.BaseEvent;
 import test.demo.gyniu.v2ex.eventbus.executor.HandlerExecutor;
+import test.demo.gyniu.v2ex.model.Etag;
+import test.demo.gyniu.v2ex.model.Node;
+import test.demo.gyniu.v2ex.network.HttpRequestHelper;
 import test.demo.gyniu.v2ex.utils.ExecutorUtils;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
@@ -17,7 +25,6 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
  */
 public class AppCtx extends Application {
     private static final String TAG = "AppCtx";
-    private static final boolean DEBUG = LogUtil.LOGD;
 
     private static AppCtx mInstance;
     private volatile boolean mIsInited;
@@ -60,8 +67,41 @@ public class AppCtx extends Application {
             UserState.getInstance().init();
 
             mIsInited = true;
-            if (DEBUG) LogUtil.d(TAG, "init done ,post done event");
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "init done ,post done event");
             mEventBus.post(new BaseEvent.ContextInitFinishEvent());
+
+            //load all nodes
+            loadAllNodes();
+        }
+
+        private void loadAllNodes() {
+            final String etagStr = ConfigDao.get(ConfigDao.KEY_NODE_ETAG, null);
+            Etag etag = new Etag(etagStr);
+            List<Node> result;
+            //for debug
+            long startTime = 0L;
+            if (BuildConfig.DEBUG) startTime = System.nanoTime();
+            //////////////////
+            try {
+                result = HttpRequestHelper.getInstance().getAllNodes(etag);
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.e(TAG, "Exception: " + e);
+                return;
+            }
+            //for debug
+            if (BuildConfig.DEBUG) {
+                long consumingTime = System.nanoTime() - startTime;
+                LogUtil.d(TAG, "!!!consuming time : " + consumingTime/1000 + "μs");
+            }
+            ////////////////////
+            if (etag.isModified()) {
+                NodeDao.saveAllNodes(result);
+                ConfigDao.put(ConfigDao.KEY_NODE_ETAG, etag.getNewEtag());
+            }
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "load nodes finish!");
         }
     }
 }

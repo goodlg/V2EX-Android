@@ -27,16 +27,22 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
     private final int mId;
     private final String mTitle;
     private final String mName;
+    private final String mHeader;
+    private final String mFooter;
     private final String mTitleAlternative;
     private final int mTopics;
     private final Avatar mAvatar;
     private final boolean mHasInfo;
 
-    public Node(int mId, String mTitle, String mName, String mTitleAlternative, int mTopics, Avatar mAvatar) {
+
+    public Node(int mId, String mTitle, String mName, String mHeader,String mFooter,String mTitleAlternative,
+                int mTopics, Avatar mAvatar) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(mName));
         this.mId = mId;
         this.mTitle = mTitle;
         this.mName = mName;
+        this.mHeader = mHeader;
+        this.mFooter = mFooter;
         this.mTitleAlternative = mTitleAlternative;
         this.mTopics = mTopics;
         this.mAvatar = mAvatar;
@@ -53,6 +59,14 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
 
     public String getName() {
         return mName;
+    }
+
+    public String getHeader() {
+        return mHeader;
+    }
+
+    public String getFooter() {
+        return mFooter;
     }
 
     public String getTitleAlternative() {
@@ -78,15 +92,18 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
         Node node = (Node) o;
         return mId == node.mId &&
                 mTopics == node.mTopics &&
+                mHasInfo == node.mHasInfo &&
                 Objects.equal(mTitle, node.mTitle) &&
                 Objects.equal(mName, node.mName) &&
+                Objects.equal(mHeader, node.mHeader) &&
+                Objects.equal(mFooter, node.mFooter) &&
                 Objects.equal(mTitleAlternative, node.mTitleAlternative) &&
                 Objects.equal(mAvatar, node.mAvatar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mTitle, mName, mTitleAlternative, mTopics, mAvatar);
+        return Objects.hashCode(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar, mHasInfo);
     }
 
     @Override
@@ -95,6 +112,8 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
                 "mId=" + mId +
                 ", mTitle='" + mTitle + '\'' +
                 ", mName='" + mName + '\'' +
+                ", mHeader='" + mHeader + '\'' +
+                ", mFooter='" + mFooter + '\'' +
                 ", mTitleAlternative='" + mTitleAlternative + '\'' +
                 ", mTopics=" + mTopics +
                 ", mAvatar=" + mAvatar +
@@ -150,6 +169,8 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
         private String mTitle;
         private Avatar mAvatar;
         private String mName;
+        private String mHeader;
+        private String mFooter;
         private String mTitleAlternative;
         private int mTopics;
 
@@ -173,6 +194,16 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
             return this;
         }
 
+        public Builder setHeader(String mHeader) {
+            this.mHeader = mHeader;
+            return this;
+        }
+
+        public Builder setFooter(String mFooter) {
+            this.mFooter = mFooter;
+            return this;
+        }
+
         public Builder setTitleAlternative(String mTitleAlternative) {
             this.mTitleAlternative = mTitleAlternative;
             return this;
@@ -185,10 +216,10 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
 
         public Node createNode(){
             if (mTitle == null) {
-                return new Node(mId, null, mName, mTitleAlternative, mTopics, mAvatar);
+                return new Node(mId, null, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar);
             }
             try {
-                return CACHE.get(mName, () ->new Node(mId, mTitle, mName, mTitleAlternative, mTopics, mAvatar));
+                return CACHE.get(mName, () ->new Node(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar));
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             }
@@ -200,6 +231,8 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
         dest.writeInt(this.mId);
         dest.writeString(this.mTitle);
         dest.writeString(this.mName);
+        dest.writeString(this.mHeader);
+        dest.writeString(this.mFooter);
         dest.writeString(this.mTitleAlternative);
         dest.writeInt(this.mTopics);
         dest.writeParcelable(this.mAvatar, 0);
@@ -210,6 +243,8 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
         this.mId = in.readInt();
         this.mTitle = in.readString();
         this.mName = in.readString();
+        this.mHeader = in.readString();
+        this.mFooter = in.readString();
         this.mTitleAlternative = in.readString();
         this.mTopics = in.readInt();
         this.mAvatar = in.readParcelable(Avatar.class.getClassLoader());
