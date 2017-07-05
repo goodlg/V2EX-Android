@@ -90,9 +90,6 @@ public class AppCtx extends Application {
                 LogUtil.e(TAG, "Exception: " + e);
                 return;
             }
-            for (Node node :  result) {
-                LogUtil.d(TAG, "node: " + node);
-            }
             //for debug
             if (BuildConfig.DEBUG) {
                 long consumingTime = System.nanoTime() - startTime;
