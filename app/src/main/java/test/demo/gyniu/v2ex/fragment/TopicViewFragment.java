@@ -216,6 +216,7 @@ public class TopicViewFragment extends Fragment implements SwipeRefreshLayout.On
         mTopic = data.mTopic;
         mCurPage = data.mCurPage;
         mMaxPage = data.mMaxPage;
+        LogUtil.d(TAG, "!!!mCurPage: " + mCurPage + ", mMaxPage=" + mMaxPage);
         final int oldSize = mComments.listSize();
         if (mCurPage > oldSize) {
             // new page

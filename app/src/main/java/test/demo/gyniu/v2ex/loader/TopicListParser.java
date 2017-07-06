@@ -1,5 +1,6 @@
 package test.demo.gyniu.v2ex.loader;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -24,6 +25,7 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
  * Created by uiprj on 17-5-4.
+ * parser of topic list
  */
 public class TopicListParser extends ParserHelper{
     private static final String TAG = "TopicListParser";
@@ -47,7 +49,8 @@ public class TopicListParser extends ParserHelper{
                 .child(".cell").child("table").child("tbody").child("tr");
         List lists = Lists.newArrayList(Iterables.transform(elements,
                 e -> parseItemForEntity(e, entity)));
-        return new TopicListLoader.TopicList(lists, false, null);
+        int[] pageNum = getMaxPage(contentBox);
+        return new TopicListLoader.TopicList(lists, pageNum[0], pageNum[1], false, null);
     }
 
     private static TopicListLoader.TopicList parseDocForTab(Element contentBox, Entity entity) {
@@ -55,7 +58,23 @@ public class TopicListParser extends ParserHelper{
                 .child("table").child("tbody").child("tr");
         List lists = Lists.newArrayList(Iterables.transform(elements,
                 e -> parseItemForEntity(e, entity)));
-        return new TopicListLoader.TopicList(lists, false, null);
+        int[] pageNum = getMaxPage(contentBox);
+        return new TopicListLoader.TopicList(lists, pageNum[0], pageNum[1], false, null);
+    }
+
+    private static int[] getMaxPage(Element main) {
+        final Optional<Element> optional = new JsoupObjects(main)
+                .child(".box:nth-child(4):not(.transparent)")
+                .child(".cell:last-child:not([id])").dfs(".page_input").getOptional();
+        if (optional.isPresent()) {
+            final Element element = optional.get();
+            final int maxPage = Integer.parseInt(element.attr("max"));
+            final int curPage = Integer.parseInt(element.attr("value"));
+
+            return new int[]{curPage, maxPage};
+        } else {
+            return new int[]{1, 1};
+        }
     }
 
     private static Topic parseItemForEntity(Element item, Entity entity) {

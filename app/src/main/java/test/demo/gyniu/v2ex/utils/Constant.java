@@ -11,7 +11,13 @@ public class Constant {
     public static enum orientation {
         left,
         center,
-        right,
+        right
+    }
+
+    public static enum TopicListType {
+        none,
+        tab,
+        node
     }
     public static String BASE_URL = "https://www.v2ex.com";
     public static long HTTP_CONNECT_TIMEOUT = 10;

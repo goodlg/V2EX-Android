@@ -20,16 +20,26 @@ public class TopicListLoader extends AsyncTaskLoader<TopicListLoader.TopicList>
 
     private Entity entity;
     private Context context;
+    private int mPage;
 
     public TopicListLoader(Context context, Entity entity) {
         this(context);
-        this.context = context;
         this.entity = entity;
+        mPage = 1;
     }
 
     public TopicListLoader(Context context) {
         super(context);
         this.context = context;
+    }
+
+    public void setPage(int page) {
+        if (page == mPage) {
+            return;
+        }
+        mPage = page;
+        mResult = null;
+        onContentChanged();
     }
 
     @Override
@@ -43,11 +53,23 @@ public class TopicListLoader extends AsyncTaskLoader<TopicListLoader.TopicList>
         private List<Topic> list;
         private boolean isFav;
         private String onceToken;
+        private int mCurPage;
+        private int mMaxPage;
 
-        public TopicList(List<Topic> list, boolean isFav, String onceToken){
+        public TopicList(List<Topic> list, int mCurPage, int mMaxPage, boolean isFav, String onceToken){
             this.list = list;
             this.isFav = isFav;
             this.onceToken = onceToken;
+            this.mCurPage = mCurPage;
+            this.mMaxPage = mMaxPage;
+        }
+
+        public int getCurPage() {
+            return mCurPage;
+        }
+
+        public int getMaxPage() {
+            return mMaxPage;
         }
 
         public Topic get(int location) {

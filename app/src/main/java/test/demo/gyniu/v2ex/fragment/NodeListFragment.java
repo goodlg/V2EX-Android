@@ -148,6 +148,6 @@ public class NodeListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(Loader<LoaderResult<List<Node>>> loader) {
-
+        mNodeAdapter.setDataSource(null);
     }
 }
