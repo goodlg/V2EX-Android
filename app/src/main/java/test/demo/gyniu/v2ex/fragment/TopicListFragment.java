@@ -170,8 +170,9 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         mLastIsFailed = false;
         mCurPage = data.mResult.getCurPage();
         mMaxPage = data.mResult.getMaxPage();
-        LogUtil.d(TAG, "!!!mCurPage: " + mCurPage + ", mMaxPage=" + mMaxPage);
         final int oldSize = mTopics.listSize();
+        if (BuildConfig.DEBUG)
+            LogUtil.d(TAG, "!!!mCurPage: " + mCurPage + ", mMaxPage=" + mMaxPage + ", oldSize=" + oldSize);
         if (mCurPage > oldSize) {
             // new page
             mTopics.addList(data.mResult.getList());
@@ -224,15 +225,21 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
         }
 
         if (mIsLoading || mLastIsFailed || (mCurPage >= mMaxPage)) {
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "should be return");
             return;
         }
 
         if ((totalItemCount - lastVisibleItem) > 20) {
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "now should not be load...");
             return;
         }
 
         final TopicListLoader loader = getLoader();
         setIsLoading(true);
+        if (BuildConfig.DEBUG)
+            LogUtil.d(TAG, "load next page...");
         loader.setPage(mCurPage + 1);
 
         if (BuildConfig.DEBUG)
@@ -247,6 +254,6 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onChildViewDetachedFromWindow(View view) {
-
+        LogUtil.d(TAG, "child detached.");
     }
 }

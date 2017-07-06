@@ -64,15 +64,17 @@ public class TopicListParser extends ParserHelper{
 
     private static int[] getMaxPage(Element main) {
         final Optional<Element> optional = new JsoupObjects(main)
-                .child(".box:nth-child(4):not(.transparent)")
-                .child(".cell:last-child:not([id])").dfs(".page_input").getOptional();
+                .child(".cell").dfs(".page_input").getOptional();
         if (optional.isPresent()) {
             final Element element = optional.get();
             final int maxPage = Integer.parseInt(element.attr("max"));
             final int curPage = Integer.parseInt(element.attr("value"));
 
+            LogUtil.d(TAG, " @@@@@ getMaxPage maxPage:" + maxPage + ", curPage:" + curPage);
+
             return new int[]{curPage, maxPage};
         } else {
+            LogUtil.d(TAG, " @@@@@ getMaxPage 2...");
             return new int[]{1, 1};
         }
     }

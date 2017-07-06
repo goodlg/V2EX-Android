@@ -87,9 +87,14 @@ public class HttpRequestHelper {
         }
     }
 
-    public TopicListLoader.TopicList getTopicList(Entity entity) throws Exception {
+    public TopicListLoader.TopicList getTopicList(Entity entity, int page) throws Exception {
         if (DEBUG) LogUtil.w(TAG, "get topics use url: " + entity.getUrl());
-        final Request request = newRequest().url(entity.getUrl()).build();
+        final Request request;
+        if (entity instanceof Node) {
+            request = newRequest().url(entity.getUrl() + "?p=" + page).build();
+        } else {
+            request = newRequest().url(entity.getUrl()).build();
+        }
 
         final Response response = sendRequest(request);
         if (response.isRedirect()) {
