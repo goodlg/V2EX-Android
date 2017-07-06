@@ -81,6 +81,11 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
     }
 
     public void setDataSource(List<Node> data) {
+        if (data == null) {
+            mAllNodes = mNodes = null;
+            notifyDataSetChanged();
+            return;
+        }
         //for debug
         long startTime = 0L;
         if (BuildConfig.DEBUG) startTime = System.nanoTime();
