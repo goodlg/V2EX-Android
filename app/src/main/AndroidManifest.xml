@@ -37,6 +37,8 @@
             android:label="@string/title_activity_loading"
             android:noHistory="true" >
         </activity>
+        <activity android:name=".Activity.NodeListActivity">
+        </activity>
     </application>
 
 </manifest>

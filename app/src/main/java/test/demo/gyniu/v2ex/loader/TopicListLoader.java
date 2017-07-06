@@ -35,7 +35,7 @@ public class TopicListLoader extends AsyncTaskLoader<TopicListLoader.TopicList>
     @Override
     public TopicList loadInBackgroundWithException() throws Exception {
         if (DEBUG) LogUtil.w(TAG, "load topic list...");
-        TopicList<Topic> topics = HttpRequestHelper.getInstance().getTopicListByTab(entity);
+        TopicList<Topic> topics = HttpRequestHelper.getInstance().getTopicList(entity);
         return topics;
     }
 

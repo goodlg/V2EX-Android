@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import test.demo.gyniu.v2ex.model.Tab;
 import test.demo.gyniu.v2ex.utils.JsoupObjects;
 import test.demo.gyniu.v2ex.model.Avatar;
 import test.demo.gyniu.v2ex.model.Entity;
@@ -32,18 +33,32 @@ public class TopicListParser extends ParserHelper{
     public static TopicListLoader.TopicList parseDoc(Document doc, Entity entity){
         final Element contentBox = new JsoupObjects(doc).bfs("body").child("#Wrapper")
                 .child(".content").child("#Main").child(".box").getOne();
-        return parseDocForTab(contentBox);
+        if (entity instanceof Node) {
+            return parseDocForNode(contentBox, entity);
+        } else if (entity instanceof Tab) {
+            return parseDocForTab(contentBox, entity);
+        } else {
+            throw new IllegalArgumentException("unknown entity type: " + entity);
+        }
     }
 
-    private static TopicListLoader.TopicList parseDocForTab(Element contentBox) {
-        final JsoupObjects elements = new JsoupObjects(contentBox).child(".item")
-                .child("table").child("tbody").child("tr");
+    private static TopicListLoader.TopicList parseDocForNode(Element contentBox, Entity entity) {
+        final JsoupObjects elements = new JsoupObjects(contentBox).child("#TopicsNode")
+                .child(".cell").child("table").child("tbody").child("tr");
         List lists = Lists.newArrayList(Iterables.transform(elements,
-                TopicListParser::parseItemForTab));
+                e -> parseItemForEntity(e, entity)));
         return new TopicListLoader.TopicList(lists, false, null);
     }
 
-    private static Topic parseItemForTab(Element item) {
+    private static TopicListLoader.TopicList parseDocForTab(Element contentBox, Entity entity) {
+        final JsoupObjects elements = new JsoupObjects(contentBox).child(".item")
+                .child("table").child("tbody").child("tr");
+        List lists = Lists.newArrayList(Iterables.transform(elements,
+                e -> parseItemForEntity(e, entity)));
+        return new TopicListLoader.TopicList(lists, false, null);
+    }
+
+    private static Topic parseItemForEntity(Element item, Entity entity) {
         final Elements list = item.children();
 
         final Topic.Builder topicBuilder = new Topic.Builder();
@@ -51,7 +66,13 @@ public class TopicListParser extends ParserHelper{
 
         final Element ele = list.get(2);
         parseTitle(topicBuilder, ele);
-        parseInfo(topicBuilder, ele, null);
+        if (entity instanceof Node) {
+            parseInfo(topicBuilder, ele, (Node)entity);
+        } else if (entity instanceof Tab) {
+            parseInfo(topicBuilder, ele, null);
+        } else {
+            parseInfo(topicBuilder, ele, null);
+        }
 
         parseReplyCount(topicBuilder, list.get(3));
 

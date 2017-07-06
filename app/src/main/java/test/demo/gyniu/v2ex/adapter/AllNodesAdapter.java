@@ -1,6 +1,8 @@
 package test.demo.gyniu.v2ex.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.CardView;
 import android.text.Html;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import test.demo.gyniu.v2ex.Activity.NodeListActivity;
 import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.model.Node;
@@ -158,7 +161,7 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
         public TextView summary;
         public TextView topics;
@@ -179,6 +182,10 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
             final int position = getAdapterPosition();
             if (BuildConfig.DEBUG)
                 LogUtil.d(TAG, "node click position: " + position);
+            Node node = mNodes.get(position);
+            Intent intent = new Intent(mContext, NodeListActivity.class);
+            intent.putExtra("node", (Parcelable) node);
+            mContext.startActivity(intent);
         }
     }
 }

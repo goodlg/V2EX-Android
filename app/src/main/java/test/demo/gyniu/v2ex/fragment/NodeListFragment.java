@@ -74,6 +74,7 @@ public class NodeListFragment extends Fragment implements LoaderManager.LoaderCa
 //                ContextCompat.getColor(context, android.R.color.holo_red_light));
         mSwipeLayout.setProgressViewOffset(false, 0,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
+        mSwipeLayout.setRefreshing(true);
         return view;
     }
 

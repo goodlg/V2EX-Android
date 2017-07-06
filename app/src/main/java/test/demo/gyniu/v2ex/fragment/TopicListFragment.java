@@ -24,23 +24,20 @@ import test.demo.gyniu.v2ex.loader.TopicListLoader;
 import test.demo.gyniu.v2ex.widget.TopicListView;
 import test.demo.gyniu.v2ex.adapter.TopicListAdapter;
 import test.demo.gyniu.v2ex.model.Entity;
-import test.demo.gyniu.v2ex.model.Tab;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
  * Created by uiprj on 17-3-14.
+ * list of topics
  */
 public class TopicListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
         LoaderManager.LoaderCallbacks<AsyncTaskLoader.LoaderResult<TopicListLoader.TopicList>>,
         TopicListView.OnTopicActionListener {
     private static final String TAG = "TopicListFragment";
     private static final boolean DEBUG = LogUtil.LOGD;
-    private static final String TAB = "tab";
-    private String mTitle;
+    private static final String ENTITY = "entity";
     private Entity mEntry;
-
-    private List<Topic> list = new ArrayList<>();
 
     private  SwipeRefreshLayout mLayout;
     private RecyclerView mRecyclerView;
@@ -50,10 +47,10 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
 
     public TopicListFragment(){}
 
-    public static Fragment newInstance(Tab tab){
+    public static Fragment newInstance(Entity entity){
         Fragment fragment = new TopicListFragment();
         Bundle args = new Bundle();
-        args.putParcelable(TAB, tab);
+        args.putParcelable(ENTITY, entity);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,17 +58,13 @@ public class TopicListFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Bundle args = getArguments();
-
         if (args != null){
-            mEntry = args.getParcelable(TAB);
+            mEntry = args.getParcelable(ENTITY);
         }
-
         if (DEBUG) LogUtil.d(TAG, "mEntry=" + mEntry);
-
         if (mEntry == null){
-            throw new RuntimeException("tab can't be null");
+            throw new RuntimeException("entity can't be null");
         }
     }
 
