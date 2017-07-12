@@ -1,9 +1,7 @@
 package test.demo.gyniu.v2ex.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
@@ -15,9 +13,7 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.URL;
 
-import test.demo.gyniu.v2ex.Activity.NodeListActivity;
 import test.demo.gyniu.v2ex.R;
-import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
@@ -40,7 +36,6 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
     private final TextView mUserName;
     private final TextView mReplyTime;
     private final TextView mReplyCount;
-    private final Context mContext;
 
     private Topic mTopic;
 
@@ -56,15 +51,11 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
 
     public TopicListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
         mRootView = View.inflate(context, R.layout.topic_list_item, this);
         mUserAvatar = (AvatarView) mRootView.findViewById(R.id.user_avatar);
-        mUserAvatar.setOnClickListener(this);
         mTopicTitle = (TextView) mRootView.findViewById(R.id.topic_title);
         mTopicNode = (TextView) mRootView.findViewById(R.id.topic_node);
-        mTopicNode.setOnClickListener(this);
         mUserName = (TextView) mRootView.findViewById(R.id.username);
-        mUserName.setOnClickListener(this);
         mReplyTime = (TextView) mRootView.findViewById(R.id.reply_time);
         mReplyCount = (TextView) mRootView.findViewById(R.id.reply_count);
     }
@@ -123,19 +114,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        int resId = v.getId();
-        if (resId == R.id.topic_node) {
-            Node node = mTopic.getNode();
-            Intent intent = new Intent(mContext, NodeListActivity.class);
-            intent.putExtra("node", (Parcelable) node);
-            mContext.startActivity(intent);
-        } else if (resId == R.id.user_avatar){
-            LogUtil.d(TAG, "click user avatar");
-        } else if (resId == R.id.username){
-            LogUtil.d(TAG, "click username");
-        } else {
-            mListener.onTopicOpen(v, mTopic);
-        }
+        mListener.onTopicOpen(v, mTopic);
     }
 
     public interface OnTopicActionListener {
