@@ -2,6 +2,7 @@ package test.demo.gyniu.v2ex.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import test.demo.gyniu.v2ex.R;
@@ -37,7 +38,8 @@ public class NodeListActivity extends BaseActivity{
         }
         LogUtil.d(TAG, "node: " + mNode);
         TopicListFragment fragment = (TopicListFragment) TopicListFragment.newInstance(mNode);
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commitAllowingStateLoss();
+        //getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitAllowingStateLoss();
     }
 
     @Override
