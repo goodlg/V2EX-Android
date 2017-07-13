@@ -284,11 +284,11 @@ public class HttpRequestHelper {
         }
     }
 
-    public static List<Node> getFavNodes() throws Exception {
+    public List<Node> getFavNodes() throws Exception {
         Preconditions.checkState(UserState.getInstance().isLoggedIn(), "guest can't check notifications");
         if (BuildConfig.DEBUG) LogUtil.d(TAG, "get favorite nodes");
 
-        final Request request = new Request.Builder().url(Constant.API_GET_USER_FAV_NODES).build();
+        final Request request = newRequest().url(Constant.API_GET_USER_FAV_NODES).build();
         final Response response = sendRequest(request);
 
         try {
