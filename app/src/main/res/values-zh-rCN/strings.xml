@@ -65,4 +65,6 @@
     <string name="str_nodes_topics_count">%d 主题</string>
     <string name="menu_title_search">搜索</string>
     <string name="search_nodes_hint">输入节点名称</string>
+
+    <string name="str_node_grid_title">我收藏的节点</string>
 </resources>

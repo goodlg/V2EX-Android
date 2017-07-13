@@ -69,4 +69,6 @@
     <string name="search_nodes_hint">Search node</string>
     <string name="str_floor">#</string>
 
+    <string name="str_node_grid_title">my favorite node</string>
+
 </resources>

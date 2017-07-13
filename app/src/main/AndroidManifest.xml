@@ -38,8 +38,12 @@
             android:noHistory="true" >
         </activity>
         <activity
-            android:name=".Activity.NodeListActivity"
+            android:name=".Activity.TopicListActivity"
             android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".Activity.NodeGridActivity"
+            android:label="@string/str_node_grid_title">
         </activity>
     </application>
 

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import test.demo.gyniu.v2ex.Activity.NodeListActivity;
+import test.demo.gyniu.v2ex.Activity.TopicListActivity;
 import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.model.Node;
@@ -188,7 +188,7 @@ public class AllNodesAdapter extends RecyclerView.Adapter<AllNodesAdapter.ViewHo
             if (BuildConfig.DEBUG)
                 LogUtil.d(TAG, "node click position: " + position);
             Node node = mNodes.get(position);
-            Intent intent = new Intent(mContext, NodeListActivity.class);
+            Intent intent = new Intent(mContext, TopicListActivity.class);
             intent.putExtra("node", (Parcelable) node);
             mContext.startActivity(intent);
         }

@@ -127,10 +127,13 @@
                     android:visibility="gone">
 
                     <LinearLayout
+                        android:id="@+id/node_fav"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/profile_data_height"
+                        android:layout_marginRight="@dimen/profile_data_height">
 
                         <TextView
                             android:id="@+id/node_collect_count"
@@ -158,10 +161,13 @@
                         android:background="@color/colorBgGrayLight" />
 
                     <LinearLayout
+                        android:id="@+id/topic_collect"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/profile_data_height"
+                        android:layout_marginRight="@dimen/profile_data_height">
 
                         <TextView
                             android:id="@+id/topic_collect_count"
@@ -189,10 +195,13 @@
                         android:background="@color/colorBgGrayLight" />
 
                     <LinearLayout
+                        android:id="@+id/followings"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/profile_data_height"
+                        android:layout_marginRight="@dimen/profile_data_height">
 
                         <TextView
                             android:id="@+id/attention_count"

@@ -22,6 +22,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import test.demo.gyniu.v2ex.AppCtx;
 import test.demo.gyniu.v2ex.BuildConfig;
+import test.demo.gyniu.v2ex.common.UserState;
 import test.demo.gyniu.v2ex.loader.MyselfParser;
 import test.demo.gyniu.v2ex.loader.ParserHelper;
 import test.demo.gyniu.v2ex.loader.TopicListLoader;
@@ -279,6 +280,23 @@ public class HttpRequestHelper {
         } catch (IOException e) {
             e.printStackTrace();
             LogUtil.e(TAG, "Exception: " + e);
+            throw new Exception(e);
+        }
+    }
+
+    public static List<Node> getFavNodes() throws Exception {
+        Preconditions.checkState(UserState.getInstance().isLoggedIn(), "guest can't check notifications");
+        if (BuildConfig.DEBUG) LogUtil.d(TAG, "get favorite nodes");
+
+        final Request request = new Request.Builder().url(Constant.API_GET_USER_FAV_NODES).build();
+        final Response response = sendRequest(request);
+
+        try {
+            final String html = response.body().string();
+
+            final Document doc = ParserHelper.toDoc(html);
+            //return MyselfParser.parseFavNodes(doc);
+        } catch (IOException e) {
             throw new Exception(e);
         }
     }

@@ -17,6 +17,7 @@ import com.google.common.eventbus.Subscribe;
 
 import test.demo.gyniu.v2ex.Activity.AboutActivity;
 import test.demo.gyniu.v2ex.Activity.MainActivity;
+import test.demo.gyniu.v2ex.Activity.NodeGridActivity;
 import test.demo.gyniu.v2ex.Activity.SigninActivity;
 import test.demo.gyniu.v2ex.AppCtx;
 import test.demo.gyniu.v2ex.widget.ListOptionView;
@@ -55,6 +56,11 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
     private TextView mTopics;
     private TextView mAttentions;
 
+    //
+    private LinearLayout mNodeFav;
+    private LinearLayout mTopicCollect;
+    private LinearLayout mFollowings;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +72,16 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (DEBUG) LogUtil.d(TAG, "create me view");
         View view = inflater.inflate(R.layout.fragment_me, null);
+
+        mNodeFav = (LinearLayout) view.findViewById(R.id.node_fav);
+        mNodeFav.setOnClickListener(this);
+
+        mTopicCollect = (LinearLayout) view.findViewById(R.id.topic_collect);
+        mTopicCollect.setOnClickListener(this);
+
+        mFollowings = (LinearLayout) view.findViewById(R.id.followings);
+        mFollowings.setOnClickListener(this);
+
         mSettings = (ListOptionView) view.findViewById(R.id.settings);
         mSettings.setListener(this);
         mUpdate = (ListOptionView) view.findViewById(R.id.update);
@@ -124,9 +140,23 @@ public class MeFragment extends Fragment implements OnDoOptionListener, View.OnC
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.login) {
-            Intent intent = new Intent(getActivity(), SigninActivity.class);
-            startActivity(intent);
+        int resId = view.getId();
+        Intent intent = new Intent();
+        switch(resId) {
+            case R.id.node_fav:
+                intent.setClass(getActivity(), NodeGridActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.topic_collect:
+                Toast.makeText(getActivity(), "topic collect", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.followings:
+                Toast.makeText(getActivity(), "followings", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.login:
+                intent.setClass(getActivity(), SigninActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 

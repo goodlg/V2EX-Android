@@ -13,8 +13,8 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 /**
  * Created by uiprj on 17-7-6.
  */
-public class NodeListActivity extends BaseActivity{
-    private static final String TAG = "NodeListActivity";
+public class TopicListActivity extends BaseActivity{
+    private static final String TAG = "TopicListActivity";
     private Node mNode;
 
     @Override

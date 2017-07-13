@@ -2,27 +2,20 @@ package test.demo.gyniu.v2ex.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.text.Html;
-import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
-
-import test.demo.gyniu.v2ex.Activity.NodeListActivity;
+import test.demo.gyniu.v2ex.Activity.TopicListActivity;
 import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
-import test.demo.gyniu.v2ex.widget.AvatarView;
 
 /**
  * Created by uiprj on 17-3-22.
@@ -125,7 +118,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
         int resId = v.getId();
         if (resId == R.id.topic_node) {
             Node node = mTopic.getNode();
-            Intent intent = new Intent(mContext, NodeListActivity.class);
+            Intent intent = new Intent(mContext, TopicListActivity.class);
             intent.putExtra("node", (Parcelable) node);
             mContext.startActivity(intent);
         } else {
