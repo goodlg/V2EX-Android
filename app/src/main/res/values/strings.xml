@@ -67,5 +67,6 @@
     <string name="str_nodes_topics_count">%d Topics</string>
     <string name="menu_title_search">Search</string>
     <string name="search_nodes_hint">Search node</string>
+    <string name="str_floor">#</string>
 
 </resources>

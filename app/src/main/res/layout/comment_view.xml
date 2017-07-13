@@ -47,15 +47,23 @@
         tools:text="Content"/>
 
     <TextView
+        android:id="@+id/floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/username_tv"
+        android:layout_toStartOf="@+id/floor_sym"
+        android:layout_toLeftOf="@+id/floor_sym"
+        style="@style/AppTheme.Topic.Secondary"
+        tools:text="23L"
+        tools:ignore="RelativeOverlap"/>
+    <TextView
+        android:id="@+id/floor_sym"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignBaseline="@id/username_tv"
+        android:layout_alignTop="@id/floor"
         android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
-        style="@style/AppTheme.Topic.Secondary"
-        tools:text="23L"
-        android:id="@+id/floor"
-        tools:ignore="RelativeOverlap"/>
+        style="@style/AppTheme.Topic.Thirdly"
+        android:text="@string/str_floor"/>
 </RelativeLayout>

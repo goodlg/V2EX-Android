@@ -101,4 +101,9 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="AppTheme.Topic.Thirdly" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
 </resources>
