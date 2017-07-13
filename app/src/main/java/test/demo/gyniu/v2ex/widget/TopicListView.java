@@ -131,7 +131,6 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
             mListener.onTopicOpen(v, mTopic);
         }
     }
-
     public interface OnTopicActionListener {
         void onTopicOpen(View view, Topic topic);
         void onTopicStartPreview(View view, Topic topic);
