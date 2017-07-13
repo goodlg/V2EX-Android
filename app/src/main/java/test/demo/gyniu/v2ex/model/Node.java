@@ -34,8 +34,7 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
     private final Avatar mAvatar;
     private final boolean mHasInfo;
 
-
-    public Node(int mId, String mTitle, String mName, String mHeader,String mFooter,String mTitleAlternative,
+    public Node(int mId, String mTitle, String mName, String mHeader, String mFooter, String mTitleAlternative,
                 int mTopics, Avatar mAvatar) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(mName));
         this.mId = mId;
@@ -153,6 +152,18 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
             return true;
         }
         return false;
+    }
+
+    public Builder toBuilder() {
+        return new Builder()
+                .setId(mId)
+                .setTitle(mTitle)
+                .setAvatar(mAvatar)
+                .setName(mName)
+                .setHeader(mHeader)
+                .setFooter(mFooter)
+                .setTitleAlternative(mTitleAlternative)
+                .setTopics(mTopics);
     }
 
     public static class Builder {

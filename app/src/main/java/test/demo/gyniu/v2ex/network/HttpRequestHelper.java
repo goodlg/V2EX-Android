@@ -24,6 +24,7 @@ import test.demo.gyniu.v2ex.AppCtx;
 import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.common.UserState;
 import test.demo.gyniu.v2ex.loader.MyselfParser;
+import test.demo.gyniu.v2ex.loader.NodeGridParser;
 import test.demo.gyniu.v2ex.loader.ParserHelper;
 import test.demo.gyniu.v2ex.loader.TopicListLoader;
 import test.demo.gyniu.v2ex.loader.TopicListParser;
@@ -295,7 +296,7 @@ public class HttpRequestHelper {
             final String html = response.body().string();
 
             final Document doc = ParserHelper.toDoc(html);
-            //return MyselfParser.parseFavNodes(doc);
+            return NodeGridParser.parseFavNodes(doc);
         } catch (IOException e) {
             throw new Exception(e);
         }

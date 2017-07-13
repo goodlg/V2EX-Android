@@ -110,7 +110,7 @@ public class NodeGridFragment extends Fragment implements LoaderManager.LoaderCa
 
         @Override
         public List<Node> loadInBackgroundWithException() throws Exception {
-            return HttpRequestHelper.getFavNodes();
+            return HttpRequestHelper.getInstance().getFavNodes();
         }
     }
 }

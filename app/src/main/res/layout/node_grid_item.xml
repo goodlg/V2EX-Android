@@ -2,32 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:padding="8dp" >
 
     <test.demo.gyniu.v2ex.widget.AvatarView
         android:id="@+id/node_img"
         android:layout_width="@dimen/node_img_size"
         android:layout_height="@dimen/node_img_size"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_default_node_img" />
 
     <TextView
-        android:id="@+id/node_topics"
+        android:id="@+id/node_grid_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="789"
+        android:layout_below="@id/node_img"
+        android:layout_centerHorizontal="true"
         android:textColor="#444"
-        android:layout_marginBottom="15dp"
-        android:textSize="12sp" />
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/node_title"
+        android:id="@+id/node_grid_topics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/node_topics"
+        android:layout_below="@id/node_grid_title"
+        android:layout_centerHorizontal="true"
         android:textColor="#444"
-        android:text="@string/search_nodes_hint"
-        android:textSize="16sp" />
+        android:textSize="12sp" />
 </RelativeLayout>

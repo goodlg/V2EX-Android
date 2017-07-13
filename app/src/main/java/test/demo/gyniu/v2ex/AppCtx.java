@@ -5,7 +5,6 @@ import android.app.Application;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 
-import java.sql.BatchUpdateException;
 import java.util.List;
 
 import test.demo.gyniu.v2ex.common.UserState;

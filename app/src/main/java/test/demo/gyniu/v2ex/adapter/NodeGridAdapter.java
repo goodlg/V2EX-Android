@@ -32,6 +32,7 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
 
     public NodeGridAdapter(Context mContext) {
         this.mContext = mContext;
+        setHasStableIds(true);
     }
 
     @Override
@@ -43,7 +44,10 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Node node = mNodes.get(position);
-        holder.img.setAvatar(node.getAvatar());
+        LogUtil.d(TAG, "NODE 2:" + node);
+        if (node.getAvatar() != null) {
+            holder.img.setAvatar(node.getAvatar());
+        }
         holder.title.setText(node.getTitle());
         holder.topics.setText(mContext.getString(R.string.str_nodes_topics_count,
                 node.getTopics()));
@@ -61,6 +65,9 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
 
     public void setDataSource(List<Node> data) {
         mNodes = data;
+        for(Node n: mNodes) {
+            LogUtil.d(TAG, "NODE 1:" + n);
+        }
         notifyDataSetChanged();
     }
 
@@ -72,8 +79,8 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             img = (AvatarView) view.findViewById(R.id.node_img);
-            title = (TextView) view.findViewById(R.id.node_title);
-            topics = (TextView) view.findViewById(R.id.node_topics);
+            title = (TextView) view.findViewById(R.id.node_grid_title);
+            topics = (TextView) view.findViewById(R.id.node_grid_topics);
 
             view.setOnClickListener(this);
         }
