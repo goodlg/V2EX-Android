@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import test.demo.gyniu.v2ex.Activity.NodeListActivity;
+import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.model.Node;
 import test.demo.gyniu.v2ex.model.Topic;
@@ -73,7 +74,7 @@ public class TopicListView extends FrameLayout implements View.OnClickListener{
     }
 
     public void buildItem(Topic topic) {
-        if (DEBUG) LogUtil.d(TAG, "topic:" + topic);
+        if (BuildConfig.DEBUG) LogUtil.d(TAG, "topic:" + topic);
         mTopic = topic;
 
         /**

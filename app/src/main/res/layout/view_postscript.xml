@@ -42,7 +42,7 @@
         android:layout_marginBottom="5dp"
         android:layout_below="@+id/title"
         tools:text="Content"
-        style="@style/AppTheme.Topic.Content"
+        style="@style/AppTheme.Postscript.Content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -38,14 +38,10 @@
 
     <TextView
         android:id="@+id/content"
-        style="@style/AppTheme.Topic.Content"
+        style="@style/AppTheme.Comment.Content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/username_tv"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
         android:layout_alignStart="@id/username_tv"
         android:layout_alignLeft="@id/username_tv"
         tools:text="Content"/>

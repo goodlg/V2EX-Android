@@ -130,7 +130,6 @@
         tools:visibility="visible"
         style="@style/AppTheme.Topic.Content"
         android:layout_below="@+id/line"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>
