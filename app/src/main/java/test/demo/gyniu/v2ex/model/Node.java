@@ -10,17 +10,23 @@ import com.google.common.cache.CacheBuilder;
 
 import java.text.Collator;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import test.demo.gyniu.v2ex.BuildConfig;
 import test.demo.gyniu.v2ex.utils.Constant;
 import test.demo.gyniu.v2ex.adapter.ExArrayAdapter;
+import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
  * Created by gyniu on 17-5-29.
+ * node bean
  */
 public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Filterable {
+    private static final String TAG = "Node";
+
     private static final Pattern PATTERN = Pattern.compile("/go/(.+?)(?:\\W|$)");
     private static final Collator COLLATOR = Collator.getInstance(Locale.CHINA);
 
@@ -117,6 +123,7 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
                 ", mTopics=" + mTopics +
                 ", mAvatar=" + mAvatar +
                 ", mHasInfo=" + mHasInfo +
+                ", hashCode:" + hashCode() +
                 '}';
     }
 
@@ -192,16 +199,22 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
 
         public Builder setTitle(String mTitle) {
             this.mTitle = mTitle;
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "set mTitle for node: " + this.mTitle);
             return this;
         }
 
         public Builder setAvatar(Avatar mAvatar) {
             this.mAvatar = mAvatar;
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "set mAvatar for node: " + this.mAvatar);
             return this;
         }
 
         public Builder setName(String mName) {
             this.mName = mName;
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "set mName for node: " + this.mName);
             return this;
         }
 
@@ -222,6 +235,8 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
 
         public Builder setTopics(int mTopics) {
             this.mTopics = mTopics;
+            if (BuildConfig.DEBUG)
+                LogUtil.d(TAG, "set mTopics for node " + this.mTopics);
             return this;
         }
 
@@ -230,8 +245,23 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
                 return new Node(mId, null, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar);
             }
             try {
-                return CACHE.get(mName, () ->new Node(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar));
+                if (BuildConfig.DEBUG)
+                    LogUtil.d(TAG, "GET node " + mTitle + " from cache, before size: " + CACHE.size());
+                boolean isDirty = false;
+                Node tmp = CACHE.get(mName, new Callable<Node>() {
+                    @Override
+                    public Node call() throws Exception {
+                        if (BuildConfig.DEBUG)
+                            LogUtil.d(TAG, mName + " node is not exist in cache, new one!!!");
+                        return new Node(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar);
+                    }
+                });
+                if (BuildConfig.DEBUG)
+                    LogUtil.d(TAG, "GET node " + mTitle + " from cache, after size: " + CACHE.size() + ", this node:" + tmp);
+                return tmp;
             } catch (ExecutionException e) {
+                e.printStackTrace();
+                LogUtil.e(TAG, "Exception:" + e);
                 throw new RuntimeException(e);
             }
         }

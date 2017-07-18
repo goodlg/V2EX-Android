@@ -6,10 +6,12 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import test.demo.gyniu.v2ex.BuildConfig;
+
 public class LogUtil {
 	public static final boolean LOGD = true;
 	private static final boolean DEFAULT_LOG = true;
-	private static final String DEFAULT_TAG = "___ngy";
+	private static final String DEFAULT_TAG = "ngy" + "/" + BuildConfig.VERSION_NAME;
 
 	private static final String LOG_PREFIX = "@@@@@ ";
 

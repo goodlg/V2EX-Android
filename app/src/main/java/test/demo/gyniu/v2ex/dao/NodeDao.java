@@ -110,7 +110,7 @@ public class NodeDao extends BaseDao {
         }
         str = cursor.getString(7);//avatar
         if (str != null) {
-            final Avatar avatar = new Avatar.Builder().setBaseUrl(str).createAvatar();
+            final Avatar avatar = new Avatar.Builder().setUrl(str).createAvatar();
             builder.setAvatar(avatar);
         }
         return builder.createNode();

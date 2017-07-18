@@ -42,8 +42,7 @@ public class NodeGridParser extends ParserHelper {
             if (BuildConfig.DEBUG) LogUtil.d("___ngy", "____ title:" + title
                     + ", name:" + name
                     + ", imgUrl:" + imgUrl
-                    + ", topics:" + topics
-                    + ", img:" + avatar.getBaseUrl());
+                    + ", topics:" + topics);
             return new Node.Builder()
                     .setTitle(title)
                     .setName(name)
