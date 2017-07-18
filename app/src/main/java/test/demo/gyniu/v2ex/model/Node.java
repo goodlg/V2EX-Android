@@ -247,18 +247,26 @@ public class Node extends Entity implements Comparable<Node>, ExArrayAdapter.Fil
             try {
                 if (BuildConfig.DEBUG)
                     LogUtil.d(TAG, "GET node " + mTitle + " from cache, before size: " + CACHE.size());
-                boolean isDirty = false;
-                Node tmp = CACHE.get(mName, new Callable<Node>() {
+
+                final Node tmp = new Node(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar);
+                Node tmp1 = CACHE.get(mName, new Callable<Node>() {
                     @Override
                     public Node call() throws Exception {
                         if (BuildConfig.DEBUG)
                             LogUtil.d(TAG, mName + " node is not exist in cache, new one!!!");
-                        return new Node(mId, mTitle, mName, mHeader, mFooter, mTitleAlternative, mTopics, mAvatar);
+                        return tmp;
                     }
                 });
-                if (BuildConfig.DEBUG)
-                    LogUtil.d(TAG, "GET node " + mTitle + " from cache, after size: " + CACHE.size() + ", this node:" + tmp);
-                return tmp;
+                if (!tmp.equals(tmp1)) {
+                    CACHE.put(mName, tmp);
+                    if (BuildConfig.DEBUG)
+                        LogUtil.d(TAG, "GET node " + mTitle + " from cache, after size: " + CACHE.size() + ", this tmp node:" + tmp);
+                    return tmp;
+                } else {
+                    if (BuildConfig.DEBUG)
+                        LogUtil.d(TAG, "GET node " + mTitle + " from cache, after size: " + CACHE.size() + ", this tmp1 node:" + tmp1);
+                    return tmp1;
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
                 LogUtil.e(TAG, "Exception:" + e);
