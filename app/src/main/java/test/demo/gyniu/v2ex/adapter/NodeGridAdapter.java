@@ -44,7 +44,8 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Node node = mNodes.get(position);
-        LogUtil.d(TAG, "NODE 2:" + node);
+        if (BuildConfig.DEBUG)
+            LogUtil.d(TAG, "NODE 2:" + node);
         /**
          * workarround to avoid RecyclerView Recyclable issue
          * now, force disable RecyclerView recyclable
@@ -70,10 +71,6 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
 
     public void setDataSource(List<Node> data) {
         mNodes = data;
-        if (BuildConfig.DEBUG)
-        for(Node n: mNodes)
-            LogUtil.d(TAG, "NODE 1:" + n);
-
         notifyDataSetChanged();
     }
 
