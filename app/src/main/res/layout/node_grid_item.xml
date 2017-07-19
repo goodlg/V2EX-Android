@@ -19,7 +19,7 @@
         android:layout_below="@id/node_img"
         android:layout_centerHorizontal="true"
         android:textColor="#444"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/node_grid_topics"
@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/node_grid_title"
         android:layout_centerHorizontal="true"
-        android:textColor="#444"
+        android:textColor="#999"
         android:textSize="12sp" />
 </RelativeLayout>

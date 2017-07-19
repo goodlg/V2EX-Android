@@ -54,7 +54,7 @@ public class NodeGridFragment extends Fragment implements LoaderManager.LoaderCa
 
         mAdapter = new NodeGridAdapter(context);
         mRecycView = (RecyclerView) root.findViewById(R.id.node_grid);
-        mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         mRecycView.setLayoutManager(mLayoutManager);
         mRecycView.setAdapter(mAdapter);
 

@@ -29,5 +29,5 @@
     <dimen name="bottom_replay_send_btn_size">30dp</dimen>
 
     <dimen name="profile_data_height">25dp</dimen>
-    <dimen name="node_img_size">70dp</dimen>
+    <dimen name="node_img_size">50dp</dimen>
 </resources>
