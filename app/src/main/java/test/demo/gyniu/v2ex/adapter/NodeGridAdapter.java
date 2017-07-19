@@ -24,7 +24,6 @@ import test.demo.gyniu.v2ex.widget.AvatarView;
 
 /**
  * Created by uiprj on 17-7-13.
- * adapter for grid node
  */
 public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHolder> {
     private static final String TAG = "NodeGridAdapter";
@@ -45,8 +44,7 @@ public class NodeGridAdapter extends RecyclerView.Adapter<NodeGridAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Node node = mNodes.get(position);
-        if (BuildConfig.DEBUG)
-            LogUtil.d(TAG, "NODE 2:" + node);
+        LogUtil.d(TAG, "NODE 2:" + node);
         /**
          * workarround to avoid RecyclerView Recyclable issue
          * now, force disable RecyclerView recyclable
