@@ -19,6 +19,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
+    signingConfigs {
+        releaseConfig {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('/home/gyniu/tools/keystore/platform.keystore')
+            storePassword 'android'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
@@ -31,6 +39,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,6 +48,7 @@ android {
 
     lintOptions {
         abortOnError false
+        disable 'MissingTranslation'
     }
 
     compileOptions {
