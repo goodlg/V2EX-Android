@@ -6,8 +6,20 @@
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <test.demo.gyniu.v2ex.widget.TopicView
         android:id="@+id/topic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/postscript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <test.demo.gyniu.v2ex.widget.TopOptionBar
+        android:id="@+id/topOptBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!-- reserved to include postscript -->

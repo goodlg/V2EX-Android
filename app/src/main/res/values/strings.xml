@@ -23,7 +23,10 @@
     <string name="str_click_rate">rate</string>
 
     <string name="title_postscript">Postscripts %d</string>
-    <string name="str_al_reply">All reply %d</string>
+    <string name="str_al_reply">All reply: %d</string>
+
+    <string name="str_option_addtofav">Add fav</string>
+    <string name="str_option_sharetowechat">Share</string>
     <string name="str_option_ignore">Ignore</string>
     <string name="str_option_thank">Thank</string>
 

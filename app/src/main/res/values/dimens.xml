@@ -20,7 +20,8 @@
     <dimen name="content_spacing">8dp</dimen>
     <dimen name="comment_avatar_size">48dp</dimen>
 
-    <dimen name="separator2_height">5dp</dimen>
+    <dimen name="separator_height_1">0.5dp</dimen>
+    <dimen name="separator_height_10">10dp</dimen>
     <dimen name="decoration_offsets">60dp</dimen>
 
     <dimen name="balance_size">14dp</dimen>
