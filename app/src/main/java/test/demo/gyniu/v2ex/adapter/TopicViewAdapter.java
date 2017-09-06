@@ -1,7 +1,6 @@
 package test.demo.gyniu.v2ex.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import test.demo.gyniu.v2ex.widget.BottomOptionBar;
 import test.demo.gyniu.v2ex.widget.CommentView;
-import test.demo.gyniu.v2ex.R;
 import test.demo.gyniu.v2ex.widget.TopOptionBar;
 import test.demo.gyniu.v2ex.widget.TopicView;
 import test.demo.gyniu.v2ex.model.Comment;
@@ -22,6 +21,8 @@ import test.demo.gyniu.v2ex.utils.LogUtil;
 import test.demo.gyniu.v2ex.utils.ViewUtils;
 
 import static android.support.v7.widget.RecyclerView.ViewHolder;
+
+import test.demo.gyniu.v2ex.R;
 
 /**
  * Created by uiprj on 17-5-15.
@@ -127,14 +128,16 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
         private final TopicView mTopicView;
         private final LinearLayout mPostscript;
         private final TopOptionBar mTopOptBar;
+        private final BottomOptionBar mBottomOptBar;
 
         private TopicViewHolder(LinearLayout layout, TopicView view, LinearLayout postscript,
-                                TopOptionBar topOptBar) {
+                                TopOptionBar topOptBar, BottomOptionBar bottomOptBar) {
             super(layout);
             mTopicLayout = layout;
             mTopicView = view;
             mPostscript = postscript;
             mTopOptBar = topOptBar;
+            mBottomOptBar = bottomOptBar;
             mTopOptBar.setListener();
         }
 
@@ -145,13 +148,14 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             TopicView view = (TopicView) layout.findViewById(R.id.topic);
             LinearLayout postscript = (LinearLayout) layout.findViewById(R.id.postscript);
             TopOptionBar topOptBar = (TopOptionBar) layout.findViewById(R.id.topOptBar);
-            return new TopicViewHolder(layout, view, postscript, topOptBar);
+            BottomOptionBar bottomOptBar = (BottomOptionBar) layout.findViewById(R.id.bottomOptBar);
+            return new TopicViewHolder(layout, view, postscript, topOptBar, bottomOptBar);
         }
 
         public void fillData(Topic data) {
             mTopicView.buildItem(data);
             fillPostscript(data.getPostscripts());
-            //installOption2Button(data);
+            installOptionButton(data);
         }
 
         private void fillPostscript(List<Postscript> postscripts) {
@@ -179,12 +183,9 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             }
         }
 
-        private void installOption2Button(Topic data) {
-            Context context = mTopicLayout.getContext();
-            final LayoutInflater inflater = LayoutInflater.from(context);
-            final View layout = inflater.inflate(R.layout.topic_option_2_button, mTopicLayout, false);
-            ((TextView) layout.findViewById(R.id.all_reply)).setText(context.getString(R.string.str_al_reply, data.getReplyCount()));
-            mTopicLayout.addView(layout);
+        private void installOptionButton(Topic data) {
+            Context context = mBottomOptBar.getContext();
+            ((TextView) mBottomOptBar.findViewById(R.id.all_reply)).setText(context.getString(R.string.str_al_reply, data.getReplyCount()));
         }
     }
 }

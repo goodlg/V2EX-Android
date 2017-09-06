@@ -31,6 +31,7 @@ public class TopOptionBar extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int resId = v.getId();
+        //Toast.makeText(mContext, "click " + resId, Toast.LENGTH_SHORT).show();
         if (resId == R.id.addToFav) {
             Log.d(TAG, "addToFav");
             Toast.makeText(mContext, "addToFav", Toast.LENGTH_SHORT).show();
@@ -62,6 +63,10 @@ public class TopOptionBar extends LinearLayout implements View.OnClickListener {
     }
 
     public void setListener() {
-        setOnClickListener(this);
+        //setOnClickListener(this);
+        mAddToFav.setOnClickListener(this);
+        mShareToWechat.setOnClickListener(this);
+        mIgnore.setOnClickListener(this);
+        mThank.setOnClickListener(this);
     }
 }

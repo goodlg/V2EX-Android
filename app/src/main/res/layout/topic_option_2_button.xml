@@ -1,56 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorLineBg_separator"
-    android:paddingTop="10dp">
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/separator_height_10">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_corner_up"
-        android:paddingTop="10dp">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/all_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="2dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/str_al_reply"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/ignore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/thank"
-            android:layout_toLeftOf="@+id/thank"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_background"
-            android:text="@string/str_option_ignore"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:id="@+id/thank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_background"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/str_option_thank"
-            android:textSize="12sp" />
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>
