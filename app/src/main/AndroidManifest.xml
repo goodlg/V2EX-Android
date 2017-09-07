@@ -46,6 +46,15 @@
             android:name=".Activity.NodeGridActivity"
             android:label="@string/str_node_grid_title">
         </activity>
+        <activity
+            android:name=".Activity.ShareHelp"
+            android:label="@string/str_option_sharetowechat">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="text/plain" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

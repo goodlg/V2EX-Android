@@ -23,7 +23,7 @@ android {
         releaseConfig {
             keyAlias 'my.keystore'
             keyPassword '123456'
-            storeFile file('/home/gyniu/tools/keystore/my.keystore')
+            storeFile file('/home/sdduser/tools/mykeystore/my.keystore')
             storePassword '123456'
         }
     }

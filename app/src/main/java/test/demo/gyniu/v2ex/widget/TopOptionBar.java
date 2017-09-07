@@ -1,6 +1,7 @@
 package test.demo.gyniu.v2ex.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import test.demo.gyniu.v2ex.R;
+import test.demo.gyniu.v2ex.model.Topic;
 import test.demo.gyniu.v2ex.utils.LogUtil;
 
 /**
@@ -28,6 +30,8 @@ public class TopOptionBar extends LinearLayout implements View.OnClickListener {
 
     private final Context mContext;
 
+    private Topic mTopic;
+
     @Override
     public void onClick(View v) {
         int resId = v.getId();
@@ -36,7 +40,14 @@ public class TopOptionBar extends LinearLayout implements View.OnClickListener {
             Log.d(TAG, "addToFav");
             Toast.makeText(mContext, "addToFav", Toast.LENGTH_SHORT).show();
         } else if (resId == R.id.shareToWechat) {
-            Toast.makeText(mContext, "shareToWechat", Toast.LENGTH_SHORT).show();
+            final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            //shareIntent.setType("image/*");
+            //shareIntent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+            shareIntent.putExtra(Intent.EXTRA_TITLE, mTopic.getTitle());
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mTopic.getUrl());
+            //shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            mContext.startActivity(Intent.createChooser(shareIntent, null));
         } else if (resId == R.id.ignore) {
             Toast.makeText(mContext, "ignore", Toast.LENGTH_SHORT).show();
         } else if (resId == R.id.thank) {
@@ -68,5 +79,9 @@ public class TopOptionBar extends LinearLayout implements View.OnClickListener {
         mShareToWechat.setOnClickListener(this);
         mIgnore.setOnClickListener(this);
         mThank.setOnClickListener(this);
+    }
+
+    public void setTopicObject(Topic topic) {
+        mTopic = topic;
     }
 }

@@ -156,6 +156,7 @@ public class TopicViewAdapter extends RecyclerView.Adapter<ViewHolder>{
             mTopicView.buildItem(data);
             fillPostscript(data.getPostscripts());
             installOptionButton(data);
+            mTopOptBar.setTopicObject(data);
         }
 
         private void fillPostscript(List<Postscript> postscripts) {
