@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorPrimary">#f12267</color>
+    <color name="colorPrimaryDark">#f12267</color>
 
     <color name="colorAccent">#FF4081</color>
 
@@ -16,12 +16,12 @@
     <color name="colorAppBar">#00FF00</color>
 
     <!-- toolbar backgound color-->
-    <color name="colorToolBar">#FF4081</color>
+    <color name="colorToolBar">#f12269</color>
 
     <color name="colorBottomTabTextSelect">#f2497c</color>
     <color name="colorBottomTabText">#FF404040</color>
 
-    <color name="colorItemDecoration">#FFCECECF</color>
+    <color name="colorItemDecoration">#FFEFEFEF</color>
 
     <color name="reply_count_color">#FF505050</color>
     <color name="reply_count_background">#FFB0C0D0</color>
@@ -42,4 +42,9 @@
     <color name="colorBgGrayLight1">#EFEFEF</color>
 
     <color name="colorOrange1">#FF7F50</color>
+    <color name="title_color">#FFFFFFFF</color>
+
+    <color name="colorNavTextColor">#FFEEEEEE</color>
+    <color name="colorTextTitleColor">#FF545454</color>
+    <color name="colorTextBodyColor">#FF545454</color>
 </resources>

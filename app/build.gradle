@@ -31,7 +31,7 @@ android {
     buildToolsVersion '24.0.0'
     defaultConfig {
         applicationId "test.demo.gyniu.v2ex"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 6
         versionName "1.5.0"

@@ -1,6 +1,8 @@
 package test.demo.gyniu.v2ex.Activity;
 
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentTabHost;
 import android.os.Bundle;
@@ -45,8 +47,13 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (DEBUG) LogUtil.d(TAG, "MainActivity create");
-
         setTheme(R.style.AppTheme_NoActionBar);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            View decorView = getWindow().getDecorView();
+//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//            decorView.setSystemUiVisibility(option);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layoutInflater = LayoutInflater.from(this);
@@ -66,7 +73,7 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         mCustomTitle.setText(title);
         switch (o) {
             case left:
-                mCustomTitle.setGravity(Gravity.START);
+                mCustomTitle.setGravity(Gravity.CENTER);
                 break;
             case center:
                 mCustomTitle.setGravity(Gravity.CENTER);
